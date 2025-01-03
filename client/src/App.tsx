@@ -21,6 +21,8 @@ import dead from './img/dead.gif';
 import Header from "./components/Header/index.tsx";
 import Play from "./components/Play/index.tsx";
 
+import { beastie } from "./data/beast.ts";
+
 export const useDojoStore = createDojoStore<Schema>();
 
 function App({ sdk }: { sdk: SDK<Schema> }) {
@@ -168,13 +170,11 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
     }
   }, [beast?.is_alive]);
 
-  console.log('beast', beast);
-
   return (
     <>
       {!beast && <Header />}
       {
-        beast ?
+        beast || beastie ?
           <div className="tamaguchi">
             <>
               <Card>
