@@ -168,6 +168,8 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
     }
   }, [beast?.is_alive]);
 
+  console.log(beast);
+
   return (
     <>
       {!beast && <Header />}
