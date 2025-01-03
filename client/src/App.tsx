@@ -7,7 +7,6 @@ import { useDojo } from "./dojo/useDojo.tsx";
 import useModel from "./dojo/useModel.tsx";
 import { useSystemCalls } from "./dojo/useSystemCalls.ts";
 import { Card, CardContent } from './components/ui/card.tsx';
-import { Progress } from './components/ui/progress';
 import { Button } from './components/ui/button';
 import { useAccount } from "@starknet-react/core";
 import { Heart, Pizza, Coffee, Bath, Gamepad2, Sun, Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react';
@@ -20,8 +19,6 @@ import happy from './img/happy.gif';
 import dead from './img/dead.gif';
 import Header from "./components/Header/index.tsx";
 import Play from "./components/Play/index.tsx";
-
-import beastie from "./data/beast.ts";
 
 export const useDojoStore = createDojoStore<Schema>();
 
@@ -40,12 +37,12 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
   );
 
   const beastData = useModel(entityId ?? "", Models.Beast);
-  const [beast, setBeast] = useState(beastData || beastie);
+  const [beast, setBeast] = useState(beastData);
 
   // Trigger build
   useEffect(() => {
-    setBeast(beastData || beastie);
-  }, [beastData, beastie]);
+    setBeast(beastData);
+  }, [beastData]);
 
   useEffect(() => {
     if (!account) return
@@ -174,7 +171,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
     <>
       <Header />
       {
-        beast || beastie ?
+        beast ?
           <div className="tamaguchi">
             <>
               <Card>
