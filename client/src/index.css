@@ -48,6 +48,7 @@ h2 {
 }
 
 .cover {
+  margin: auto;
   z-index: 2;
 }
 
