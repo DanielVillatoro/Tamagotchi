@@ -1,17 +1,16 @@
 import monster from '../../img/logo.jpeg';
+import ControllerConnectButton from '../CartridgeController/ControllerConnectButton';
 import './main.css';
 
-
 function Header() {
-
   return (
     <>
       <nav className="navbar">
-        <div className='container'>
-          <div className="logo d-flex align-items-center m-auto">
-            <a href="/"><img src={monster} alt="Logo" /></a>
-          </div>
+        <div className='logo'>
+          <a href="/"><img src={monster} alt="Logo" /></a>
+          <h2>Baby <span>Beast</span></h2>
         </div>
+        <ControllerConnectButton />
       </nav>
     </>
   )

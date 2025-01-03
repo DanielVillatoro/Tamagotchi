@@ -1,28 +1,16 @@
-import coinIcon from '../../img/orb.gif';
 import fight from '../../img/banner.jpeg';
 import './main.css';
 
 function Play() {
   return (
     <>
-      <div className="new-contract">
-        <div className="new-contract-box section-tab yellow-border">
-          <div className="section-title title-style-two text-center">
-            <span>Byte Builders Labs</span>
-            <h2>Baby <span>Beast</span></h2>
-          </div>
-          <div className='d-flex align-items-center mt-4 mb-4'>
-            <div className='col-9 mb-3 text-left'>
-              <p className={'title'}>
-                You play, feed, sleep and more
-                <span> Look at It, otherwise It'll die</span>
-              </p>
-            </div>
-            <div className='col-3 d-flex justify-content-end'>
-              <img className="section-tab-pet" src={coinIcon} alt="" />
-            </div>
-          </div>
-          <div className="new yellow-border">
+      <div>
+        <div className="section-tab yellow-border">
+          <p className={'title text-center mb-3'}>
+            You play, feed, sleep and more
+            <span className='d-block'> Look at It, otherwise It'll die</span>
+          </p>
+          <div className="new yellow-border mb-3">
             <img src={fight} alt="" />
           </div>
         </div>

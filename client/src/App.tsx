@@ -19,9 +19,7 @@ import shower from './img/shower.gif';
 import happy from './img/happy.gif';
 import dead from './img/dead.gif';
 import Header from "./components/Header/index.tsx";
-import Footer from "./components/Footer/index.tsx";
 import Play from "./components/Play/index.tsx";
-import ControllerConnectButton from "./components/CartridgeController/ControllerConnectButton.tsx";
 
 export const useDojoStore = createDojoStore<Schema>();
 
@@ -154,8 +152,6 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
     setCurrentImage(dead);
   };
 
-  console.log(beast)
-
   useEffect(() => {
     const interval = setInterval(async () => {
       if (beast?.is_alive && account) {
@@ -173,18 +169,12 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
   }, [beast?.is_alive]);
 
   return (
-    <div className="App">
+    <>
       {!beast && <Header />}
       {
         beast ?
           <div className="tamaguchi">
             <>
-
-              <div className="section-title title-style-two text-center">
-                <span>Byte Builders Labs</span>
-                <h2>BabyBeast <span>Lvl {beast.level}</span></h2>
-              </div>
-
               <Card>
                 <CardContent>
                   <div className="space-y-6">
@@ -350,10 +340,9 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
           :
           <div className="cover">
             <Play />
-            <ControllerConnectButton />
             <button
               disabled={account ? false : true}
-              className="button mt-3 mb-5"
+              className="button"
               onClick={async () => {
                 await spawn();
                 location.reload();
@@ -361,7 +350,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
             </button>
           </div>
       }
-    </div>
+    </>
   );
 }
 
