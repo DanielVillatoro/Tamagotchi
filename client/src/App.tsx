@@ -40,12 +40,12 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
   );
 
   const beastData = useModel(entityId ?? "", Models.Beast);
-  const [beast, setBeast] = useState(beastData);
+  const [beast, setBeast] = useState(beastData || beastie);
 
   // Trigger build
   useEffect(() => {
-    setBeast(beastData);
-  }, [beastData]);
+    setBeast(beastData || beastie);
+  }, [beastData, beastie]);
 
   useEffect(() => {
     if (!account) return
