@@ -22,7 +22,6 @@ import Header from "./components/Header/index.tsx";
 import Footer from "./components/Footer/index.tsx";
 import Play from "./components/Play/index.tsx";
 import ControllerConnectButton from "./components/CartridgeController/ControllerConnectButton.tsx";
-import arrow from './img/up-arrow.png';
 
 export const useDojoStore = createDojoStore<Schema>();
 
@@ -168,21 +167,10 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
   }, [beast?.is_alive]);
 
   useEffect(() => {
-    if (beast?.is_alive == false ) {
+    if (beast?.is_alive == false) {
       showDeathAnimation();
     }
   }, [beast?.is_alive]);
-
-  const scrollToBottom = () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  console.log('Reporte de fallow');
-  console.log('Beast', beast);  
 
   return (
     <div className="App">
@@ -191,10 +179,12 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
         beast ?
           <div className="tamaguchi">
             <>
+
               <div className="section-title title-style-two text-center">
                 <span>Byte Builders Labs</span>
-                <h2>BabyBeast <span onClick={() => { scrollToBottom() }} >Lvl {beast.level}</span></h2>
+                <h2>BabyBeast <span>Lvl {beast.level}</span></h2>
               </div>
+
               <Card>
                 <CardContent>
                   <div className="space-y-6">
@@ -215,7 +205,6 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                             await client.actions.feed(account as Account);
                           }
                           if (beast.is_alive) showAnimation(eat);
-                          scrollToTop();
                         }}
                         disabled={!beast.is_alive}
                         className="flex items-center gap-2 button"
@@ -228,7 +217,6 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                             await client.actions.sleep(account as Account);
                           }
                           if (beast.is_alive) showAnimationWithoutTimer(sleep);
-                          scrollToTop();
                         }}
                         disabled={!beast.is_alive}
                         className="flex items-center gap-2 button"
@@ -241,7 +229,6 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                             await client.actions.play(account as Account);
                           }
                           if (beast.is_alive) showAnimation(play);
-                          scrollToTop();
                         }}
                         disabled={!beast.is_alive}
                         className="flex items-center gap-2 button"
@@ -254,7 +241,6 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                             await client.actions.clean(account as Account);
                           }
                           if (beast.is_alive) showAnimation(shower);
-                          scrollToTop();
                         }}
                         disabled={!beast.is_alive}
                         className="flex items-center gap-2 button"
@@ -267,7 +253,6 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                             await client.actions.awake(account as Account);
                           }
                           if (beast.is_alive) setCurrentImage(happy);
-                          scrollToTop();
                         }}
                         disabled={!beast.is_alive}
                         className="flex items-center gap-2 button"
@@ -280,7 +265,6 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                             await client.actions.revive(account as Account);
                           }
                           setCurrentImage(happy);
-                          scrollToTop();
                         }}
                         disabled={beast.is_alive}
                         className="flex items-center gap-2 button"
@@ -377,19 +361,6 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
             </button>
           </div>
       }
-      <Footer />
-      <img
-        src={arrow}
-        style={{
-          width: '25px',
-          position: 'fixed',
-          top: '25px',
-          right: '20px'
-        }}
-        onClick={() => {
-          scrollToTop()
-        }}
-      />
     </div>
   );
 }
