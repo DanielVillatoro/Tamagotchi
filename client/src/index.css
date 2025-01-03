@@ -130,4 +130,6 @@ h2 {
   object-fit: contain;
   position: absolute;
   bottom: -15px;
+  right: 30%;
+  margin: auto;
 }

@@ -40,12 +40,12 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
   );
 
   const beastData = useModel(entityId ?? "", Models.Beast);
-  const [beast, setBeast] = useState(beastData);
+  const [beast, setBeast] = useState(beastData || beastie);
 
   // Trigger build
   useEffect(() => {
-    setBeast(beastData);
-  }, [beastData]);
+    setBeast(beastData || beastie);
+  }, [beastData, beastie]);
 
   useEffect(() => {
     if (!account) return
@@ -174,7 +174,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
     <>
       <Header />
       {
-        beast ?
+        beast || beastie ?
           <div className="tamaguchi">
             <>
               <Card>
@@ -235,7 +235,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                           if (beast.is_alive) showAnimation(shower);
                         }}
                         disabled={!beast.is_alive}
-                        className="flex items-center button"
+                        className="flex items-center  button"
                       >
                         <Bath /> Clean
                       </Button>
