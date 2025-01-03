@@ -1,4 +1,4 @@
-export const beastie = {
+const beastie = {
   "is_awake": true,
   "attack": 5,
   "next_level_experience": 60,
@@ -17,3 +17,5 @@ export const beastie = {
   "hunger": 96,
   "speed": 5
 }
+
+export default beastie;

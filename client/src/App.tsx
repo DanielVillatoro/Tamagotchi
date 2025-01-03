@@ -21,7 +21,7 @@ import dead from './img/dead.gif';
 import Header from "./components/Header/index.tsx";
 import Play from "./components/Play/index.tsx";
 
-import { beastie } from "./data/beast.ts";
+import beastie from "./data/beast.ts";
 
 export const useDojoStore = createDojoStore<Schema>();
 
@@ -172,7 +172,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
 
   return (
     <>
-      {!beast && <Header />}
+      <Header />
       {
         beast || beastie ?
           <div className="tamaguchi">
@@ -190,7 +190,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                       Keep your BabyBeast happy and healthy
                       <span> Interact with him and level him up!</span>
                     </p>
-                    <div className="grid grid-cols-2 gap-6 mt-3 mb-0">
+                    <div className="actions mt-3 mb-0">
                       <Button
                         onClick={async () => {
                           if (account) {
@@ -199,7 +199,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                           if (beast.is_alive) showAnimation(eat);
                         }}
                         disabled={!beast.is_alive}
-                        className="flex items-center gap-2 button"
+                        className="flex items-center button"
                       >
                         <Pizza /> Feed
                       </Button>
@@ -211,7 +211,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                           if (beast.is_alive) showAnimationWithoutTimer(sleep);
                         }}
                         disabled={!beast.is_alive}
-                        className="flex items-center gap-2 button"
+                        className="flex items-center button"
                       >
                         <Coffee /> Sleep
                       </Button>
@@ -223,7 +223,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                           if (beast.is_alive) showAnimation(play);
                         }}
                         disabled={!beast.is_alive}
-                        className="flex items-center gap-2 button"
+                        className="flex items-center button"
                       >
                         <Gamepad2 /> Play
                       </Button>
@@ -235,7 +235,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                           if (beast.is_alive) showAnimation(shower);
                         }}
                         disabled={!beast.is_alive}
-                        className="flex items-center gap-2 button"
+                        className="flex items-center button"
                       >
                         <Bath /> Clean
                       </Button>
@@ -247,7 +247,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                           if (beast.is_alive) setCurrentImage(happy);
                         }}
                         disabled={!beast.is_alive}
-                        className="flex items-center gap-2 button"
+                        className="flex items-center button"
                       >
                         <Sun /> Wake Up
                       </Button>
@@ -259,7 +259,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                           setCurrentImage(happy);
                         }}
                         disabled={beast.is_alive}
-                        className="flex items-center gap-2 button"
+                        className="flex items-center button"
                       >
                         <Sun /> Revive
                       </Button>
@@ -267,7 +267,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                     <p className="info mt-3 mb-5">You can revive your baby beast, but this one is gonna loose the experience earhed</p>
 
                     {/* Hunger Bar */}
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center  mb-1">
                       <Heart className="text-red-500" />
                       <Progress value={beast.energy} />
                       <span className="w-12 text-right font-medium text-white">{Math.round(beast.energy)}%</span>
@@ -275,7 +275,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                     <p className="info mt-0">Energy</p>
 
                     {/* Energy Bar */}
-                    <div className="flex items-center gap-2 mt-2 mb-1">
+                    <div className="flex items-center  mt-2 mb-1">
                       <Coffee className="text-yellow-600" />
                       <Progress value={beast.hunger} />
                       <span className="w-12 text-right font-medium text-white">{Math.round(beast.hunger)}%</span>
@@ -283,7 +283,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                     <p className="info mt-0">Hunger</p>
 
                     {/* Happiness Bar */}
-                    <div className="flex items-center gap-2 mt-2 mb-1">
+                    <div className="flex items-center  mt-2 mb-1">
                       <Gamepad2 className="text-green-500" />
                       <Progress value={beast.happiness} />
                       <span className="w-12 text-right font-medium text-white">{Math.round(beast.happiness)}%</span>
@@ -291,7 +291,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                     <p className="info mt-0">Happiness</p>
 
                     {/* Hygiene Bar */}
-                    <div className="flex items-center gap-2 mt-2 mb-1">
+                    <div className="flex items-center  mt-2 mb-1">
                       <Bath className="text-blue-500" />
                       <Progress value={beast.hygiene} />
                       <span className="w-12 text-right font-medium text-white">{Math.round(beast.hygiene)}%</span>
@@ -304,7 +304,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                     </p>
 
                     {/* Hunger Bar */}
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center  mb-1">
                       <Swords className="text-red-500" />
                       <Progress value={beast.attack} />
                       <span className="w-12 text-right font-medium text-white">{Math.round(beast.attack)}</span>
@@ -312,7 +312,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                     <p className="info mt-0">Attack</p>
 
                     {/* Energy Bar */}
-                    <div className="flex items-center gap-2 mt-2 mb-1">
+                    <div className="flex items-center  mt-2 mb-1">
                       <ShieldPlus className="text-yellow-600" />
                       <Progress value={beast.defense} />
                       <span className="w-12 text-right font-medium text-white">{Math.round(beast.defense)}</span>
@@ -320,7 +320,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                     <p className="info mt-0">Defense</p>
 
                     {/* Happiness Bar */}
-                    <div className="flex items-center gap-2 mt-2 mb-1">
+                    <div className="flex items-center  mt-2 mb-1">
                       <CircleGauge className="text-green-500" />
                       <Progress value={beast.speed} />
                       <span className="w-12 text-right font-medium text-white">{Math.round(beast.speed)}</span>
@@ -328,7 +328,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
                     <p className="info mt-0">Speed</p>
 
                     {/* Hygiene Bar */}
-                    <div className="flex items-center gap-2 mt-2 mb-1">
+                    <div className="flex items-center  mt-2 mb-1">
                       <TestTubeDiagonal className="text-blue-500" />
                       <Progress value={beast.experience} />
                       <span className="w-12 text-right font-medium text-white">{(beast.experience)}</span>
