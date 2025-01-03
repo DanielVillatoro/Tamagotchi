@@ -40,12 +40,12 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
   );
 
   const beastData = useModel(entityId ?? "", Models.Beast);
-  const [beast, setBeast] = useState(beastData || beastie);
+  const [beast, setBeast] = useState(beastData);
 
   // Trigger build
   useEffect(() => {
-    setBeast(beastData || beastie);
-  }, [beastData, beastie]);
+    setBeast(beastData);
+  }, [beastData]);
 
   useEffect(() => {
     if (!account) return
@@ -174,7 +174,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
     <>
       <Header />
       {
-        beast || beastie ?
+        beast ?
           <div className="tamaguchi">
             <>
               <Card>
