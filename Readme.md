@@ -66,5 +66,10 @@ https://github.com/user-attachments/assets/d6da9276-fb22-4b96-a367-f6299f9a28e2
 
 https://github.com/user-attachments/assets/6181d159-76c5-4e5a-9f5d-82f03417d47b
 
-
 Raise your BabyBeast, unlock its potential, and dive into the magical world of Etheria! 🌌
+
+### Next Steps - BabyBeast
+- Tamagotchi: Level up your babybeast and take care of it
+- Mintelo once it is at level 5 (compatibility for our next games)
+- 5 different Beasts with all their animations.
+- Professor Oak: Who has the lore of the game and all the knowledge of the beasts
