@@ -4,18 +4,18 @@ mod tests {
     use dojo::world::WorldStorageTrait;
     use dojo_cairo_test::{spawn_test_world, NamespaceDef, TestResource, ContractDefTrait};
 
-    use dojo_starter::systems::actions::{actions, IActionsDispatcher, IActionsDispatcherTrait};
-    use dojo_starter::models::{Position, m_Position, Moves, m_Moves, Direction};
+    use babybeasts::systems::actions::{actions, IActionsDispatcher, IActionsDispatcherTrait};
+    use babybeasts::models::{Position, m_Position, Moves, m_Moves, Direction};
 
     fn namespace_def() -> NamespaceDef {
         let ndef = NamespaceDef {
-            namespace: "dojo_starter", resources: [
+            namespace: "babybeasts", resources: [
                 TestResource::Model(m_Position::TEST_CLASS_HASH.try_into().unwrap()),
                 TestResource::Model(m_Moves::TEST_CLASS_HASH.try_into().unwrap()),
                 TestResource::Event(actions::e_Moved::TEST_CLASS_HASH.try_into().unwrap()),
                 TestResource::Contract(
                     ContractDefTrait::new(actions::TEST_CLASS_HASH, "actions")
-                        .with_writer_of([dojo::utils::bytearray_hash(@"dojo_starter")].span())
+                        .with_writer_of([dojo::utils::bytearray_hash(@"babybeasts")].span())
                 )
             ].span()
         };

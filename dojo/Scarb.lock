@@ -2,6 +2,14 @@
 version = 1
 
 [[package]]
+name = "babybeasts"
+version = "1.0.8"
+dependencies = [
+ "dojo",
+ "dojo_cairo_test",
+]
+
+[[package]]
 name = "dojo"
 version = "1.0.8"
 source = "git+https://github.com/dojoengine/dojo?tag=v1.0.8#3f9c309112900cb23f9158ece4c6ca99c4694532"
@@ -21,11 +29,3 @@ dependencies = [
 name = "dojo_plugin"
 version = "2.8.4"
 source = "git+https://github.com/dojoengine/dojo?tag=v1.0.8#3f9c309112900cb23f9158ece4c6ca99c4694532"
-
-[[package]]
-name = "dojo_starter"
-version = "1.0.8"
-dependencies = [
- "dojo",
- "dojo_cairo_test",
-]

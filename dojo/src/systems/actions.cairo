@@ -1,4 +1,4 @@
-use dojo_starter::models::Beast;
+use babybeasts::models::Beast;
 
 #[starknet::interface]
 trait IActions<T> {
@@ -16,7 +16,7 @@ trait IActions<T> {
 pub mod actions {
     use super::{IActions};
     use starknet::{ContractAddress, get_caller_address};
-    use dojo_starter::models::{Beast};
+    use babybeasts::models::{Beast};
 
     use dojo::model::{ModelStorage, ModelValueStorage};
     use dojo::event::EventStorage;
@@ -24,7 +24,7 @@ pub mod actions {
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
         fn spawn(ref self: ContractState) {
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
 
             let initial_stats = Beast {
@@ -51,7 +51,7 @@ pub mod actions {
         }
 
         fn decrease_stats(ref self: ContractState) {
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
             let mut beast: Beast = world.read_model(player);
 
@@ -89,7 +89,7 @@ pub mod actions {
         }
 
         fn feed(ref self: ContractState) {
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
             let mut beast: Beast = world.read_model(player);
 
@@ -107,7 +107,7 @@ pub mod actions {
         }
 
         fn sleep(ref self: ContractState) {
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
             let mut beast: Beast = world.read_model(player);
 
@@ -126,7 +126,7 @@ pub mod actions {
         }
 
         fn awake(ref self: ContractState) {
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
             let mut beast: Beast = world.read_model(player);
 
@@ -137,7 +137,7 @@ pub mod actions {
         }
 
         fn play(ref self: ContractState) {
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
             let mut beast: Beast = world.read_model(player);
 
@@ -160,7 +160,7 @@ pub mod actions {
         }
 
         fn clean(ref self: ContractState) {
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
             let mut beast: Beast = world.read_model(player);
 
@@ -187,7 +187,7 @@ pub mod actions {
         }
 
         fn revive(ref self: ContractState) {
-            let mut world = self.world(@"dojo_starter");
+            let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
             let mut beast: Beast = world.read_model(player);
 
