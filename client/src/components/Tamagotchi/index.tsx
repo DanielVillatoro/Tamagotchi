@@ -6,12 +6,12 @@ import { Button } from '../../components/ui/button';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { Heart, Pizza, Coffee, Bath, Gamepad2, Sun, Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react';
 
-import sleep from './img/sleep.gif';
-import eat from './img/eat.gif';
-import play from './img/play.gif';
-import shower from './img/shower.gif';
-import happy from './img/happy.gif';
-import dead from './img/dead.gif';
+import sleep from '../../img/sleep.gif';
+import eat from '../../img/eat.gif';
+import play from '../../img/play.gif';
+import shower from '../../img/shower.gif';
+import happy from '../../img/happy.gif';
+import dead from '../../img/dead.gif';
 import { Beast } from "../../dojo/bindings";
 
 function Tamagotchi({ beast }: { beast: Beast }) {
