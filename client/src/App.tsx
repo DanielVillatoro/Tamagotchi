@@ -5,7 +5,6 @@ import { Account, addAddressPadding } from "starknet";
 import { Models, Schema } from "./dojo/bindings.ts";
 import { useDojo } from "./dojo/useDojo.tsx";
 import useModel from "./dojo/useModel.tsx";
-import { useSystemCalls } from "./dojo/useSystemCalls.ts";
 import { Card, CardContent } from './components/ui/card.tsx';
 import { Button } from './components/ui/button';
 import { useAccount } from "@starknet-react/core";
@@ -28,7 +27,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
   const {
     setup: { client },
   } = useDojo();
-  const { spawn } = useSystemCalls();
+
   const state = useDojoStore((state) => state);
 
   const entityId = useMemo(
@@ -326,18 +325,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
               </Card>
             </>
           </div>
-          :
-          <div className="cover">
-            <Play />
-            <button
-              disabled={account ? false : true}
-              className="button"
-              onClick={async () => {
-                await spawn();
-                location.reload();
-              }}>Spawn your BabyBeast
-            </button>
-          </div>
+          : <Play />
       }
     </>
   );
