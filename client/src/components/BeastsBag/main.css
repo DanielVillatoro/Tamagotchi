@@ -15,8 +15,10 @@
 }
 
 .beasts {
-  width: 29%;
+  width: 31%;
+  margin: 0 auto 10px;
   background-color: rgb(44, 0, 1);
   border: 3px solid rgb(254, 192, 45);
   overflow: hidden;
+  border-radius: 15px;
 }
