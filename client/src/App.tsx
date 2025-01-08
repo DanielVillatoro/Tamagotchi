@@ -5,8 +5,6 @@ import { addAddressPadding } from "starknet";
 import { Models, Schema } from "./dojo/bindings.ts";
 import { useAccount } from "@starknet-react/core";
 import useModel from "./dojo/useModel.tsx";
-import Header from "./components/Header/index.tsx";
-import Play from "./components/Play/index.tsx";
 import Tamagotchi from "./components/Tamagotchi/index.tsx";
 
 export const useDojoStore = createDojoStore<Schema>();
@@ -122,12 +120,7 @@ function App({ sdk }: { sdk: SDK<Schema> }) {
 
   return (
     <>
-      <Header />
-      {
-        beast 
-          ? <Tamagotchi beast={beast} /> 
-          : <Play />
-      }
+      { beast && <Tamagotchi beast={beast} /> }
     </>
   );
 }

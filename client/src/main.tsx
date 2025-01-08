@@ -1,64 +1,67 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-
-import App from "./App.tsx";
-
-import "./index.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { init } from "@dojoengine/sdk";
 import { Schema, schema } from "./dojo/bindings.ts";
 import { dojoConfig } from "../dojoConfig.ts";
 import { DojoContextProvider } from "./dojo/DojoContext.tsx";
-// import { setupBurnerManager } from "@dojoengine/create-burner";
-
 import { sepolia } from "@starknet-react/chains";
 import { StarknetConfig, starkscan } from "@starknet-react/core";
 import { RpcProvider } from "starknet";
 import cartridgeConnector from "./cartridgeConnector.tsx";
+import Cover from "./components/Cover/index.tsx";
+import App from "./App.tsx";
+import "./index.css";
 
 function provider() {
-    return new RpcProvider({
-        nodeUrl: "https://api.cartridge.gg/x/starknet/sepolia",
-    });
+  return new RpcProvider({
+    nodeUrl: "https://api.cartridge.gg/x/starknet/sepolia",
+  });
 }
 
 async function main() {
-    const sdk = await init<Schema>(
-        {
-            client: {
-                rpcUrl: dojoConfig.rpcUrl,
-                toriiUrl: dojoConfig.toriiUrl,
-                relayUrl: dojoConfig.relayUrl,
-                worldAddress: dojoConfig.manifest.world.address,
-            },
-            domain: {
-                name: "WORLD_NAME",
-                version: "1.0",
-                chainId: "KATANA",
-                revision: "1",
-            },
-        },
-        schema
-    );
+  const sdk = await init<Schema>(
+    {
+      client: {
+        rpcUrl: dojoConfig.rpcUrl,
+        toriiUrl: dojoConfig.toriiUrl,
+        relayUrl: dojoConfig.relayUrl,
+        worldAddress: dojoConfig.manifest.world.address,
+      },
+      domain: {
+        name: "WORLD_NAME",
+        version: "1.0",
+        chainId: "KATANA",
+        revision: "1",
+      },
+    },
+    schema
+  );
 
-    createRoot(document.getElementById("root")!).render(
-        <StrictMode>
-            <DojoContextProvider
-                // burnerManager={await setupBurnerManager(dojoConfig)}
-            >
-                <StarknetConfig
-                    autoConnect
-                    chains={[sepolia]}
-                    connectors={[cartridgeConnector]}
-                    explorer={starkscan}
-                    provider={provider}
-                >
-                    <App sdk={sdk} />
-                </StarknetConfig>
-            </DojoContextProvider>
-        </StrictMode>
-    );
+  createRoot(document.getElementById("root")!).render(
+    <StrictMode>
+      <DojoContextProvider
+      // burnerManager={await setupBurnerManager(dojoConfig)}
+      >
+        <StarknetConfig
+          autoConnect
+          chains={[sepolia]}
+          connectors={[cartridgeConnector]}
+          explorer={starkscan}
+          provider={provider}
+        >
+          <Router>
+            <Routes>
+              <Route path='/' element={<Cover />}/>
+              <Route path='/play' element={<App sdk={sdk} />} />
+            </Routes>
+          </Router>
+        </StarknetConfig>
+      </DojoContextProvider>
+    </StrictMode>
+  );
 }
 
 main().catch((error) => {
-    console.error("Helloo Failed to initialize the application:", error);
+  console.error("Helloo Failed to initialize the application:", error);
 });
