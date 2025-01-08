@@ -4,7 +4,6 @@ import { Schema } from "../../dojo/bindings.ts";
 import Header from "../Header/index.tsx";
 import BeastsBag from "../BeastsBag/index.tsx";
 import fight from '../../img/banner.jpeg';
-import './main.css';
 
 function Cover({ sdk }: { sdk: SDK<Schema> }) {
 
