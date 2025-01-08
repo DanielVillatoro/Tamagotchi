@@ -24,12 +24,10 @@ function BeastsBag({ sdk }: { sdk: SDK<Schema> }) {
           <div className="d-flex">
             {
               beast &&
-              <Link to={`/play`}>
-                <div className="beasts">
-                  <p>{beast.player}</p>
-                  <p>{beast.speed}</p>
-                  <p>{beast.defense}</p>
-                </div>
+              <Link to={`/play`} className="beasts">
+                <p>{beast.player}</p>
+                <p>{beast.speed}</p>
+                <p>{beast.defense}</p>
               </Link>
             }
           </div>
