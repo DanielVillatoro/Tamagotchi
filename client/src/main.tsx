@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { init } from "@dojoengine/sdk";
+import { init, createDojoStore } from "@dojoengine/sdk";
 import { Schema, schema } from "./dojo/bindings.ts";
 import { dojoConfig } from "../dojoConfig.ts";
 import { DojoContextProvider } from "./dojo/DojoContext.tsx";
@@ -10,7 +10,7 @@ import { StarknetConfig, starkscan } from "@starknet-react/core";
 import { RpcProvider } from "starknet";
 import cartridgeConnector from "./cartridgeConnector.tsx";
 import Cover from "./components/Cover/index.tsx";
-import App from "./App.tsx";
+import Tamagotchi from "./components/Tamagotchi/index.tsx";
 import "./index.css";
 
 function provider() {
@@ -18,6 +18,8 @@ function provider() {
     nodeUrl: "https://api.cartridge.gg/x/starknet/sepolia",
   });
 }
+
+export const useDojoStore = createDojoStore<Schema>();
 
 async function main() {
   const sdk = await init<Schema>(
@@ -55,7 +57,7 @@ async function main() {
             <Router>
               <Routes>
                 <Route path='/' element={<Cover sdk={sdk} />}/>
-                <Route path='/play' element={<App sdk={sdk} />} />
+                <Route path='/play' element={<Tamagotchi sdk={sdk} />} />
               </Routes>
             </Router>
           </StarknetConfig>

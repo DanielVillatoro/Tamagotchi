@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { Account } from "starknet";
 import { useAccount } from "@starknet-react/core";
+import { SDK } from "@dojoengine/sdk";
+import { Schema } from "../../dojo/bindings";
 import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { useDojo } from "../../dojo/useDojo.tsx";
+import { useBeast } from "../../hooks/useBeasts.tsx";
 import { Heart, Pizza, Coffee, Bath, Gamepad2, Sun, Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react';
-
 import sleep from '../../img/sleep.gif';
 import eat from '../../img/eat.gif';
 import play from '../../img/play.gif';
 import shower from '../../img/shower.gif';
 import happy from '../../img/happy.gif';
 import dead from '../../img/dead.gif';
-import { Beast } from "../../dojo/bindings";
 
-function Tamagotchi({ beast }: { beast: Beast }) {
+function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
+  const beast = useBeast(sdk);
 
   const {
     setup: { client },
@@ -55,7 +57,7 @@ function Tamagotchi({ beast }: { beast: Beast }) {
 
   return (
     <div className="tamaguchi">
-      <>
+      <>{ beast &&
         <Card>
           <CardContent>
             <div className="space-y-6">
@@ -206,7 +208,7 @@ function Tamagotchi({ beast }: { beast: Beast }) {
             </div>
           </CardContent>
         </Card>
-      </>
+      }</>
     </div>
   );
 }

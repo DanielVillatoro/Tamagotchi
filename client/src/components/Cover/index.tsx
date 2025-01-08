@@ -1,6 +1,5 @@
 import { SDK } from "@dojoengine/sdk";
 import { useAccount } from "@starknet-react/core";
-import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import { Schema } from "../../dojo/bindings.ts";
 import Header from "../Header/index.tsx";
 import BeastsBag from "../BeastsBag/index.tsx";
@@ -8,7 +7,7 @@ import fight from '../../img/banner.jpeg';
 import './main.css';
 
 function Cover({ sdk }: { sdk: SDK<Schema> }) {
-  const { spawn } = useSystemCalls();
+
   const { account } = useAccount();
 
   return (
@@ -27,14 +26,6 @@ function Cover({ sdk }: { sdk: SDK<Schema> }) {
               <img src={fight} alt="" />
             </div>
           </div>
-          <button
-            disabled={account ? false : true}
-            className="button"
-            onClick={async () => {
-              await spawn();
-              location.reload();
-            }}>Spawn your BabyBeast
-          </button>
         </div>
       </>
     }
