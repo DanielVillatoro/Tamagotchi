@@ -15,6 +15,7 @@ import play from '../../img/play.gif';
 import shower from '../../img/shower.gif';
 import happy from '../../img/happy.gif';
 import dead from '../../img/dead.gif';
+import './main.css';
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const beast = useBeast(sdk);

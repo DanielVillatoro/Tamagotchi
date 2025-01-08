@@ -1,0 +1,6 @@
+.beasts {
+  width: 29%;
+  background-color: rgb(44, 0, 1);
+  border: 3px solid rgb(254, 192, 45);
+  overflow: hidden;
+}
