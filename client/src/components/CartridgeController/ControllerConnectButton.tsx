@@ -12,7 +12,7 @@ const ControllerConnectButton = () => {
         status === "connected" ? (
           <div key={connector.id}>
             <button className="connect-btn" onClick={() => disconnect()}>
-              Account ...{address?.slice(-6)}
+              Disconnect ...{address?.slice(-6)}
             </button>
           </div>
         ) : (
