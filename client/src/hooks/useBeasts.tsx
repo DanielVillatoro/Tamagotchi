@@ -5,7 +5,7 @@ import { addAddressPadding } from "starknet";
 import { Models, Schema } from "../dojo/bindings.ts";
 import { useAccount } from "@starknet-react/core";
 import useModel from "../dojo/useModel.tsx";
-import { useDojoStore } from "../App.tsx";
+import { useDojoStore } from "../main";
 
 export const useBeast = (sdk: SDK<Schema>) => {
   const { account } = useAccount();

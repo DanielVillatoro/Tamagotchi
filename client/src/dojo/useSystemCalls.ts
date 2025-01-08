@@ -1,6 +1,6 @@
 import { useAccount, } from "@starknet-react/core";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
-import { useDojoStore } from "../App";
+import { useDojoStore } from "../main";
 import { useDojo } from "./useDojo";
 import { v4 as uuidv4 } from "uuid";
 import { Account } from "starknet";

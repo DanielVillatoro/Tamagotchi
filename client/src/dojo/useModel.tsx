@@ -1,4 +1,4 @@
-import { useDojoStore } from "../App";
+import { useDojoStore } from "../main";
 import { Schema } from "./bindings";
 
 /**
