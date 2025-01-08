@@ -1,7 +1,7 @@
 import { SDK, createDojoStore } from "@dojoengine/sdk";
 import { Schema } from "./dojo/bindings.ts";
-import Tamagotchi from "./components/Tamagotchi/index.tsx";
 import { useBeast } from "./hooks/useBeasts.tsx";
+import Tamagotchi from "./components/Tamagotchi/index.tsx";
 
 export const useDojoStore = createDojoStore<Schema>();
 

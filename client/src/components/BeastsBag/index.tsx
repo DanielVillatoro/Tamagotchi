@@ -1,7 +1,10 @@
+import { SDK } from "@dojoengine/sdk";
+import { Schema } from "../../dojo/bindings.ts";
+import { useBeast } from "../../hooks/useBeasts.tsx";
 import Header from "../Header/index.tsx";
-import fight from '../../img/banner.jpeg';
 
-function BeastsBag() {
+function BeastsBag({ sdk }: { sdk: SDK<Schema> }) {
+  const beast = useBeast(sdk);
   
   return (
     <>
@@ -11,8 +14,8 @@ function BeastsBag() {
             You play, feed, sleep and more
             <span className='d-block'> Look at It, otherwise It'll die</span>
           </p>
-          <div className="new yellow-border mb-3">
-            <img src={fight} alt="" />
+          <div className="beasts">
+            <p>{beast?.player}</p>
           </div>
         </div>
     </>

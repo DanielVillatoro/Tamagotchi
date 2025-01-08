@@ -1,18 +1,20 @@
+import { SDK } from "@dojoengine/sdk";
 import { useAccount } from "@starknet-react/core";
 import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
+import { Schema } from "../../dojo/bindings.ts";
 import Header from "../Header/index.tsx";
 import BeastsBag from "../BeastsBag/index.tsx";
 import fight from '../../img/banner.jpeg';
 import './main.css';
 
-function Cover() {
+function Cover({ sdk }: { sdk: SDK<Schema> }) {
   const { spawn } = useSystemCalls();
   const { account } = useAccount();
 
   return (
     <>
     {
-      account ? <BeastsBag /> : 
+      account ? <BeastsBag sdk={sdk} /> : 
       <>
         <Header />
         <div className='cover'>

@@ -54,7 +54,7 @@ async function main() {
           >
             <Router>
               <Routes>
-                <Route path='/' element={<Cover />}/>
+                <Route path='/' element={<Cover sdk={sdk} />}/>
                 <Route path='/play' element={<App sdk={sdk} />} />
               </Routes>
             </Router>
