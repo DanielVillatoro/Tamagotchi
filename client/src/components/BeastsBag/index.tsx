@@ -16,7 +16,7 @@ function BeastsBag({ sdk }: { sdk: SDK<Schema> }) {
     <>
       <Header />
       <div className="beasts-bag">
-        <div>
+        <div className="w-100">
           <p className={'title text-center mb-3'}>
             You play, feed, sleep and more
             <span className='d-block'> Look at It, otherwise It'll die</span>
