@@ -47,7 +47,7 @@ h2 {
   color: #b7b7b7;
 }
 
-.cover {
+.cover, .beasts-bag {
   margin: auto;
   z-index: 2;
 }

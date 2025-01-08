@@ -1,9 +1,9 @@
 import { useAccount } from "@starknet-react/core";
 import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import Header from "../Header/index.tsx";
+import BeastsBag from "../BeastsBag/index.tsx";
 import fight from '../../img/banner.jpeg';
 import './main.css';
-import BeastsBag from "../BeastsBag/index.tsx";
 
 function Cover() {
   const { spawn } = useSystemCalls();
@@ -12,7 +12,7 @@ function Cover() {
   return (
     <>
     {
-      account ? <BeastsBag /> : 
+      !account ? <BeastsBag /> : 
       <>
         <Header />
         <div className='cover'>
