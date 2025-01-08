@@ -12,7 +12,7 @@ function Cover() {
   return (
     <>
     {
-      !account ? <BeastsBag /> : 
+      account ? <BeastsBag /> : 
       <>
         <Header />
         <div className='cover'>
