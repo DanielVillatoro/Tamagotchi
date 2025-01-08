@@ -1,6 +1,7 @@
 .beasts-bag {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  flex-direction: row;
   align-content: space-between;
   width: 95%;
   height: 100%;

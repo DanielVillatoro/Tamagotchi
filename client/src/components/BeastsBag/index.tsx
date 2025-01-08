@@ -30,6 +30,22 @@ function BeastsBag({ sdk }: { sdk: SDK<Schema> }) {
                 <p>{beast.defense}</p>
               </Link>
             }
+            {
+              beast &&
+              <Link to={`/play`} className="beasts">
+                <p>{beast.player}</p>
+                <p>{beast.speed}</p>
+                <p>{beast.defense}</p>
+              </Link>
+            }
+            {
+              beast &&
+              <Link to={`/play`} className="beasts">
+                <p>{beast.player}</p>
+                <p>{beast.speed}</p>
+                <p>{beast.defense}</p>
+              </Link>
+            }
           </div>
         </div>
 
