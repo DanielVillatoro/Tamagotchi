@@ -10,17 +10,6 @@
   padding: 20px 15px;
 }
 
-/* .navbar::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  background-image: url("../src/img/title_bar.png");
-  width: 270px;
-  height: 13px;
-  background-repeat: no-repeat;
-} */
-
 .navbar img {
   width: 50px;
   object-fit: cover;

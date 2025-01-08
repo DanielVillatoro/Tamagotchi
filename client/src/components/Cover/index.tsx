@@ -17,14 +17,12 @@ function Cover({ sdk }: { sdk: SDK<Schema> }) {
       <>
         <Header />
         <div className='cover'>
-          <div className="section-tab yellow-border">
-            <p className={'title text-center mb-3'}>
-              You play, feed, sleep and more
-              <span className='d-block'> Look at It, otherwise It'll die</span>
-            </p>
-            <div className="new yellow-border mb-3">
-              <img src={fight} alt="" />
-            </div>
+          <p className={'title text-center mb-3'}>
+            You play, feed, sleep and more
+            <span className='d-block'> Look at It, otherwise It'll die</span>
+          </p>
+          <div className="new yellow-border mb-3">
+            <img src={fight} alt="" />
           </div>
         </div>
       </>
