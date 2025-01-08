@@ -16,22 +16,25 @@ function BeastsBag({ sdk }: { sdk: SDK<Schema> }) {
     <>
       <Header />
       <div className="beasts-bag">
-        <p className={'title text-center mb-3'}>
-          You play, feed, sleep and more
-          <span className='d-block'> Look at It, otherwise It'll die</span>
-        </p>
-        <div className="d-flex">
-          {
-            beast &&
-            <Link to={`/play`}>
-              <div className="beasts">
-                <p>{beast.player}</p>
-                <p>{beast.speed}</p>
-                <p>{beast.defense}</p>
-              </div>
-            </Link>
-          }
+        <div>
+          <p className={'title text-center mb-3'}>
+            You play, feed, sleep and more
+            <span className='d-block'> Look at It, otherwise It'll die</span>
+          </p>
+          <div className="d-flex">
+            {
+              beast &&
+              <Link to={`/play`}>
+                <div className="beasts">
+                  <p>{beast.player}</p>
+                  <p>{beast.speed}</p>
+                  <p>{beast.defense}</p>
+                </div>
+              </Link>
+            }
+          </div>
         </div>
+
         <button
           disabled={account ? false : true}
           className="button"
