@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { init } from "@dojoengine/sdk";
 import { Schema, schema } from "./dojo/bindings.ts";
@@ -38,28 +38,32 @@ async function main() {
     schema
   );
 
-  createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-      <DojoContextProvider
-      // burnerManager={await setupBurnerManager(dojoConfig)}
-      >
-        <StarknetConfig
-          autoConnect
-          chains={[sepolia]}
-          connectors={[cartridgeConnector]}
-          explorer={starkscan}
-          provider={provider}
+  const rootElement = document.getElementById("root");
+  if (rootElement) {
+    ReactDOM.render(
+      <StrictMode>
+        <DojoContextProvider
+        // burnerManager={await setupBurnerManager(dojoConfig)}
         >
-          <Router>
-            <Routes>
-              <Route path='/' element={<Cover />}/>
-              <Route path='/play' element={<App sdk={sdk} />} />
-            </Routes>
-          </Router>
-        </StarknetConfig>
-      </DojoContextProvider>
-    </StrictMode>
-  );
+          <StarknetConfig
+            autoConnect
+            chains={[sepolia]}
+            connectors={[cartridgeConnector]}
+            explorer={starkscan}
+            provider={provider}
+          >
+            <Router>
+              <Routes>
+                <Route path='/' element={<Cover />}/>
+                <Route path='/play' element={<App sdk={sdk} />} />
+              </Routes>
+            </Router>
+          </StarknetConfig>
+        </DojoContextProvider>
+      </StrictMode>,
+      rootElement
+    );
+  }
 }
 
 main().catch((error) => {
