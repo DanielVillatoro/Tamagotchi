@@ -5,7 +5,7 @@ import { createContext, ReactNode, useContext, useMemo } from "react";
 //     useBurnerManager,
 // } from "@dojoengine/create-burner";
 import { Account } from "starknet";
-import { dojoConfig } from "../../dojoConfig";
+import { dojoConfig } from "../dojo/dojoConfig";
 import { DojoProvider } from "@dojoengine/core";
 import { client } from "./contracts.gen";
 
