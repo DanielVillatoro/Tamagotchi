@@ -4,6 +4,10 @@
   align-content: space-between;
 }
 
+.beasts-bag .eggs {
+  width: 100%;
+}
+
 .beasts {
   width: 29%;
   background-color: rgb(44, 0, 1);

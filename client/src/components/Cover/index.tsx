@@ -20,7 +20,7 @@ function Cover({ sdk }: { sdk: SDK<Schema> }) {
             You play, feed, sleep and more
             <span className='d-block'> Look at It, otherwise It'll die</span>
           </p>
-          <div className="new yellow-border mb-3">
+          <div className="mb-3">
             <img src={fight} alt="" />
           </div>
         </div>
