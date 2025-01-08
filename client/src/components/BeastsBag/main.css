@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
   align-content: space-between;
+  width: 95%;
+  height: 100%;
+  max-width: 400px;
+  margin: auto;
+  z-index: 2;
 }
 
 .beasts-bag .eggs {
