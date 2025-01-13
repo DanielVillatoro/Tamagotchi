@@ -4,8 +4,8 @@ import manifest from "../dojo/manifest_dev.json";
 
 export const dojoConfig = createDojoConfig({
     manifest,
-    masterAddress: '0x69d851871b6ffc967ed920d6e881a307d10d664bf317ab2c0872fddc3a87144',
-    masterPrivateKey: '0x4885f37c4a0cce10d16ef749053fd74d83913eb222c2d237fecd93e231bc039',
-    rpcUrl: 'https://api.cartridge.gg/x/bt/katana',
-    toriiUrl: 'https://api.cartridge.gg/x/bt/torii',
+    masterAddress: '0x5b6b8189bb580f0df1e6d6bec509ff0d6c9be7365d10627e0cf222ec1b47a71',
+    masterPrivateKey: '0x33003003001800009900180300d206308b0070db00121318d17b5e6262150b',
+    rpcUrl: 'https://api.cartridge.gg/x/katanito/katana',
+    toriiUrl: 'https://api.cartridge.gg/x/katanito/torii',
 });
