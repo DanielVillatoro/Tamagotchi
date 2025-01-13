@@ -4,35 +4,35 @@ import { Connector } from "@starknet-react/core";
 
 const policies: Policy[] = [
   {
-    target: '0x17e18f79cb18f179e97c785b63f99c98c1d66a10b0c515365743602127148ec',
+    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
     method: "spawn",
   },
   {
-    target: '0x17e18f79cb18f179e97c785b63f99c98c1d66a10b0c515365743602127148ec',
+    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
     method: "decrease_stats",
   },
   {
-    target: '0x17e18f79cb18f179e97c785b63f99c98c1d66a10b0c515365743602127148ec',
+    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
     method: "feed",
   },
   {
-    target: '0x17e18f79cb18f179e97c785b63f99c98c1d66a10b0c515365743602127148ec',
+    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
     method: "sleep",
   },
   {
-    target: '0x17e18f79cb18f179e97c785b63f99c98c1d66a10b0c515365743602127148ec',
+    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
     method: "awake",
   },
   {
-    target: '0x17e18f79cb18f179e97c785b63f99c98c1d66a10b0c515365743602127148ec',
+    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
     method: "play",
   },
   {
-    target: '0x17e18f79cb18f179e97c785b63f99c98c1d66a10b0c515365743602127148ec',
+    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
     method: "clean",
   },
   {
-    target: '0x17e18f79cb18f179e97c785b63f99c98c1d66a10b0c515365743602127148ec',
+    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
     method: "revive",
   },
 ]
