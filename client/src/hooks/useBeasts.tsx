@@ -30,7 +30,7 @@ export const useBeast = (sdk: SDK<Schema>) => {
     const subscribe = async () => {
       const subscription = await sdk.subscribeEntityQuery(
         {
-          dojo_starter: {
+          babybeasts: {
             Beast: {
               $: {
                 where: {
@@ -70,7 +70,7 @@ export const useBeast = (sdk: SDK<Schema>) => {
       try {
         await sdk.getEntities(
           {
-            dojo_starter: {
+            babybeasts: {
               Beast: {
                 $: {
                   where: {

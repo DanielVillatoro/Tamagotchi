@@ -1,6 +1,6 @@
 import type { SchemaType } from "@dojoengine/sdk";
 
-// Type definition for `dojo_starter::models::Beast` struct
+// Type definition for `babybeasts::models::Beast` struct
 export interface Beast {
 	fieldOrder: string[];
 	player: string;
@@ -22,7 +22,7 @@ export interface Beast {
 	next_level_experience: number;
 }
 
-// Type definition for `dojo_starter::models::BeastValue` struct
+// Type definition for `babybeasts::models::BeastValue` struct
 export interface BeastValue {
 	fieldOrder: string[];
 	is_alive: boolean;
@@ -44,7 +44,7 @@ export interface BeastValue {
 }
 
 export interface Schema extends SchemaType {
-	dojo_starter: {
+	babybeasts: {
 		Beast: Beast,
 		BeastValue: BeastValue,
 		ERC__Balance: ERC__Balance,
@@ -54,11 +54,11 @@ export interface Schema extends SchemaType {
 }
 
 export enum Models {
-    Beast = "dojo_starter-Beast",
+    Beast = "babybeasts-Beast",
 }
 
 export const schema: Schema = {
-	dojo_starter: {
+	babybeasts: {
 		Beast: {
 			fieldOrder: ['player', 'is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
 			player: "",

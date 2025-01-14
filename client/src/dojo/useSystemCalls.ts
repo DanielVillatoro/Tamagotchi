@@ -33,8 +33,8 @@ export const useSystemCalls = () => {
         // Apply an optimistic update to the state
         // this uses immer drafts to update the state
         // state.applyOptimisticUpdate(transactionId, (draft) => {
-        //     if (draft.entities[entityId]?.models?.dojo_starter?.Beast) {
-        //         draft.entities[entityId].models.dojo_starter.Beast
+        //     if (draft.entities[entityId]?.models?.babybeasts?.Beast) {
+        //         draft.entities[entityId].models.babybeasts.Beast
         //     }
         // });
 
@@ -49,7 +49,7 @@ export const useSystemCalls = () => {
 
             // Wait for the entity to be updated with the new state
             // await state.waitForEntityChange(entityId, (entity) => {
-            //     return !!entity?.models?.dojo_starter?.Beast;
+            //     return !!entity?.models?.babybeasts?.Beast;
             // });
         } catch (error) {
             // Revert the optimistic update if an error occurs

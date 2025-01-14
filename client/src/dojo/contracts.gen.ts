@@ -2,13 +2,13 @@
 // Import the necessary types from the recs SDK
 // generate again with `sozo build --typescript`
 import { DojoProvider } from "@dojoengine/core";
-import { Account } from "starknet";
+import { Account, AccountInterface } from "starknet";
 
 export type IClient = Awaited<ReturnType<typeof client>>;
 
 export function client(provider: DojoProvider) {
-    // System definitions for `dojo_starter-actions` contract
-    const actions_spawn = async (account: Account) => {
+    // System definitions for `babybeasts-actions` contract
+    const actions_spawn = async (account: Account | AccountInterface) => {
         try {
             return await provider.execute(
                 account,
@@ -17,14 +17,14 @@ export function client(provider: DojoProvider) {
                     entrypoint: "spawn",
                     calldata: [],
                 },
-                "dojo_starter"
+                "babybeasts"
             );
         } catch (error) {
             console.error(error);
         }
     };
 
-    const actions_decreaseStats = async (account: Account) => {
+    const actions_decreaseStats = async (account: Account | AccountInterface) => {
         try {
             return await provider.execute(
                 account,
@@ -33,14 +33,14 @@ export function client(provider: DojoProvider) {
                     entrypoint: "decrease_stats",
                     calldata: [],
                 },
-                "dojo_starter"
+                "babybeasts"
             );
         } catch (error) {
             console.error(error);
         }
     };
 
-    const actions_feed = async (account: Account) => {
+    const actions_feed = async (account: Account | AccountInterface) => {
         try {
             return await provider.execute(
                 account,
@@ -49,14 +49,14 @@ export function client(provider: DojoProvider) {
                     entrypoint: "feed",
                     calldata: [],
                 },
-                "dojo_starter"
+                "babybeasts"
             );
         } catch (error) {
             console.error(error);
         }
     };
 
-    const actions_sleep = async (account: Account) => {
+    const actions_sleep = async (account: Account | AccountInterface) => {
         try {
             return await provider.execute(
                 account,
@@ -65,14 +65,14 @@ export function client(provider: DojoProvider) {
                     entrypoint: "sleep",
                     calldata: [],
                 },
-                "dojo_starter"
+                "babybeasts"
             );
         } catch (error) {
             console.error(error);
         }
     };
 
-    const actions_awake = async (account: Account) => {
+    const actions_awake = async (account: Account | AccountInterface) => {
         try {
             return await provider.execute(
                 account,
@@ -81,14 +81,14 @@ export function client(provider: DojoProvider) {
                     entrypoint: "awake",
                     calldata: [],
                 },
-                "dojo_starter"
+                "babybeasts"
             );
         } catch (error) {
             console.error(error);
         }
     };
 
-    const actions_play = async (account: Account) => {
+    const actions_play = async (account: Account | AccountInterface) => {
         try {
             return await provider.execute(
                 account,
@@ -97,14 +97,14 @@ export function client(provider: DojoProvider) {
                     entrypoint: "play",
                     calldata: [],
                 },
-                "dojo_starter"
+                "babybeasts"
             );
         } catch (error) {
             console.error(error);
         }
     };
 
-    const actions_clean = async (account: Account) => {
+    const actions_clean = async (account: Account | AccountInterface) => {
         try {
             return await provider.execute(
                 account,
@@ -113,14 +113,14 @@ export function client(provider: DojoProvider) {
                     entrypoint: "clean",
                     calldata: [],
                 },
-                "dojo_starter"
+                "babybeasts"
             );
         } catch (error) {
             console.error(error);
         }
     };
 
-    const actions_revive = async (account: Account) => {
+    const actions_revive = async (account: Account | AccountInterface) => {
         try {
             return await provider.execute(
                 account,
@@ -129,7 +129,7 @@ export function client(provider: DojoProvider) {
                     entrypoint: "revive",
                     calldata: [],
                 },
-                "dojo_starter"
+                "babybeasts"
             );
         } catch (error) {
             console.error(error);
