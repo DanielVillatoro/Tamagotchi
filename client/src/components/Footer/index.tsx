@@ -1,12 +1,12 @@
-import github from '../../img/github-sign.png';
-import twitter from '../../img/twitter.png';
-import unity from '../../img/unity.png';
-import starknet from '../../img/stark.png';
-import rolo from '../../img/rol.jpg';
-import juan from '../../img/Juan.jpg';
-import cox from '../../img/marco.jpeg';
-import luis from '../../img/Luis.png';
-import daniel from '../../img/daniel.jpeg';
+import github from '../../assets/img/github-sign.png';
+import twitter from '../../assets/img/twitter.png';
+import unity from '../../assets/img/unity.png';
+import starknet from '../../assets/img/stark.png';
+import rolo from '../../assets/img/rol.jpg';
+import juan from '../../assets/img/Juan.jpg';
+import cox from '../../assets/img/marco.jpeg';
+import luis from '../../assets/img/Luis.png';
+import daniel from '../../assets/img/daniel.jpeg';
 
 import './main.css';
 

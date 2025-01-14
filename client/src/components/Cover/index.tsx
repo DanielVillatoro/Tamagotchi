@@ -3,7 +3,7 @@ import { useAccount } from "@starknet-react/core";
 import { Schema } from "../../dojo/bindings.ts";
 import Header from "../Header/index.tsx";
 import BeastsBag from "../BeastsBag/index.tsx";
-import fight from '../../img/banner.jpeg';
+import fight from '../../assets/img/banner.jpeg';
 
 function Cover({ sdk }: { sdk: SDK<Schema> }) {
 
