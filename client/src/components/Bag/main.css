@@ -1,4 +1,4 @@
-.beasts-bag {
+.bag {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -10,7 +10,7 @@
   z-index: 2;
 }
 
-.beasts-bag .eggs {
+.bag .eggs {
   width: 100%;
 }
 

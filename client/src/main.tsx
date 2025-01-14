@@ -9,6 +9,7 @@ import { sepolia } from "@starknet-react/chains";
 import { StarknetConfig, starkscan } from "@starknet-react/core";
 import { RpcProvider } from "starknet";
 import cartridgeConnector from "./config/cartridgeConnector.tsx";
+import Menu from "./components/Menu/index.tsx";
 import Cover from "./components/Cover/index.tsx";
 import Tamagotchi from "./components/Tamagotchi/index.tsx";
 import "./index.css";
@@ -58,6 +59,7 @@ async function main() {
               <Routes>
                 <Route path='/' element={<Cover sdk={sdk} />}/>
                 <Route path='/play' element={<Tamagotchi sdk={sdk} />} />
+                <Route path='/Menu' element={<Menu sdk={sdk} />} />
               </Routes>
             </Router>
           </StarknetConfig>

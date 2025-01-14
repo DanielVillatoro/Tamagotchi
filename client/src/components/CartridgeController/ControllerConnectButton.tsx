@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useConnect, useAccount, useDisconnect} from "@starknet-react/core";
+import { useConnect, useAccount, useDisconnect } from "@starknet-react/core";
 import dojo from '../../assets/img/dojo-icon.svg'
 
 const ControllerConnectButton = () => {

@@ -10,15 +10,16 @@ import './main.css';
 
 import happy from '../../assets/img/happy.gif';
 
-function BeastsBag({ sdk }: { sdk: SDK<Schema> }) {
+function Bag({ sdk }: { sdk: SDK<Schema> }) {
+  const { account } = useAccount();
+  if (!account) location.href = '/';
   const beast = useBeast(sdk);
   const { spawn } = useSystemCalls();
-  const { account } = useAccount();
 
   return (
     <>
       <Header />
-      <div className="beasts-bag">
+      <div className="bag">
         <div className="eggs">
           <p className={'title text-center mb-4'}>
             Collect them all!
@@ -114,4 +115,4 @@ function BeastsBag({ sdk }: { sdk: SDK<Schema> }) {
   )
 }
 
-export default BeastsBag;
+export default Bag;
