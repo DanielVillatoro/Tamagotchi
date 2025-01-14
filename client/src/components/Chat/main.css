@@ -17,11 +17,11 @@
 }
 
 .message {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(55, 0, 1, 0.5);
   backdrop-filter: blur(1px);
   padding: 20px 10px;
   margin-bottom: 10px;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .user {
@@ -40,7 +40,7 @@
   width: 100%;
   height: 55px;
   padding: 10px;
-  font-size: 22px;
+  font-size: 18px;
   border-radius: 8px;
   margin-bottom: 12px;
   background-color: transparent;
