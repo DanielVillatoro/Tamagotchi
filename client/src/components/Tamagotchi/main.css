@@ -136,7 +136,6 @@
 .stats {
   width: 60%;
   position: absolute;
-  z-index: 2;
   top: -45px;
   right: 10px;
 }
