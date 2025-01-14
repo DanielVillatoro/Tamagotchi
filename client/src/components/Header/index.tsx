@@ -11,7 +11,7 @@ function Header() {
           <a href="/"><img src={monster} alt="Logo" /></a>
           <h2>Baby <span>Beast</span></h2>
         </div>
-        <Link to={window.location.pathname === '/menu' ? -1 : '/menu'}>
+        <Link to="/menu">
           <img src={sheep} className='sheep' alt="Sheep" />
         </Link>
       </nav>
