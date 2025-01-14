@@ -12,7 +12,6 @@ import happy from '../../assets/img/happy.gif';
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
   const { account } = useAccount();
-  if (!account) location.href = '/';
   const beast = useBeast(sdk);
   const { spawn } = useSystemCalls();
 
