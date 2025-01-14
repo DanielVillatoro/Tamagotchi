@@ -7,7 +7,7 @@
 
 /* Container for the tamagotchi */
 .tamagotchi-image-container {
-  border: 2px solid #370001; 
+  border: 3px solid #370001; 
   border-radius: 18px;
   padding: 10px;
   position: relative;

@@ -27,46 +27,14 @@
 }
 
 .navbar .logo img {
-  width: 50px;
+  width: 60px;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.connect-btn {
-  border-radius: 8px;
-  font-family: "Marcellus SC", serif;
-  padding: 5px 10px;
-  color: var(--white);
-  transition: all 0.25s;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-center;
-  font-size: 14px;
-  border: 2px solid #e4a101;
-  background-color: #370001;
-  color: #fff;
-}
-
-.connect-btn:hover {
-  background-color: #e4a101;
-}
-
-.connect-btn img {
-  width: 30px;
-  margin-left: 10px;
-}
-
-.navbar-toggler img {
-  margin-top: -20px;
-  transition: all 300ms linear;
-}
-
-.navbar-toggler.collapsed img {
-  transform: rotate(70deg);
-}
-
-/* Bootstrap Overrides */
-.navbar-toggler:focus {
-  box-shadow: unset;
+.navbar .sheep {
+  width: 65px;
+  object-fit: cover;
+  border-radius: 50%;
+  transform: scaleX(-1);
 }
