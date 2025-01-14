@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SDK } from "@dojoengine/sdk";
 import { useAccount } from "@starknet-react/core";
 import { Schema } from "../../dojo/bindings.ts";
