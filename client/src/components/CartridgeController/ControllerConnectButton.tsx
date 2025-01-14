@@ -8,7 +8,7 @@ const ControllerConnectButton = () => {
   const { disconnect } = useDisconnect()
 
   return (
-    <div>
+    <>
       {connectors.map((connector) => (
         status === "connected" ? (
           <div key={connector.id}>
@@ -31,7 +31,7 @@ const ControllerConnectButton = () => {
           </button>
         )
       ))}
-    </div>
+    </>
   );
 };
 

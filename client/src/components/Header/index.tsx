@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
+import ControllerConnectButton from '../CartridgeController/ControllerConnectButton';
+import Music from '../Music';
+import Chat from '../Chat';
 import sheep from '../../assets/img/sheep.gif';
 import monster from '../../assets/img/logo.jpeg';
 import './main.css';
-import Music from '../Music';
-import ControllerConnectButton from '../CartridgeController/ControllerConnectButton';
 
 function Header() {
   return (
@@ -18,13 +20,12 @@ function Header() {
             <img src={sheep} className='sheep' alt="Sheep" />
           </button>
         </div>
-
         <div className="collapse navbar-collapse menu" id="menu">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <ControllerConnectButton />
-            </li>
-          </ul>
+          <div className='d-flex justify-content-center'>
+            <Link className="connect-btn" to="/">Beasts Bag</Link>
+            <ControllerConnectButton />
+          </div>
+          <Chat />
         </div>
       </nav>
     </>

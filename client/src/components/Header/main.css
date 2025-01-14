@@ -7,7 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0 15px;
+  padding: 10px 0 0;
 }
 
 .navbar h2 {
@@ -35,6 +35,7 @@
 .navbar-toggler:focus,
 .navbar-toggler:active {
   outline: none;
+  box-shadow: 0;
 }
 
 .navbar .sheep {
@@ -42,6 +43,14 @@
   object-fit: cover;
   border-radius: 50%;
   transform: scaleX(-1);
+}
+
+.navbar .connect-btn {
+  width: 100%;
+  margin: 0 10px;
+  height: 40px;
+  text-align: center;
+  border: 0;
 }
 
 .menu {
@@ -54,4 +63,5 @@
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  padding: 15px;
 }
