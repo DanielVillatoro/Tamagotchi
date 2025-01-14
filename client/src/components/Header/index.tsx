@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useAccount } from "@starknet-react/core";
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton';
 import Music from '../Music';
 import Chat from '../Chat';
@@ -7,6 +8,9 @@ import monster from '../../assets/img/logo.jpeg';
 import './main.css';
 
 function Header() {
+
+  const { account } = useAccount();
+
   return (
     <>
       <nav className="navbar">
@@ -22,7 +26,7 @@ function Header() {
         </div>
         <div className="collapse navbar-collapse menu" id="menu">
           <div className='d-flex justify-content-center'>
-            <Link className="connect-btn" to="/">Beasts Bag</Link>
+            { account && <Link className="connect-btn" to="/">Beasts Bag</Link> }
             <ControllerConnectButton />
           </div>
           <Chat />
