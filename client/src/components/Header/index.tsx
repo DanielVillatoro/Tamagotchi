@@ -26,7 +26,7 @@ function Header() {
         </div>
         <div className="collapse navbar-collapse menu" id="menu">
           <div className='d-flex justify-content-center'>
-            { account && <Link className="connect-btn" to="/">Beasts Bag</Link> }
+            { account && <Link className="connect-btn" to="/" onClick={() => (document.querySelector('.navbar-toggler') as HTMLElement)?.click()}>Beasts Bag</Link> }
             <ControllerConnectButton />
           </div>
           <Chat />
