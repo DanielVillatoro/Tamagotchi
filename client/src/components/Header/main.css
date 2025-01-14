@@ -32,6 +32,10 @@
   object-fit: cover;
   border-radius: 50%;
 }
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none;
+}
 
 .navbar .sheep {
   width: 65px;

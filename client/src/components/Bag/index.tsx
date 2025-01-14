@@ -5,7 +5,6 @@ import { useAccount } from "@starknet-react/core";
 import { useBeast } from "../../hooks/useBeasts.tsx";
 import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import { Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react';
-import Header from "../Header/index.tsx";
 import './main.css';
 
 import happy from '../../assets/img/happy.gif';
@@ -17,7 +16,6 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
 
   return (
     <>
-      <Header />
       <div className="bag">
         <div className="eggs">
           <p className={'title text-center mb-4'}>

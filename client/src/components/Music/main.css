@@ -1,9 +1,7 @@
 .sound-button {
-  position: absolute;
-  top: 78px;
-  left: 15px;
   background-color: transparent;
   border: 0;
+  margin-right: 10px;
 }
 
 .sound-button img {

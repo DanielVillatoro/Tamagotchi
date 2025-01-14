@@ -8,7 +8,6 @@ import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
-import Header from "../Header/index.tsx";
 import sleep from '../../assets/img/sleep.gif';
 import eat from '../../assets/img/eat.gif';
 import play from '../../assets/img/play.gif';
@@ -65,7 +64,6 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   return (
     <>
-      <Header />
       <div className="tamaguchi">
         <>{beast &&
           <Card>
