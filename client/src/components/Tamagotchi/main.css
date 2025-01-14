@@ -12,7 +12,7 @@
   padding: 10px;
   position: relative;
   overflow: hidden;
-  height: 34vh;
+  height: 32vh;
   transition: border-color 0.3s ease; 
 }
 
@@ -63,11 +63,11 @@
 .scenario {
   border-radius: 18px;
   margin-bottom: 16px;
-  background-image: url('../../assets/img/scenario.jpeg');
+  background-image: url('../../assets/img/scenario-light.jpeg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 34vh;
+  height: 31vh;
   position: relative;
 }
 

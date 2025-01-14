@@ -19,10 +19,6 @@ function Cover({ sdk }: { sdk: SDK<Schema> }) {
       <>
         <Header />
         <div className='cover'>
-          <p className={'title text-center mb-4'}>
-            You play, feed, sleep and more
-            <span className='d-block'> Look at It, otherwise It'll die</span>
-          </p>
           <div className="mb-3">
             <img className="cover-pic" src={fight} alt="" />
           </div>
