@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { init, createDojoStore } from "@dojoengine/sdk";
 import { Schema, schema } from "./dojo/bindings.ts";
