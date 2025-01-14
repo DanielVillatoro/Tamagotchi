@@ -1,3 +1,4 @@
+import Music from '../Music/index.tsx';
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton';
 import monster from '../../assets/img/logo.jpeg';
 import './main.css';
@@ -11,6 +12,7 @@ function Header() {
           <h2>Baby <span>Beast</span></h2>
         </div>
         <ControllerConnectButton />
+        <Music />
       </nav>
     </>
   )

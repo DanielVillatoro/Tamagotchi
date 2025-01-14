@@ -4,6 +4,7 @@ import { Schema } from "../../dojo/bindings.ts";
 import Header from "../Header/index.tsx";
 import BeastsBag from "../BeastsBag/index.tsx";
 import fight from '../../assets/img/banner.jpeg';
+import Footer from "../Footer/index.tsx";
 
 function Cover({ sdk }: { sdk: SDK<Schema> }) {
 
@@ -21,8 +22,9 @@ function Cover({ sdk }: { sdk: SDK<Schema> }) {
             <span className='d-block'> Look at It, otherwise It'll die</span>
           </p>
           <div className="mb-3">
-            <img src={fight} alt="" />
+            <img className="cover-pic" src={fight} alt="" />
           </div>
+          <Footer />
         </div>
       </>
     }

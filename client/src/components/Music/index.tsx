@@ -1,33 +1,32 @@
 import React, { useState } from "react";
 import useSound from "use-sound";
-import backgroundMusic from "../assets/sounds/chillBeast.mp3";
+import backgroundMusic from "../../assets/sounds/chillBeast.mp3";
+import music from "../../assets/img/music.png";
 import './main.css';
 
 function Music() {
   const [isMuted, setIsMuted] = useState(false);
   const [play, { stop, sound }] = useSound(backgroundMusic, {
     loop: true,
-    volume: isMuted ? 0 : 0.3, // Adjust volume dynamically
+    volume: isMuted ? 0 : 0.3,
   });
 
   React.useEffect(() => {
-    play(); // Play sound when component loads
-    return () => stop(); // Stop sound when component unmounts
+    play();
+    return () => stop();
   }, [play, stop]);
 
   const toggleMute = () => {
     if (sound) {
-      setIsMuted((prev) => !prev); // Toggle between mute and unmute
+      setIsMuted((prev) => !prev);
     }
   };
 
   return (
     <>
-      <div className="sound-controls">
-        <button onClick={toggleMute} className="sound-button">
-          {isMuted ? "🔇" : "🔊"}
-        </button>
-      </div>
+      <button onClick={toggleMute} className="sound-button">
+        <img src={music} className={isMuted ? 'muted' : ''} />
+      </button>
     </>
   )
 }
