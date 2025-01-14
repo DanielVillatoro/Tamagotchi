@@ -11,9 +11,16 @@ function Header() {
           <a href="/"><img src={monster} alt="Logo" /></a>
           <h2>Baby <span>Beast</span></h2>
         </div>
-        <Link to="/menu">
+        <button className="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
           <img src={sheep} className='sheep' alt="Sheep" />
-        </Link>
+        </button>
+        <div className="collapse navbar-collapse" id="menu">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              Rolando
+            </li>
+          </ul>
+        </div>
       </nav>
     </>
   )
