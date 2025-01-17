@@ -8,6 +8,7 @@ import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
+import { toast } from "react-hot-toast";
 import sleep from '../../assets/img/sleep.gif';
 import eat from '../../assets/img/eat.gif';
 import play from '../../assets/img/play.gif';
@@ -15,7 +16,6 @@ import shower from '../../assets/img/shower.gif';
 import happy from '../../assets/img/happy.gif';
 import dead from '../../assets/img/dead.gif';
 import './main.css';
-import { toast } from "react-hot-toast";
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const beast = useBeast(sdk);
@@ -29,9 +29,6 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   // Animations
   const [currentImage, setCurrentImage] = useState(happy);
-  const showAnimationWithoutTimer = (gifPath: string) => {
-    setCurrentImage(gifPath);
-  };
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
