@@ -71,7 +71,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
         }
       );
       console.log(`${toast} completed successfully!`);
-      setIsLoading(false);
+      setTimeout(() => setIsLoading(false), 10000);
     } catch (error) {
       setIsLoading(false);
       console.error(error);
