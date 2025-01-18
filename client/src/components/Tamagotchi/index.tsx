@@ -33,7 +33,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
     setCurrentImage(gifPath);
     setTimeout(() => {
       setCurrentImage(happy);
-    }, 1000000);
+    }, 10000);
   };
   const showDeathAnimation = () => {
     setCurrentImage(dead);
@@ -41,7 +41,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   const triggerGlow = () => {
     setIsGlowing(true);
-    setTimeout(() => setIsGlowing(false), 4000);
+    setTimeout(() => setIsGlowing(false), 10000);
   };
 
   useEffect(() => {
