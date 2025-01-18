@@ -1,6 +1,6 @@
 import { useAccount } from "@starknet-react/core";
 import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
-import initials, { Initial } from "../../data/initials.ts";
+import initials, { Initial } from "../../data/initials";
 import './main.css';
 
 function SpawnBeast() {
