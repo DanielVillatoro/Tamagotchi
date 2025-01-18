@@ -19,6 +19,7 @@ import './main.css';
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const beast = useBeast(sdk);
+  const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -33,7 +34,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
     setCurrentImage(gifPath);
     setTimeout(() => {
       setCurrentImage(happy);
-    }, 10000);
+    }, loadingTime);
   };
   const showDeathAnimation = () => {
     setCurrentImage(dead);
@@ -71,7 +72,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
         }
       );
       console.log(`${toast} completed successfully!`);
-      setTimeout(() => setIsLoading(false), 10000);
+      setTimeout(() => setIsLoading(false), loadingTime);
     } catch (error) {
       setIsLoading(false);
       console.error(error);

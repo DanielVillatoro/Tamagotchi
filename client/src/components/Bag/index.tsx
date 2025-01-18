@@ -1,19 +1,16 @@
 import { SDK } from "@dojoengine/sdk";
 import { Link } from 'react-router-dom';
 import { Schema } from "../../dojo/bindings.ts";
-import { useAccount } from "@starknet-react/core";
 import { useBeast } from "../../hooks/useBeasts.tsx";
-import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import { Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react';
 import './main.css';
 
 import happy from '../../assets/img/happy.gif';
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
-  const { account } = useAccount();
+  
   const beast = useBeast(sdk);
-  const { spawn } = useSystemCalls();
-
+  
   return (
     <>
       <div className="bag">
@@ -99,14 +96,6 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
             }
           </div>
         </div>
-        <button
-          disabled={account ? false : true}
-          className="button"
-          onClick={async () => {
-            await spawn();
-            location.reload();
-          }}>Spawn your BabyBeast
-        </button>
       </div>
     </>
   )
