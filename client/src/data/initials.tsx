@@ -1,5 +1,5 @@
 import babyWolfIdle from "../assets/beasts/BabyWolf-idle.gif"
-import babyWolfEat from "../assets/beasts/BabyWolf-eat.gif"
+import babyWolfEat from "../assets/beasts/BabyWolf-Eat.gif"
 import babyWolfPlay from  "../assets/beasts/BabyWolf- jump.gif"
 import babyWolfSleep from "../assets/beasts/BabyWolf-sleep.gif"
 import babyWolfClean from "../assets/beasts/BabyWolf-shower.gif"
