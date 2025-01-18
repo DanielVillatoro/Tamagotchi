@@ -20,7 +20,9 @@ function Cover({ sdk }: { sdk: SDK<Schema> }) {
           <div className="mb-3">
             <img className="cover-pic" src={fight} alt="" />
           </div>
-          <ControllerConnectButton />
+          <button className="connect-btn" onClick={() => (document.querySelector('.navbar-toggler') as HTMLElement)?.click()}>
+            Connect and start Play
+          </button>
           <Footer />
         </div>
       </>

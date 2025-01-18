@@ -97,28 +97,28 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                         <Swords />
                         <span>{Math.round(beast.attack)}</span>
                       </div>
-                      <p className="info">Attack</p>
+                      <p>Attack</p>
                     </div>
                     <div className="item">
                       <div>
                         <ShieldPlus />
                         <span>{Math.round(beast.defense)}</span>
                       </div>
-                      <p className="info">Defense</p>
+                      <p>Defense</p>
                     </div>
                     <div className="item">
                       <div>
                         <CircleGauge />
                         <span>{Math.round(beast.speed)}</span>
                       </div>
-                      <p className="info">Speed</p>
+                      <p>Speed</p>
                     </div>
                     <div className="item">
                       <div>
                         <TestTubeDiagonal />
                         <span>{(beast.experience)}</span>
                       </div>
-                      <p className="info">Experience</p>
+                      <p>Experience</p>
                     </div>
                   </div>
                   <div className={`tamagotchi-image-container ${isLoading ? "glow" : ""}`}>
@@ -132,30 +132,28 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                         <Heart />
                         <span>{Math.round(beast.energy)}%</span>
                       </div>
-                      <p className="info">Energy</p>
+                      < p>Energy</p>
                     </div>
                     <div className="item">
                       <div>
                         <Coffee />
                         <span  >{Math.round(beast.hunger)}%</span>
                       </div>
-                      <p className="info">Hunger</p>
+                      <p>Hunger</p>
                     </div>
                     <div className="item">
                       <div>
                         <Gamepad2 />
                         <span  >{Math.round(beast.happiness)}%</span>
                       </div>
-
-                      <p className="info">Happiness</p>
+                      <p>Happiness</p>
                     </div>
                     <div className="item">
                       <div>
                         <Bath />
-                        <span  >{Math.round(beast.hygiene)}%</span>
+                        <span>{Math.round(beast.hygiene)}%</span>
                       </div>
-
-                      <p className="info">Hygiene</p>
+                      <p>Hygiene</p>
                     </div>
                   </div>
                 </div>
