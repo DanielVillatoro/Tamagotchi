@@ -10,7 +10,7 @@
 }
 
 .beast {
-  width: 45%;
+  width: 100%;
   margin: 0 auto 10px;
   padding: 15px 10px;
   background-color: #2c0001;
@@ -21,12 +21,15 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 .beast img {
-  width: 60%;
+  width: 100%;
   height: auto;
-  margin: 5px auto 12px;
+  margin: 0;
 }
 
 .beast span,
@@ -41,4 +44,14 @@
 
 .beast svg {
   color: #e4a101;
+}
+
+.beast .data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 55%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
 }

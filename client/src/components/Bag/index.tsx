@@ -6,11 +6,14 @@ import { Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react
 import './main.css';
 
 import happy from '../../assets/img/happy.gif';
+// import beastie from "../../data/beast.tsx";
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
-  
-  const beast = useBeast(sdk);
-  
+
+  let beast = useBeast(sdk);
+
+  // const beast = beastie;
+
   return (
     <>
       <div className="bag">
@@ -19,54 +22,17 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
             Collect them all!
             <span className='d-block'>There are many species</span>
           </p>
-          <div className="d-flex justify-content-start">
+          <div>
             {
               beast &&
               <Link to={`/play`} className="beast">
-                <div className="d-flex justify-content-between align-items-end">
+                <div className="d-flex align-items-end">
                   <img src={happy} alt="beast" />
-                  <h4>
-                    Lvl <span>{beast.level}</span>
+                  <h4 className="d-flex">
+                    <span>{beast.level}</span> Lvl
                   </h4>
                 </div>
-                <div className="d-flex justify-content-between">
-                  <div className="item">
-                    <div>
-                      <Swords />
-                      <span>{Math.round(beast.attack)}</span>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div>
-                      <ShieldPlus />
-                      <span>{Math.round(beast.defense)}</span>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div>
-                      <CircleGauge />
-                      <span>{Math.round(beast.speed)}</span>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div>
-                      <TestTubeDiagonal />
-                      <span>{(beast.experience)}</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            }
-            {
-              beast &&
-              <Link to={`/play`} className="beast">
-                <div className="d-flex justify-content-between align-items-end">
-                  <img src={happy} alt="beast" />
-                  <h4>
-                    Lvl <span>{beast.level}</span>
-                  </h4>
-                </div>
-                <div className="d-flex justify-content-between">
+                <div className="data">
                   <div className="item">
                     <div>
                       <Swords />
