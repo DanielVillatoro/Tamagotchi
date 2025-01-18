@@ -19,7 +19,7 @@ import './main.css';
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const beast = useBeast(sdk);
-  const [isGlowing, setIsGlowing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     setup: { client },
@@ -40,8 +40,8 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   };
 
   const triggerGlow = () => {
-    setIsGlowing(true);
-    setTimeout(() => setIsGlowing(false), 10000);
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 10000);
   };
 
   useEffect(() => {
@@ -121,7 +121,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                       <p className="info">Experience</p>
                     </div>
                   </div>
-                  <div className={`tamagotchi-image-container ${isGlowing ? "glow" : ""}`}>
+                  <div className={`tamagotchi-image-container ${isLoading ? "glow" : ""}`}>
                     <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
                   </div>
                 </div>
@@ -162,42 +162,42 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                 <div className="actions mb-0">
                 <Button
                     onClick={() => handleAction("Feed", () => client.actions.feed(account as Account), eat)}
-                    disabled={!beast.is_alive}
+                    disabled={!beast.is_alive  && !isLoading}
                     className="flex items-center button"
                   >
                     <Pizza /> Feed
                   </Button>
                   <Button
                     onClick={() => handleAction("Sleep", () => client.actions.sleep(account as Account), sleep)}
-                    disabled={!beast.is_alive}
+                    disabled={!beast.is_alive  && !isLoading}
                     className="flex items-center button"
                   >
                     <Coffee /> Sleep
                   </Button>
                   <Button
                     onClick={() => handleAction("Clean", () => client.actions.clean(account as Account), shower)}
-                    disabled={!beast.is_alive}
+                    disabled={!beast.is_alive && !isLoading}
                     className="flex items-center button"
                   >
                     <Bath /> Clean
                   </Button>
                   <Button
                     onClick={() => handleAction("Play", () => client.actions.play(account as Account), play)}
-                    disabled={!beast.is_alive}
+                    disabled={!beast.is_alive && !isLoading}
                     className="flex items-center button"
                   >
                     <Gamepad2 /> Play
                   </Button>
                   <Button
                     onClick={() => handleAction("Wake up", () => client.actions.revive(account as Account), happy)}
-                    disabled={beast.is_alive}
+                    disabled={!beast.is_alive && !isLoading}
                     className="flex items-center button"
                   >
                     <Sun /> Wake up
                   </Button>
                   <Button
                     onClick={() => handleAction("Revive", () => client.actions.revive(account as Account), happy)}
-                    disabled={!beast.is_alive}
+                    disabled={beast.is_alive && !isLoading}
                     className="flex items-center button"
                   >
                     <Sun /> Revive
