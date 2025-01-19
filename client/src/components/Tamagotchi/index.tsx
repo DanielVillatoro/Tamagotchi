@@ -9,12 +9,8 @@ import { Button } from '../../components/ui/button';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
 import { toast } from "react-hot-toast";
+import initials from "../../data/initials.tsx";
 import Hints from "../Hints/index.tsx";
-import sleep from '../../assets/img/sleep.gif';
-import eat from '../../assets/img/eat.gif';
-import play from '../../assets/img/play.gif';
-import shower from '../../assets/img/shower.gif';
-import happy from '../../assets/img/happy.gif';
 import dead from '../../assets/img/dead.gif';
 import './main.css';
 
@@ -30,11 +26,11 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const { account } = useAccount();
 
   // Animations
-  const [currentImage, setCurrentImage] = useState(happy);
+  const [currentImage, setCurrentImage] = useState(beast ? initials[beast.specie].idlePicture : '');
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
-      setCurrentImage(happy);
+      setCurrentImage(beast ? initials[beast.specie].idlePicture : '');
     }, loadingTime);
   };
   const showDeathAnimation = () => {
@@ -163,42 +159,42 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                 </div>
                 <div className="actions mb-0">
                 <Button
-                    onClick={() => handleAction("Feed", () => client.actions.feed(account as Account), eat)}
+                    onClick={() => handleAction("Feed", () => client.actions.feed(account as Account), initials[beast.specie].eatPicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Pizza /> Feed
                   </Button>
                   <Button
-                    onClick={() => handleAction("Sleep", () => client.actions.sleep(account as Account), sleep)}
+                    onClick={() => handleAction("Sleep", () => client.actions.sleep(account as Account), initials[beast.specie].sleepPicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Coffee /> Sleep
                   </Button>
                   <Button
-                    onClick={() => handleAction("Clean", () => client.actions.clean(account as Account), shower)}
+                    onClick={() => handleAction("Clean", () => client.actions.clean(account as Account), initials[beast.specie].cleanPicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Bath /> Clean
                   </Button>
                   <Button
-                    onClick={() => handleAction("Play", () => client.actions.play(account as Account), play)}
+                    onClick={() => handleAction("Play", () => client.actions.play(account as Account), initials[beast.specie].playPicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Gamepad2 /> Play
                   </Button>
                   <Button
-                    onClick={() => handleAction("Wake up", () => client.actions.revive(account as Account), happy)}
+                    onClick={() => handleAction("Wake up", () => client.actions.revive(account as Account), initials[beast.specie].idlePicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Sun /> Wake up
                   </Button>
                   <Button
-                    onClick={() => handleAction("Revive", () => client.actions.revive(account as Account), happy)}
+                    onClick={() => handleAction("Revive", () => client.actions.revive(account as Account), initials[beast.specie].idlePicture)}
                     disabled={isLoading || beast.is_alive}
                     className="flex items-center button"
                   >

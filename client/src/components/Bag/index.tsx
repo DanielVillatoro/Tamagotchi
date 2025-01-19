@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Schema } from "../../dojo/bindings.ts";
 import { useBeast } from "../../hooks/useBeasts.tsx";
 import { Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react';
-import happy from '../../assets/img/happy.gif';
+import initials from "../../data/initials.tsx";
 import './main.css';
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
@@ -22,7 +22,7 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
               beast &&
               <Link to={`/play`} className="beast" onClick={() => (document.querySelector('.navbar-toggler') as HTMLElement)?.click()}>
                 <div className="d-flex align-items-end">
-                  <img src={happy} alt="beast" />
+                  <img src={initials[beast.specie].idlePicture} alt="beast" />
                   <h4 className="d-flex">
                     <span>{beast.level}</span> Lvl
                   </h4>
