@@ -34,7 +34,9 @@ export const useBeast = (sdk: SDK<Schema>) => {
             Beast: {
               $: {
                 where: {
-
+                  // player: {
+                  //   $is: addAddressPadding(account.address),
+                  // },
                 },
               },
             },
@@ -72,6 +74,9 @@ export const useBeast = (sdk: SDK<Schema>) => {
               Beast: {
                 $: {
                   where: {
+                    // player: {
+                    //   $eq: addAddressPadding(account.address),
+                    // },
                   },
                 },
               },
