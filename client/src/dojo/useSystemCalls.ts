@@ -1,5 +1,5 @@
 import { useAccount, } from "@starknet-react/core";
-import { getEntityIdFromKeys } from "@dojoengine/utils";
+// import { getEntityIdFromKeys } from "@dojoengine/utils";
 import { useDojoStore } from "../main";
 import { useDojo } from "./useDojo";
 import { v4 as uuidv4 } from "uuid";
@@ -13,17 +13,16 @@ export const useSystemCalls = () => {
         setup: { client },
     } = useDojo();
 
-    const generateEntityId = () => {
-        return account?.address ? getEntityIdFromKeys([BigInt(account.address)]) : null;
-    };
+    // const generateEntityId = () => {
+    //     return account?.address ? getEntityIdFromKeys([BigInt(account.address)]) : null;
+    // };
 
-    const spawn = async () => {
+    const spawn = async (specie:number) => {
 
-        console.log(account);
 
         // Generate a unique entity ID
-        const entityId = generateEntityId();
-        console.log(entityId);
+        // const entityId = generateEntityId();
+
 
         // Generate a unique transaction ID
         const transactionId = uuidv4();
@@ -41,7 +40,7 @@ export const useSystemCalls = () => {
         try {
             // Execute the spawn action from the client
             if (account) {
-                await client.actions.spawn(account as Account);
+                await client.actions.spawn(account as Account, specie);
             } else {
                 throw new Error("Account is undefined");
             }

@@ -4,14 +4,14 @@ import * as models from "./models.gen";
 
 export async function setupWorld(provider: DojoProvider) {
 
-	const actions_spawn = async (snAccount: Account | AccountInterface) => {
+	const actions_spawn = async (snAccount: Account | AccountInterface, specie: BigNumberish) => {
 		try {
 			return await provider.execute(
 				snAccount,
 				{
 					contractName: "actions",
 					entrypoint: "spawn",
-					calldata: [],
+					calldata: [specie],
 				},
 				"babybeasts",
 			);

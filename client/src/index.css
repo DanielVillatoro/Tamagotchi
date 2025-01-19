@@ -78,6 +78,7 @@ a:visited {
   height: 300px;
   border: 2px solid #e4a101;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .cover .connect-btn {
@@ -89,8 +90,6 @@ a:visited {
   height: 60px;
   font-size: 20px;
 }
-
-
 
 .footer img {
   max-width: unset;
@@ -129,7 +128,7 @@ a:visited {
   display: flex;
   align-items: center;
   justify-content: space-center;
-  font-size: 14px;
+  font-size: 20px;
   border: 2px solid #e4a101;
   background-color: #370001;
   color: #fff;

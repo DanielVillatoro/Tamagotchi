@@ -4,35 +4,35 @@ import { Connector } from "@starknet-react/core";
 
 const policies: Policy[] = [
   {
-    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
+    target: '0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99',
     method: "spawn",
   },
   {
-    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
+    target: '0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99',
     method: "decrease_stats",
   },
   {
-    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
+    target: '0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99',
     method: "feed",
   },
   {
-    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
+    target: '0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99',
     method: "sleep",
   },
   {
-    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
+    target: '0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99',
     method: "awake",
   },
   {
-    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
+    target: '0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99',
     method: "play",
   },
   {
-    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
+    target: '0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99',
     method: "clean",
   },
   {
-    target: '0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132',
+    target: '0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99',
     method: "revive",
   },
 ]
@@ -40,7 +40,7 @@ const policies: Policy[] = [
 // Configuración básica del conector
 const cartridgeConnector = new ControllerConnector({
   policies,
-  rpc: "https://api.cartridge.gg/x/byby/katana",
+  rpc: "https://api.cartridge.gg/x/babyb/katana",
 }) as never as Connector;
 
 export default cartridgeConnector;

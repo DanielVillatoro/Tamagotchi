@@ -81,6 +81,8 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
     }
   };
 
+  console.log(`Beast: ${beast}`);
+
   return (
     <>
       <div className="tamaguchi">

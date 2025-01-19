@@ -2,6 +2,7 @@ import { useAccount } from "@starknet-react/core";
 import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import initials, { Initial } from "../../data/initials";
 import './main.css';
+import Hints from "../Hints/index.tsx";
 
 function SpawnBeast() {
   const { spawn } = useSystemCalls();
@@ -28,7 +29,7 @@ function SpawnBeast() {
                 disabled={account ? false : true}
                 className="button"
                 onClick={async () => {
-                  await spawn();
+                  await spawn(i + 1);
                   location.reload();
                 }}>Spawn
               </button>
@@ -36,6 +37,7 @@ function SpawnBeast() {
           </div>
         )
       })}
+      <Hints />
     </div>
   );
 }

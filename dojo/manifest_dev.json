@@ -1252,8 +1252,8 @@
   },
   "contracts": [
     {
-      "address": "0x7d4be2fe2654a38088a333a0e5ba20187c686c1729dfde7ae9f4ec45c7ae132",
-      "class_hash": "0x2474c56e784b60e84d8f8d045578c75fc7f88bacae2244137fd649cb8cdcafe",
+      "address": "0x64a20c916bae2736e2d12f323b2e002e48497554642aa388cbd08a8686e5b99",
+      "class_hash": "0x3b4cf8dadaad3d4c0c58524ce44265a50e9fcf8b7901e78d33e8694b353a69d",
       "abi": [
         {
           "type": "impl",
@@ -1317,7 +1317,12 @@
             {
               "type": "function",
               "name": "spawn",
-              "inputs": [],
+              "inputs": [
+                {
+                  "name": "specie",
+                  "type": "core::integer::u32"
+                }
+              ],
               "outputs": [],
               "state_mutability": "external"
             },
@@ -1506,7 +1511,7 @@
   "models": [
     {
       "members": [],
-      "class_hash": "0x6f7dd53bca9416a08a2e220294e4d7d0a7d37efb2e0cea000175806847e68f1",
+      "class_hash": "0x65f17584324ef98cec11e85e0f4d5031218cd49b0f3055881947e5206657d43",
       "tag": "babybeasts-Beast",
       "selector": "0x732389d6015adc6fe9f89178baa6ca00bedabbf5112ada86e346b35dc00f52d"
     }
