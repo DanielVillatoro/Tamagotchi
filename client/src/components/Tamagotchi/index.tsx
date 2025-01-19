@@ -27,10 +27,14 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   // Animations
   const [currentImage, setCurrentImage] = useState(beast ? initials[beast.specie - 1].idlePicture : '');
-
+  const [firstTime, isFirstTime] = useState(true);
+  
   useEffect(() => {
-    setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '');
-  }, []);
+    if (firstTime && beast) {
+      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '')
+      isFirstTime(false);
+    }
+  }, [beast]);
 
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
