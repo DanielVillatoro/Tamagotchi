@@ -26,6 +26,12 @@
   border-radius: 10px;
 }
 
+.beast-pic {
+  width: 30%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .beast img {
   width: 100%;
   height: auto;

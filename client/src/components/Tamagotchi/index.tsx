@@ -26,11 +26,11 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const { account } = useAccount();
 
   // Animations
-  const [currentImage, setCurrentImage] = useState(beast ? initials[beast.specie].idlePicture : '');
+  const [currentImage, setCurrentImage] = useState(beast ? initials[beast.specie - 1].idlePicture : '');
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
-      setCurrentImage(beast ? initials[beast.specie].idlePicture : '');
+      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '');
     }, loadingTime);
   };
   const showDeathAnimation = () => {
@@ -159,42 +159,42 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                 </div>
                 <div className="actions mb-0">
                 <Button
-                    onClick={() => handleAction("Feed", () => client.actions.feed(account as Account), initials[beast.specie].eatPicture)}
+                    onClick={() => handleAction("Feed", () => client.actions.feed(account as Account), initials[beast.specie - 1].eatPicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Pizza /> Feed
                   </Button>
                   <Button
-                    onClick={() => handleAction("Sleep", () => client.actions.sleep(account as Account), initials[beast.specie].sleepPicture)}
+                    onClick={() => handleAction("Sleep", () => client.actions.sleep(account as Account), initials[beast.specie - 1].sleepPicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Coffee /> Sleep
                   </Button>
                   <Button
-                    onClick={() => handleAction("Clean", () => client.actions.clean(account as Account), initials[beast.specie].cleanPicture)}
+                    onClick={() => handleAction("Clean", () => client.actions.clean(account as Account), initials[beast.specie - 1].cleanPicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Bath /> Clean
                   </Button>
                   <Button
-                    onClick={() => handleAction("Play", () => client.actions.play(account as Account), initials[beast.specie].playPicture)}
+                    onClick={() => handleAction("Play", () => client.actions.play(account as Account), initials[beast.specie - 1].playPicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Gamepad2 /> Play
                   </Button>
                   <Button
-                    onClick={() => handleAction("Wake up", () => client.actions.revive(account as Account), initials[beast.specie].idlePicture)}
+                    onClick={() => handleAction("Wake up", () => client.actions.revive(account as Account), initials[beast.specie - 1].idlePicture)}
                     disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Sun /> Wake up
                   </Button>
                   <Button
-                    onClick={() => handleAction("Revive", () => client.actions.revive(account as Account), initials[beast.specie].idlePicture)}
+                    onClick={() => handleAction("Revive", () => client.actions.revive(account as Account), initials[beast.specie - 1].idlePicture)}
                     disabled={isLoading || beast.is_alive}
                     className="flex items-center button"
                   >
