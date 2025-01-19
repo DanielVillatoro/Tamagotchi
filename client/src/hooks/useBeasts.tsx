@@ -88,6 +88,7 @@ export const useBeast = (sdk: SDK<Schema>) => {
               return;
             }
             if (resp.data) {
+              console.log("resp.data:", resp.data);
               state.setEntities(resp.data);
             }
           }

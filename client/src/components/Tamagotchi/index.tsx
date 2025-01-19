@@ -56,8 +56,6 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   // Helper to wrap Dojo actions with toast
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
     setIsLoading(true);
-    console.log(`Performing ${actionName}...`);
-    console.log(`Beast is alive: ${beast?.is_alive}`);
     showAnimation(animation);
     try {
       await toast.promise(
@@ -68,7 +66,6 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
           error: `Failed to perform ${actionName}. Please try again.`,
         }
       );
-      console.log(`${toast} completed successfully!`);
       setTimeout(() => setIsLoading(false), loadingTime);
     } catch (error) {
       setIsLoading(false);
@@ -76,8 +73,6 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
       toast.error(`An error occurred while performing ${actionName}`);
     }
   };
-
-  console.log('beast', beast);
 
   return (
     <>
