@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   flex-direction: row;
   align-content: space-between;
+  width: 100%;
 }
 
 .bag .eggs {

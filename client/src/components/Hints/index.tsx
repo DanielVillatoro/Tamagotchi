@@ -12,7 +12,7 @@ function Hints() {
         setCurrentHint((prevHint) => (prevHint + 1) % hints.length);
         setFade(true);
       }, 1000);
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);

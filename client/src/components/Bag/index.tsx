@@ -8,12 +8,15 @@ import './main.css';
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
 
-  let beast = useBeast(sdk);
+  const beast = useBeast(sdk);
 
   return (
     <>
       <div className="bag">
         <div className="eggs">
+          <p className={'title mb-4'}>
+            Here are your <span>BabyBeasts</span>
+          </p>
           <div>
             {
               beast &&
