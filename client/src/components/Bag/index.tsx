@@ -7,6 +7,7 @@ import initials from "../../data/initials.tsx";
 import './main.css';
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
+  // Trigger
 
   const beast = useBeast(sdk);
 
