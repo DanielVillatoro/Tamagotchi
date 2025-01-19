@@ -30,7 +30,7 @@ function SpawnBeast() {
                 className="button"
                 onClick={async () => {
                   await spawn(i + 1);
-                  location.reload();
+                  (document.querySelector('.navbar-toggler') as HTMLElement)?.click();
                 }}>Spawn
               </button>
             </div>

@@ -27,6 +27,11 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   // Animations
   const [currentImage, setCurrentImage] = useState(beast ? initials[beast.specie - 1].idlePicture : '');
+
+  useEffect(() => {
+    setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '');
+  }, [beast]);
+
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
