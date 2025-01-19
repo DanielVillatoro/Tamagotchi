@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { SDK } from "@dojoengine/sdk";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
-// import { addAddressPadding } from "starknet";
+import { addAddressPadding } from "starknet";
 import { Models, Schema } from "../dojo/bindings.ts";
 import { useAccount } from "@starknet-react/core";
 import useModel from "../dojo/useModel.tsx";
@@ -17,7 +17,6 @@ export const useBeast = (sdk: SDK<Schema>) => {
   );
 
   const beastData = useModel(entityId ?? "", Models.Beast);
-  console.log("beastData:", beastData);
   const [beast, setBeast] = useState(beastData);
 
   useEffect(() => {
@@ -34,7 +33,11 @@ export const useBeast = (sdk: SDK<Schema>) => {
           babybeasts: {
             Beast: {
               $: {
-                where: {},
+                where: {
+                  player: {
+                    $is: addAddressPadding(account.address),
+                  },
+                },
               },
             },
           },
@@ -70,7 +73,11 @@ export const useBeast = (sdk: SDK<Schema>) => {
             babybeasts: {
               Beast: {
                 $: {
-                  where: {},
+                  where: {
+                    player: {
+                      $eq: addAddressPadding(account.address),
+                    },
+                  },
                 },
               },
             },
