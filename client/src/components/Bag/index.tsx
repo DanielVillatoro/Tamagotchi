@@ -21,7 +21,7 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
             {
               beast &&
               <Link to={`/play`} className="beast" onClick={() => (document.querySelector('.navbar-toggler') as HTMLElement)?.click()}>
-                <div className="d-flex align-items-end">
+                <div className="beast-pic d-flex align-items-end">
                   <img src={initials[beast.specie - 1].idlePicture} alt="beast" />
                   <h4 className="d-flex">
                     <span>{beast.level}</span> Lvl
