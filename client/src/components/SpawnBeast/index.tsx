@@ -9,31 +9,33 @@ function SpawnBeast() {
 
   return (
     <div className="spawn-beast">
-      <div className="initial-beasts">
-        {initials.map((beast: Initial, i) => {
-          return (
-            <div key={i} className="initial-beast">
-              <img src={beast.idlePicture} alt="beast" />
-              <div className="initial-info">
-                <h4>
-                  {beast.name}
-                </h4>
-                <p>
-                  {beast.description}
-                </p>
-                <button
-                  disabled={account ? false : true}
-                  className="button"
-                  onClick={async () => {
-                    await spawn();
-                    location.reload();
-                  }}>Spawn
-                </button>
-              </div>
+      <p className={'title mb-4'}>
+        Collect them all!
+        <span className='d-block'>There are many species</span>
+      </p>
+      {initials.map((beast: Initial, i) => {
+        return (
+          <div key={i} className="initial-beast">
+            <img src={beast.idlePicture} alt="beast" />
+            <div className="initial-info">
+              <h4>
+                {beast.name}
+              </h4>
+              <p>
+                {beast.description}
+              </p>
+              <button
+                disabled={account ? false : true}
+                className="button"
+                onClick={async () => {
+                  await spawn();
+                  location.reload();
+                }}>Spawn
+              </button>
             </div>
-          )
-        })}
-      </div>
+          </div>
+        )
+      })}
     </div>
   );
 }

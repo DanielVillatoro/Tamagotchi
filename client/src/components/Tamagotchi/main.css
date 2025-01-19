@@ -7,8 +7,7 @@
 
 /* Container for the tamagotchi */
 .tamagotchi-image-container {
-  border: 3px solid #370001; 
-  border-radius: 18px;
+  border: 2px solid #370001; 
   padding: 10px;
   position: relative;
   overflow: hidden;
@@ -61,8 +60,6 @@
 }
 
 .scenario {
-  border-radius: 18px;
-  margin-bottom: 16px;
   background-image: url('../../assets/img/scenario-light.jpeg');
   background-repeat: no-repeat;
   background-position: center;
@@ -72,9 +69,11 @@
 
 .level {
   position: absolute;
-  left: 15px;
-  top: -45px;
+  left: 0;
+  top: 0;
   color: #e4a101;
+  background-color: rgba(55, 0, 1, 0.5);
+  padding: 7px 12px;
 }
 
 .level span {
@@ -128,14 +127,18 @@
 }
 
 .status {
-  width: 85%;
-  margin-bottom: 30px;
+  width: 100%;
+  background-color: rgba(55, 0, 1, 0.5);
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .stats {
   width: 60%;
   position: absolute;
-  top: -45px;
-  right: 10px;
+  top: 0;
+  right: 0;
+  background-color: rgba(55, 0, 1, 0.5);
+  padding: 7px 10px;
 }
 

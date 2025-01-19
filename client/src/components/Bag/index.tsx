@@ -3,29 +3,21 @@ import { Link } from 'react-router-dom';
 import { Schema } from "../../dojo/bindings.ts";
 import { useBeast } from "../../hooks/useBeasts.tsx";
 import { Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react';
-import './main.css';
-
 import happy from '../../assets/img/happy.gif';
-// import beastie from "../../data/beast.tsx";
+import './main.css';
 
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
 
   let beast = useBeast(sdk);
 
-  // const beast = beastie;
-
   return (
     <>
       <div className="bag">
         <div className="eggs">
-          <p className={'title text-center mb-4'}>
-            Collect them all!
-            <span className='d-block'>There are many species</span>
-          </p>
           <div>
             {
               beast &&
-              <Link to={`/play`} className="beast">
+              <Link to={`/play`} className="beast" onClick={() => (document.querySelector('.navbar-toggler') as HTMLElement)?.click()}>
                 <div className="d-flex align-items-end">
                   <img src={happy} alt="beast" />
                   <h4 className="d-flex">

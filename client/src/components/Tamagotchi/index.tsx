@@ -9,6 +9,7 @@ import { Button } from '../../components/ui/button';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
 import { toast } from "react-hot-toast";
+import Hints from "../Hints/index.tsx";
 import sleep from '../../assets/img/sleep.gif';
 import eat from '../../assets/img/eat.gif';
 import play from '../../assets/img/play.gif';
@@ -202,7 +203,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                     <Sun /> Revive
                   </Button>
                 </div>
-                <p className="info mt-3">You can revive your baby beast, but this one is gonna loose the experience earhed</p>
+                <Hints />
               </div>
             </CardContent>
           </Card>

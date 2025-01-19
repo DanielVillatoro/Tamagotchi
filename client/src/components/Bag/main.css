@@ -14,9 +14,8 @@
   margin: 0 auto 10px;
   padding: 15px 10px;
   background-color: #2c0001;
-  border: 3px solid #e4a101;
+  border: 2px solid #e4a101;
   overflow: hidden;
-  border-radius: 15px;
   background-image: url('../../assets/img/scenario.jpeg');
   background-repeat: no-repeat;
   background-position: center;
@@ -52,6 +51,5 @@
   align-items: center;
   width: 55%;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
+  background-color: rgba(55, 0, 1, 0.5);
 }

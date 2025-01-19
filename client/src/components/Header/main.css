@@ -35,7 +35,7 @@
 .navbar-toggler:focus,
 .navbar-toggler:active {
   outline: none;
-  box-shadow: 0;
+  box-shadow: none;
 }
 
 .navbar .sheep {
@@ -47,7 +47,8 @@
 
 .navbar .connect-btn {
   margin: 0 0 10px;
-  height: 50px;
+  height: 60px;
+  font-size: 20px;
   text-align: center;
   width: 100%;
   display: flex;
@@ -68,4 +69,7 @@
   background-size: cover;
   padding: 15px;
   overflow-y: scroll;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
 }

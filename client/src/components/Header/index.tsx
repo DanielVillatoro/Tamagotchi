@@ -1,13 +1,13 @@
 import { SDK } from "@dojoengine/sdk";
 import { Schema } from "../../dojo/bindings.ts";
 import { useAccount } from "@starknet-react/core";
+import { Link } from "react-router-dom";
 import Bag from '../Bag';
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton';
 import Music from '../Music';
 import sheep from '../../assets/img/sheep.gif';
 import monster from '../../assets/img/logo.jpeg';
 import './main.css';
-import { Link } from "react-router-dom";
 
 function Header({ sdk }: { sdk: SDK<Schema> }) {
   const { account } = useAccount();
@@ -27,10 +27,8 @@ function Header({ sdk }: { sdk: SDK<Schema> }) {
         </div>
         <div className="collapse navbar-collapse menu" id="menu">
           <Bag sdk={sdk} />
-          <div>
           { account && <Link className="connect-btn" to="/" onClick={() => (document.querySelector('.navbar-toggler') as HTMLElement)?.click()}>Spawn new Beast</Link> }
-            <ControllerConnectButton />
-          </div>
+          <ControllerConnectButton />
         </div>
       </nav>
     </>
