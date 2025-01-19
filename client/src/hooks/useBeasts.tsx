@@ -17,6 +17,7 @@ export const useBeast = (sdk: SDK<Schema>) => {
   );
 
   const beastData = useModel(entityId ?? "", Models.Beast);
+  console.log("beastData:", beastData);
   const [beast, setBeast] = useState(beastData);
 
   useEffect(() => {
