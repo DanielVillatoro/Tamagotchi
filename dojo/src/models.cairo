@@ -5,6 +5,7 @@ use starknet::ContractAddress;
 pub struct Beast {
     #[key]
     pub player: ContractAddress,
+    pub specie: u32,
     pub is_alive: bool,
     pub is_awake: bool,
     pub hunger: u32,

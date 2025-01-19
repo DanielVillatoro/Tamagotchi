@@ -2,7 +2,7 @@ use babybeasts::models::Beast;
 
 #[starknet::interface]
 trait IActions<T> {
-    fn spawn(ref self: T);
+    fn spawn(ref self: T, specie: u32);
     fn decrease_stats(ref self: T);
     fn feed(ref self: T);
     fn sleep(ref self: T);
@@ -23,12 +23,13 @@ pub mod actions {
 
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
-        fn spawn(ref self: ContractState) {
+        fn spawn(ref self: ContractState, specie: u32) {
             let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
 
             let initial_stats = Beast {
                 player: player,
+                specie: specie,
                 is_alive: true,
                 is_awake: true,
                 hunger: 100,
