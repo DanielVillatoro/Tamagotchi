@@ -74,11 +74,7 @@ export const useBeast = (sdk: SDK<Schema>) => {
             babybeasts: {
               Beast: {
                 $: {
-                  where: {
-                    player: {
-                      $eq: addAddressPadding(account.address),
-                    },
-                  },
+                  where: {},
                 },
               },
             },
