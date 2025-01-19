@@ -15,7 +15,7 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
       <div className="bag">
         <div className="eggs">
           <p className={'title mb-4'}>
-            Here are your <span>BabyBeasts</span>
+            Here will appear your <span>BabyBeasts</span>
           </p>
           <div>
             {
