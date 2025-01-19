@@ -30,7 +30,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   useEffect(() => {
     setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '');
-  }, [beast]);
+  }, []);
 
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
