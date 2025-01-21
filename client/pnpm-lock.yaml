@@ -41,6 +41,9 @@ importers:
       '@starknet-react/core':
         specifier: ^3.5.0
         version: 3.5.0(get-starknet-core@3.3.4(starknet@6.11.0(encoding@0.1.13)))(react@18.3.1)(starknet@6.11.0(encoding@0.1.13))(typescript@5.6.3)
+      '@types/node':
+        specifier: ^22.10.7
+        version: 22.10.7
       '@types/uuid':
         specifier: ^10.0.0
         version: 10.0.0
@@ -79,13 +82,13 @@ importers:
         version: 10.0.0
       vite-plugin-pwa:
         specifier: ^0.20.0
-        version: 0.20.5(vite@5.4.10(terser@5.37.0))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
+        version: 0.20.5(vite@5.4.10(@types/node@22.10.7)(terser@5.37.0))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
       vite-plugin-top-level-await:
         specifier: ^1.4.4
-        version: 1.4.4(rollup@2.79.2)(vite@5.4.10(terser@5.37.0))
+        version: 1.4.4(rollup@2.79.2)(vite@5.4.10(@types/node@22.10.7)(terser@5.37.0))
       vite-plugin-wasm:
         specifier: ^3.3.0
-        version: 3.3.0(vite@5.4.10(terser@5.37.0))
+        version: 3.3.0(vite@5.4.10(@types/node@22.10.7)(terser@5.37.0))
       zustand:
         specifier: ^4.5.5
         version: 4.5.5(@types/react@18.3.12)(immer@10.1.1)(react@18.3.1)
@@ -104,7 +107,7 @@ importers:
         version: 17.0.26(@types/react@18.3.12)
       '@vitejs/plugin-react':
         specifier: ^4.3.1
-        version: 4.3.3(vite@5.4.10(terser@5.37.0))
+        version: 4.3.3(vite@5.4.10(@types/node@22.10.7)(terser@5.37.0))
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
@@ -134,7 +137,7 @@ importers:
         version: 8.13.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)
       vite:
         specifier: ^5.4.7
-        version: 5.4.10(terser@5.37.0)
+        version: 5.4.10(@types/node@22.10.7)(terser@5.37.0)
 
 packages:
 
@@ -1368,6 +1371,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/node@22.10.7':
+    resolution: {integrity: sha512-V09KvXxFiutGp6B7XkpaDXlNadZxrzajcY50EuoLIpQ6WWYCSvf19lVIazzfIzQvhUN2HjX12spLojTnhuKlGg==}
 
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
@@ -3047,6 +3053,9 @@ packages:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
 
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+
   unicode-canonical-property-names-ecmascript@2.0.1:
     resolution: {integrity: sha512-dA8WbNeb2a6oQzAQ55YlT5vQAWGV9WXOsi3SskE3bcCdM0P4SDd+24zS/OCacdRq5BkdsRj9q3Pg6YyQoxIGqg==}
     engines: {node: '>=4'}
@@ -4665,6 +4674,10 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
+  '@types/node@22.10.7':
+    dependencies:
+      undici-types: 6.20.0
+
   '@types/prop-types@15.7.13': {}
 
   '@types/react-dom@17.0.26(@types/react@18.3.12)':
@@ -4763,14 +4776,14 @@ snapshots:
       '@typescript-eslint/types': 8.13.0
       eslint-visitor-keys: 3.4.3
 
-  '@vitejs/plugin-react@4.3.3(vite@5.4.10(terser@5.37.0))':
+  '@vitejs/plugin-react@4.3.3(vite@5.4.10(@types/node@22.10.7)(terser@5.37.0))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.10(terser@5.37.0)
+      vite: 5.4.10(@types/node@22.10.7)(terser@5.37.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -6516,6 +6529,8 @@ snapshots:
       has-symbols: 1.1.0
       which-boxed-primitive: 1.1.1
 
+  undici-types@6.20.0: {}
+
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 
   unicode-match-property-ecmascript@2.0.0:
@@ -6602,37 +6617,38 @@ snapshots:
       - utf-8-validate
       - zod
 
-  vite-plugin-pwa@0.20.5(vite@5.4.10(terser@5.37.0))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0):
+  vite-plugin-pwa@0.20.5(vite@5.4.10(@types/node@22.10.7)(terser@5.37.0))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0):
     dependencies:
       debug: 4.3.7
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.10
-      vite: 5.4.10(terser@5.37.0)
+      vite: 5.4.10(@types/node@22.10.7)(terser@5.37.0)
       workbox-build: 7.3.0(@types/babel__core@7.20.5)
       workbox-window: 7.3.0
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-top-level-await@1.4.4(rollup@2.79.2)(vite@5.4.10(terser@5.37.0)):
+  vite-plugin-top-level-await@1.4.4(rollup@2.79.2)(vite@5.4.10(@types/node@22.10.7)(terser@5.37.0)):
     dependencies:
       '@rollup/plugin-virtual': 3.0.2(rollup@2.79.2)
       '@swc/core': 1.8.0
       uuid: 10.0.0
-      vite: 5.4.10(terser@5.37.0)
+      vite: 5.4.10(@types/node@22.10.7)(terser@5.37.0)
     transitivePeerDependencies:
       - '@swc/helpers'
       - rollup
 
-  vite-plugin-wasm@3.3.0(vite@5.4.10(terser@5.37.0)):
+  vite-plugin-wasm@3.3.0(vite@5.4.10(@types/node@22.10.7)(terser@5.37.0)):
     dependencies:
-      vite: 5.4.10(terser@5.37.0)
+      vite: 5.4.10(@types/node@22.10.7)(terser@5.37.0)
 
-  vite@5.4.10(terser@5.37.0):
+  vite@5.4.10(@types/node@22.10.7)(terser@5.37.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
       rollup: 4.24.4
     optionalDependencies:
+      '@types/node': 22.10.7
       fsevents: 2.3.3
       terser: 5.37.0
 
