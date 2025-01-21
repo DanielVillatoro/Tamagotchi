@@ -11,13 +11,11 @@ const ControllerConnectButton = () => {
     <>
       {connectors.map((connector) => (
         status === "connected" ? (
-          <Link to="/" key={connector.id}>
-            <button className="connect-btn" onClick={() => {
-              disconnect();
-              (document.querySelector('.navbar-toggler') as HTMLElement)?.click();
-              }}>
-              Disconnect ...{address?.slice(-6)}
-            </button>
+          <Link to="/" key={connector.id} className="connect-btn" onClick={() => {
+            disconnect();
+            (document.querySelector('.navbar-toggler') as HTMLElement)?.click();
+            }}>
+            Disconnect ...{address?.slice(-6)}
           </Link>
         ) : (
           <button

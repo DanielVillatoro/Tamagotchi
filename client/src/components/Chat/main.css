@@ -22,7 +22,6 @@
   padding: 20px 10px;
   margin-bottom: 10px;
   font-size: 18px;
-  border-radius: 15px;
 }
 
 .user {
@@ -42,7 +41,6 @@
   height: 55px;
   padding: 10px;
   font-size: 18px;
-  border-radius: 8px;
   margin-bottom: 12px;
   background-color: transparent;
   color: #fff;

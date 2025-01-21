@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { SDK } from "@dojoengine/sdk";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
-import { addAddressPadding } from "starknet";
+// import { addAddressPadding } from "starknet";
 import { Models, Schema } from "../dojo/bindings.ts";
 import { useAccount } from "@starknet-react/core";
 import useModel from "../dojo/useModel.tsx";
@@ -34,9 +34,9 @@ export const useBeast = (sdk: SDK<Schema>) => {
             Beast: {
               $: {
                 where: {
-                  player: {
-                    $is: addAddressPadding(account.address),
-                  },
+                  // player: {
+                  //   $is: addAddressPadding(account.address),
+                  // },
                 },
               },
             },
@@ -74,9 +74,9 @@ export const useBeast = (sdk: SDK<Schema>) => {
               Beast: {
                 $: {
                   where: {
-                    player: {
-                      $eq: addAddressPadding(account.address),
-                    },
+                    // player: {
+                    //   $eq: addAddressPadding(account.address),
+                    // },
                   },
                 },
               },
@@ -88,6 +88,7 @@ export const useBeast = (sdk: SDK<Schema>) => {
               return;
             }
             if (resp.data) {
+              console.log("resp.data:", resp.data);
               state.setEntities(resp.data);
             }
           }

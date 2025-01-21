@@ -56,9 +56,9 @@ async function main() {
             provider={provider}
           >
             <Router>
-            <Header />
+            <Header sdk={sdk} />
               <Routes>
-                <Route path='/' element={<Cover sdk={sdk} />}/>
+                <Route path='/' element={<Cover />}/>
                 <Route path='/play' element={<Tamagotchi sdk={sdk} />} />
               </Routes>
             </Router>

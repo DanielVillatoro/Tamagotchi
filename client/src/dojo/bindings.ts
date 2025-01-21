@@ -4,6 +4,7 @@ import type { SchemaType } from "@dojoengine/sdk";
 export interface Beast {
 	fieldOrder: string[];
 	player: string;
+	specie: number;
 	is_alive: boolean;
 	is_awake: boolean;
 	hunger: number;
@@ -25,6 +26,8 @@ export interface Beast {
 // Type definition for `babybeasts::models::BeastValue` struct
 export interface BeastValue {
 	fieldOrder: string[];
+	player: string;
+	specie: number;
 	is_alive: boolean;
 	is_awake: boolean;
 	hunger: number;
@@ -62,6 +65,7 @@ export const schema: Schema = {
 		Beast: {
 			fieldOrder: ['player', 'is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
 			player: "",
+			specie: 1,
 			is_alive: false,
 			is_awake: false,
 			hunger: 0,
@@ -81,6 +85,8 @@ export const schema: Schema = {
 		},
 		BeastValue: {
 			fieldOrder: ['is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
+			player: "",
+			specie: 1,
 			is_alive: false,
 			is_awake: false,
 			hunger: 0,

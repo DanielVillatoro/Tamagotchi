@@ -8,18 +8,16 @@ import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
-import sleep from '../../assets/img/sleep.gif';
-import eat from '../../assets/img/eat.gif';
-import play from '../../assets/img/play.gif';
-import shower from '../../assets/img/shower.gif';
-import happy from '../../assets/img/happy.gif';
+import { toast } from "react-hot-toast";
+import initials from "../../data/initials.tsx";
+import Hints from "../Hints/index.tsx";
 import dead from '../../assets/img/dead.gif';
 import './main.css';
-import { toast } from "react-hot-toast";
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const beast = useBeast(sdk);
-  const [isGlowing, setIsGlowing] = useState(false);
+  const loadingTime = 6000;
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     setup: { client },
@@ -28,23 +26,24 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const { account } = useAccount();
 
   // Animations
-  const [currentImage, setCurrentImage] = useState(happy);
-  const showAnimationWithoutTimer = (gifPath: string) => {
-    setCurrentImage(gifPath);
-  };
+  const [currentImage, setCurrentImage] = useState(beast ? initials[beast.specie - 1].idlePicture : '');
+  const [firstTime, isFirstTime] = useState(true);
+  
+  useEffect(() => {
+    if (firstTime && beast) {
+      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '')
+      isFirstTime(false);
+    }
+  }, [beast]);
+
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
-      setCurrentImage(happy);
-    }, 1000000);
+      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '');
+    }, loadingTime);
   };
   const showDeathAnimation = () => {
     setCurrentImage(dead);
-  };
-
-  const triggerGlow = () => {
-    setIsGlowing(true);
-    setTimeout(() => setIsGlowing(false), 4000);
   };
 
   useEffect(() => {
@@ -65,8 +64,9 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   // Helper to wrap Dojo actions with toast
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
+    setIsLoading(true);
+    showAnimation(animation);
     try {
-      triggerGlow();
       await toast.promise(
         actionFn(),
         {
@@ -75,8 +75,9 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
           error: `Failed to perform ${actionName}. Please try again.`,
         }
       );
-      showAnimation(animation);
+      setTimeout(() => setIsLoading(false), loadingTime);
     } catch (error) {
+      setIsLoading(false);
       console.error(error);
       toast.error(`An error occurred while performing ${actionName}`);
     }
@@ -100,31 +101,31 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                         <Swords />
                         <span>{Math.round(beast.attack)}</span>
                       </div>
-                      <p className="info">Attack</p>
+                      <p>Attack</p>
                     </div>
                     <div className="item">
                       <div>
                         <ShieldPlus />
                         <span>{Math.round(beast.defense)}</span>
                       </div>
-                      <p className="info">Defense</p>
+                      <p>Defense</p>
                     </div>
                     <div className="item">
                       <div>
                         <CircleGauge />
                         <span>{Math.round(beast.speed)}</span>
                       </div>
-                      <p className="info">Speed</p>
+                      <p>Speed</p>
                     </div>
                     <div className="item">
                       <div>
                         <TestTubeDiagonal />
                         <span>{(beast.experience)}</span>
                       </div>
-                      <p className="info">Experience</p>
+                      <p>Experience</p>
                     </div>
                   </div>
-                  <div className={`tamagotchi-image-container ${isGlowing ? "glow" : ""}`}>
+                  <div className={`tamagotchi-image-container ${isLoading ? "glow" : ""}`}>
                     <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
                   </div>
                 </div>
@@ -135,78 +136,76 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                         <Heart />
                         <span>{Math.round(beast.energy)}%</span>
                       </div>
-                      <p className="info">Energy</p>
+                      < p>Energy</p>
                     </div>
                     <div className="item">
                       <div>
                         <Coffee />
                         <span  >{Math.round(beast.hunger)}%</span>
                       </div>
-                      <p className="info">Hunger</p>
+                      <p>Hunger</p>
                     </div>
                     <div className="item">
                       <div>
                         <Gamepad2 />
                         <span  >{Math.round(beast.happiness)}%</span>
                       </div>
-
-                      <p className="info">Happiness</p>
+                      <p>Happiness</p>
                     </div>
                     <div className="item">
                       <div>
                         <Bath />
-                        <span  >{Math.round(beast.hygiene)}%</span>
+                        <span>{Math.round(beast.hygiene)}%</span>
                       </div>
-
-                      <p className="info">Hygiene</p>
+                      <p>Hygiene</p>
                     </div>
                   </div>
                 </div>
                 <div className="actions mb-0">
                 <Button
-                    onClick={() => handleAction("Feed", () => client.actions.feed(account as Account), eat)}
-                    disabled={!beast.is_alive}
+                    onClick={() => handleAction("Feed", () => client.actions.feed(account as Account), initials[beast.specie - 1].eatPicture)}
+                    disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Pizza /> Feed
                   </Button>
                   <Button
-                    onClick={() => handleAction("Sleep", () => client.actions.sleep(account as Account), sleep)}
-                    disabled={!beast.is_alive}
+                    onClick={() => handleAction("Sleep", () => client.actions.sleep(account as Account), initials[beast.specie - 1].sleepPicture)}
+                    disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Coffee /> Sleep
                   </Button>
                   <Button
-                    onClick={() => handleAction("Clean", () => client.actions.clean(account as Account), shower)}
-                    disabled={!beast.is_alive}
+                    onClick={() => handleAction("Clean", () => client.actions.clean(account as Account), initials[beast.specie - 1].cleanPicture)}
+                    disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Bath /> Clean
                   </Button>
                   <Button
-                    onClick={() => handleAction("Play", () => client.actions.play(account as Account), play)}
-                    disabled={!beast.is_alive}
+                    onClick={() => handleAction("Play", () => client.actions.play(account as Account), initials[beast.specie - 1].playPicture)}
+                    disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Gamepad2 /> Play
                   </Button>
                   <Button
-                    onClick={() => handleAction("Wake up", () => client.actions.revive(account as Account), happy)}
-                    disabled={beast.is_alive}
+                    onClick={() => handleAction("Wake up", () => client.actions.revive(account as Account), initials[beast.specie - 1].idlePicture)}
+                    disabled={isLoading || !beast.is_alive}
                     className="flex items-center button"
                   >
                     <Sun /> Wake up
                   </Button>
                   <Button
-                    onClick={() => handleAction("Revive", () => client.actions.revive(account as Account), happy)}
-                    disabled={!beast.is_alive}
+                    onClick={() => handleAction("Revive", () => client.actions.revive(account as Account), initials[beast.specie - 1].idlePicture)}
+                    disabled={isLoading || beast.is_alive}
                     className="flex items-center button"
                   >
                     <Sun /> Revive
                   </Button>
                 </div>
-                <p className="info mt-3">You can revive your baby beast, but this one is gonna loose the experience earhed</p>
+                <Hints />
               </div>
             </CardContent>
           </Card>

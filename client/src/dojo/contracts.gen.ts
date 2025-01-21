@@ -8,14 +8,14 @@ export type IClient = Awaited<ReturnType<typeof client>>;
 
 export function client(provider: DojoProvider) {
     // System definitions for `babybeasts-actions` contract
-    const actions_spawn = async (account: Account | AccountInterface) => {
+    const actions_spawn = async (account: Account | AccountInterface, specie: number) => {
         try {
             return await provider.execute(
                 account,
                 {
                     contractName: "actions",
                     entrypoint: "spawn",
-                    calldata: [],
+                    calldata: [specie],
                 },
                 "babybeasts"
             );

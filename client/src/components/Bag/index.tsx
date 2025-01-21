@@ -1,75 +1,34 @@
 import { SDK } from "@dojoengine/sdk";
 import { Link } from 'react-router-dom';
 import { Schema } from "../../dojo/bindings.ts";
-import { useAccount } from "@starknet-react/core";
 import { useBeast } from "../../hooks/useBeasts.tsx";
-import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import { Swords, ShieldPlus, TestTubeDiagonal, CircleGauge, } from 'lucide-react';
+import initials from "../../data/initials.tsx";
 import './main.css';
 
-import happy from '../../assets/img/happy.gif';
-
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
-  const { account } = useAccount();
+  // Trigger
+
   const beast = useBeast(sdk);
-  const { spawn } = useSystemCalls();
 
   return (
     <>
       <div className="bag">
         <div className="eggs">
-          <p className={'title text-center mb-4'}>
-            Collect them all!
-            <span className='d-block'>There are many species</span>
+          <p className={'title mb-4'}>
+            Here will appear your <span>BabyBeasts</span>
           </p>
-          <div className="d-flex justify-content-start">
+          <div>
             {
               beast &&
-              <Link to={`/play`} className="beast">
-                <div className="d-flex justify-content-between align-items-end">
-                  <img src={happy} alt="beast" />
-                  <h4>
-                    Lvl <span>{beast.level}</span>
+              <Link to={`/play`} className="beast" onClick={() => (document.querySelector('.navbar-toggler') as HTMLElement)?.click()}>
+                <div className="beast-pic d-flex align-items-end">
+                  <img src={initials[beast.specie - 1].idlePicture} alt="beast" />
+                  <h4 className="d-flex">
+                    <span>{beast.level}</span> Lvl
                   </h4>
                 </div>
-                <div className="d-flex justify-content-between">
-                  <div className="item">
-                    <div>
-                      <Swords />
-                      <span>{Math.round(beast.attack)}</span>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div>
-                      <ShieldPlus />
-                      <span>{Math.round(beast.defense)}</span>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div>
-                      <CircleGauge />
-                      <span>{Math.round(beast.speed)}</span>
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div>
-                      <TestTubeDiagonal />
-                      <span>{(beast.experience)}</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            }
-            {
-              beast &&
-              <Link to={`/play`} className="beast">
-                <div className="d-flex justify-content-between align-items-end">
-                  <img src={happy} alt="beast" />
-                  <h4>
-                    Lvl <span>{beast.level}</span>
-                  </h4>
-                </div>
-                <div className="d-flex justify-content-between">
+                <div className="data">
                   <div className="item">
                     <div>
                       <Swords />
@@ -99,14 +58,6 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
             }
           </div>
         </div>
-        <button
-          disabled={account ? false : true}
-          className="button"
-          onClick={async () => {
-            await spawn();
-            location.reload();
-          }}>Spawn your BabyBeast
-        </button>
       </div>
     </>
   )

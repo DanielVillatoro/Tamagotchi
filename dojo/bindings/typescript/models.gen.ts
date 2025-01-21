@@ -10,32 +10,10 @@ type RemoveFieldOrder<T> = T extends object
       'fieldOrder'
     >
   : T;
-// Type definition for `babybeasts::models::Beast` struct
-export interface Beast {
-	fieldOrder: string[];
-	player: string;
-	is_alive: boolean;
-	is_awake: boolean;
-	hunger: BigNumberish;
-	max_hunger: BigNumberish;
-	energy: BigNumberish;
-	max_energy: BigNumberish;
-	happiness: BigNumberish;
-	max_happiness: BigNumberish;
-	hygiene: BigNumberish;
-	max_hygiene: BigNumberish;
-	attack: BigNumberish;
-	defense: BigNumberish;
-	speed: BigNumberish;
-	level: BigNumberish;
-	experience: BigNumberish;
-	next_level_experience: BigNumberish;
-}
-export type InputBeast = RemoveFieldOrder<Beast>;
-
 // Type definition for `babybeasts::models::BeastValue` struct
 export interface BeastValue {
 	fieldOrder: string[];
+	specie: BigNumberish;
 	is_alive: boolean;
 	is_awake: boolean;
 	hunger: BigNumberish;
@@ -55,17 +33,41 @@ export interface BeastValue {
 }
 export type InputBeastValue = RemoveFieldOrder<BeastValue>;
 
+// Type definition for `babybeasts::models::Beast` struct
+export interface Beast {
+	fieldOrder: string[];
+	player: string;
+	specie: BigNumberish;
+	is_alive: boolean;
+	is_awake: boolean;
+	hunger: BigNumberish;
+	max_hunger: BigNumberish;
+	energy: BigNumberish;
+	max_energy: BigNumberish;
+	happiness: BigNumberish;
+	max_happiness: BigNumberish;
+	hygiene: BigNumberish;
+	max_hygiene: BigNumberish;
+	attack: BigNumberish;
+	defense: BigNumberish;
+	speed: BigNumberish;
+	level: BigNumberish;
+	experience: BigNumberish;
+	next_level_experience: BigNumberish;
+}
+export type InputBeast = RemoveFieldOrder<Beast>;
+
 export interface SchemaType extends ISchemaType {
 	babybeasts: {
-		Beast: Beast,
 		BeastValue: BeastValue,
+		Beast: Beast,
 	},
 }
 export const schema: SchemaType = {
 	babybeasts: {
-		Beast: {
-			fieldOrder: ['player', 'is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
-			player: "",
+		BeastValue: {
+			fieldOrder: ['specie', 'is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
+			specie: 0,
 			is_alive: false,
 			is_awake: false,
 			hunger: 0,
@@ -83,8 +85,10 @@ export const schema: SchemaType = {
 			experience: 0,
 			next_level_experience: 0,
 		},
-		BeastValue: {
-			fieldOrder: ['is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
+		Beast: {
+			fieldOrder: ['player', 'specie', 'is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
+			player: "",
+			specie: 0,
 			is_alive: false,
 			is_awake: false,
 			hunger: 0,
