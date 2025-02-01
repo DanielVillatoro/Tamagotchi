@@ -41,16 +41,6 @@ const MOCK_BEASTS = [
   },
 ];
 
-/**
- * The `Bag` component represents a carousel of beasts that users can browse and spawn.
- * It includes swipe navigation, a visual representation of each beast, and a spawn button.
- *
- * @param {Object} props - The component props.
- * @param {SDK<Schema>} props.sdk - The SDK instance used for managing the beasts.
- *
- * @returns {JSX.Element} The rendered component.
- */
-
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
   // State to track the current slide index in the carousel
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -60,38 +50,18 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
   const touchStartX = useRef<number | null>(null); 
   const touchEndX = useRef<number | null>(null);
 
-  /**
-   * Handles spawning a beast when the "SPAWN" button is clicked.
-   * Currently, it logs the beast ID but can be extended with further logic.
-   * 
-   * @param {number} beastId - The ID of the beast to be spawned.
-   */
   const handleSpawn = (beastId: number) => {
     console.log(`Spawning beast with ID: ${beastId}`);
-    // TODO: Implement spawn logic here
   };
 
-  /**
-   * Captures the initial touch position when the user starts a swipe.
-   * 
-   * @param {React.TouchEvent} e - The touch event.
-   */
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  /**
-   * Updates the touch end position as the user moves their finger.
-   * 
-   * @param {React.TouchEvent} e - The touch event.
-   */
   const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX;
   };
 
-  /**
-   * Determines the swipe direction and updates the carousel accordingly.
-   */
   const handleTouchEnd = () => {
     if (touchStartX.current !== null && touchEndX.current !== null) {
       const deltaX = touchEndX.current - touchStartX.current; // Calculate horizontal swipe distance
@@ -110,12 +80,6 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
     touchEndX.current = null;
   };
 
-  /**
-   * Generates the slide content for a given beast.
-   * 
-   * @param {number} index - The index of the beast in the mock data.
-   * @returns {JSX.Element} The JSX content for the beast slide.
-   */
   const getSlideContent = (index: number) => {
     const beast = MOCK_BEASTS[index];
     
