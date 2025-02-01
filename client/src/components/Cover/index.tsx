@@ -10,8 +10,12 @@ function Cover() {
   const { account } = useAccount();
 
   useEffect(() => {
-      const bodyElement = document.querySelector('.body') as HTMLElement;
-      if (bodyElement) bodyElement.style.backgroundImage = "url('/assets/background.png')";
+    const bodyElement = document.querySelector('.body') as HTMLElement;
+    if (bodyElement) {
+      bodyElement.classList.remove('day');
+      bodyElement.classList.remove('night');
+      bodyElement.style.backgroundSize = 'cover';
+    }
   }, []);
 
   return (

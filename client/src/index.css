@@ -31,6 +31,14 @@
   transition: all 0.25s;
 }
 
+.body.day {
+  background-image: url('./assets/img/daybackground.png');
+}
+
+.body.night {
+  background-image: url('./assets/img/nightbackground.png');
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Kallisto';
 }
