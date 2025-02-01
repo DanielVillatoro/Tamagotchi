@@ -31,6 +31,11 @@ function Chat() {
     restoreFocus();
   }, [messages, isLoading]);
 
+  useEffect(() => {
+    const bodyElement = document.querySelector('.body') as HTMLElement;
+    if (bodyElement) bodyElement.style.backgroundImage = "url('src/assets/img/background.png')";
+  }, []);
+
   const sendMessage = async () => {
     if (input.trim() === "" || isLoading) return;
     setError(null);

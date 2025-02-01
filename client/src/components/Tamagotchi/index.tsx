@@ -133,18 +133,19 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
     <>
       <div className="tamaguchi">
         <>{beast &&
-          <Card>
+          <Card style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
             <Status beast={beast} />
-            <div className="scenario flex justify-center items-column">
-              <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
+            <div>
+              <div className="scenario flex justify-center items-column">
+                <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
+              </div>
+              <img src={toggle} onClick={() => setShowStats(prev => !prev)} width={40} />
+              {showStats
+                ? <Stats beast={beast} />
+                : <Actions handleAction={handleAction} isLoading={isLoading} beast={beast} account={account} client={client} />
+              }
+              <Hints />
             </div>
-            <img src={toggle} onClick={() => setShowStats(prev => !prev)} width={40} />
-
-            {showStats
-              ? <Stats beast={beast} />
-              : <Actions handleAction={handleAction} isLoading={isLoading} beast={beast} account={account} client={client} />
-            }
-            <Hints />
           </Card>
         }</>
       </div>

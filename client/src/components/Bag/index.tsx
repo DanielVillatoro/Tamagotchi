@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { SDK } from "@dojoengine/sdk";
 import { Link } from 'react-router-dom';
 import { Schema } from "../../dojo/bindings.ts";
@@ -10,6 +11,11 @@ import './main.css';
 function Bag({ sdk }: { sdk: SDK<Schema> }) {
 
   const beast = useBeast(sdk);
+
+  useEffect(() => {
+    const bodyElement = document.querySelector('.body') as HTMLElement;
+    if (bodyElement) bodyElement.style.backgroundImage = "url('src/assets/img/background.png')";
+  }, []);
 
   return (
     <>
