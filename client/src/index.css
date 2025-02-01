@@ -20,7 +20,7 @@
   width: 100vw;
   height: 100dvh;
   background-color: #000;
-  background-image: url('./assets/img/background.png');
+  background-image: linear-gradient(rgba(137, 26, 40, 0.5), rgba(137, 26, 40, 0.5)), url('./assets/img/background.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -45,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h2 {
   font-size: 30px;
-  color: #fff;
+  color: #ECECDA;
 }
 
 a,
@@ -155,12 +155,12 @@ p, span {
   font-size: 18px;
   margin: 0;
   padding-right: 5px;
-  color: #fff;
+  color: #ECECDA;
 }
 
 .title span {
   font-size: 18px;
-  color: #e4a101;
+  color: #ECECDA;
 }
 
 .connect-btn,
