@@ -48,8 +48,8 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
       const bodyElement = document.querySelector('.body') as HTMLElement;
       if (bodyElement) {
         bodyElement.style.backgroundImage = isDayTime
-          ? "url('src/assets/img/daybackground.png')"
-          : "url('src/assets/img/nightbackground.png')";
+          ? "url('/assets/daybackground.png')"
+          : "url('/assets/nightbackground.png')";
           bodyElement.style.backgroundSize = 'inherit'
       }
     };

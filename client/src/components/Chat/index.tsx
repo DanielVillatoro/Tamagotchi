@@ -33,7 +33,7 @@ function Chat() {
 
   useEffect(() => {
     const bodyElement = document.querySelector('.body') as HTMLElement;
-    if (bodyElement) bodyElement.style.backgroundImage = "url('src/assets/img/background.png')";
+    if (bodyElement) bodyElement.style.backgroundImage = "url('/assets/background.png')";
   }, []);
 
   const sendMessage = async () => {
