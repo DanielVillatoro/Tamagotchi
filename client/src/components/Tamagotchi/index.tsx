@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-
 import { Account } from "starknet";
 import { useAccount } from "@starknet-react/core";
 import { SDK } from "@dojoengine/sdk";
-import { Schema } from "../../dojo/bindings";
+import { Beast, Schema } from "../../dojo/bindings";
 import { Card } from '../../components/ui/card';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
 import { toast } from "react-hot-toast";
+import { useParams } from "react-router-dom";
 import initials from "../../data/initials.tsx";
 import Hints from "../Hints/index.tsx";
 import dead from '../../assets/img/dead.gif';
@@ -25,7 +25,10 @@ import './main.css';
 
 
 function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
-  const beast = useBeast(sdk);
+  const { beasts } = useBeast(sdk);
+  const { beastId } = useParams();
+  const beast = beasts.find((beast: Beast) => String(beast.beast_id) === beastId);
+  
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
   const [showStats, setShowStats] = useState(false);

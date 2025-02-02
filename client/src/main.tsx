@@ -61,7 +61,7 @@ async function main() {
               <Routes>
                 <Route path='/' element={<Cover />}/>
                 <Route path='/bag' element={<Bag sdk={sdk} />} />
-                <Route path='/play' element={<Tamagotchi sdk={sdk} />} />
+                <Route path='/play/:beastId' element={<Tamagotchi sdk={sdk} />} />
                 <Route path='/chat' element={<Chat />} />
               </Routes>
             </Router>
