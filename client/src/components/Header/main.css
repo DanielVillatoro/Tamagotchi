@@ -12,20 +12,24 @@
 
 .navbar h2 {
   font-weight: 800;
-  font-size: 19px;
+  font-size: 18px;
   margin: 0 0 0 10px;
 }
 
 .navbar .logo {
   display: flex;
   align-items: center;
-  padding: 0 15px;
+  padding-left: 15px;
 }
 
 .navbar .logo img {
   width: 40px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+.side-menu {
+  padding-right: 20px;
 }
 
 .side-menu img {

@@ -1,9 +1,8 @@
 import { useAccount } from "@starknet-react/core";
 import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
-import initials, { Initial } from "../../data/initials";
+import Egg from "../../assets/img/egg.gif";
 import './main.css';
 import Hints from "../Hints/index.tsx";
-import ControllerConnectButton from "../CartridgeController/ControllerConnectButton.tsx";
 
 function SpawnBeast() {
   const { spawn } = useSystemCalls();
@@ -11,35 +10,29 @@ function SpawnBeast() {
 
   return (
     <div className="spawn-beast">
-      <p className={'title mb-4'}>
+      <p className={'title'}>
         Collect them all!
         <span className='d-block'>There are many species</span>
       </p>
-      {initials.map((beast: Initial, i) => {
-        return (
-          <div key={i} className="initial-beast">
-            <img src={beast.idlePicture} alt="beast" />
-            <div className="initial-info">
-              <h4>
-                {beast.name}
-              </h4>
-              <p>
-                {beast.description}
-              </p>
-              <button
-                disabled={account ? false : true}
-                className="button"
-                onClick={async () => {
-                  await spawn(i + 1);
-                  (document.querySelector('.navbar-toggler') as HTMLElement)?.click();
-                }}>Spawn
-              </button>
-            </div>
-          </div>
-        )
-      })}
-      <ControllerConnectButton />
-      <Hints />
+      <div className="initial-beast">
+        <img src={Egg} alt="beast" />
+        <div className="initial-info">
+          <h4>
+            This is a random beast
+          </h4>
+          <p>
+            Hatch your own Babybeasts and take care of it! Collect them all!
+          </p>
+        </div>
+        <button
+          disabled={account ? false : true}
+          className="button"
+          onClick={async () => {
+            await spawn(1);
+          }}>Spawn
+        </button>
+        <Hints />
+      </div>
     </div>
   );
 }
