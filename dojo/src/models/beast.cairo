@@ -24,11 +24,3 @@ pub struct Beast {
     pub experience: u32,
     pub next_level_experience: u32,
 }
-
-#[derive(Drop, Serde, Debug)]
-#[dojo::model]
-pub struct BeastId {
-    #[key]
-    pub id: u32,
-    pub beast_id: u32,
-}

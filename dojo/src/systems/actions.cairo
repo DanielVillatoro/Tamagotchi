@@ -1,4 +1,4 @@
-use babybeasts::models::Beast;
+use babybeasts::models::beast::Beast;
 
 #[starknet::interface]
 trait IActions<T> {
@@ -16,8 +16,8 @@ trait IActions<T> {
 pub mod actions {
     use super::{IActions};
     use starknet::{ContractAddress, get_caller_address};
-    use babybeasts::models::{Beast};
-    use babybeasts::models::{BeastId};
+    use babybeasts::models::beast::{Beast};
+    use babybeasts::models::beast_id::{BeastId};
 
     use dojo::model::{ModelStorage, ModelValueStorage};
     use dojo::event::EventStorage;
