@@ -52,17 +52,6 @@
   transform: scaleX(-1);
 }
 
-.navbar .connect-btn {
-  margin: 0 0 10px;
-  height: 60px;
-  font-size: 20px;
-  text-align: center;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .menu {
   position: relative;
   min-height: calc(100vh - 95px);

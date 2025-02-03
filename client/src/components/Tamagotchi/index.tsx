@@ -6,7 +6,6 @@ import { Beast, Schema } from "../../dojo/bindings";
 import { Card } from '../../components/ui/card';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
-import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import initials from "../../data/initials.tsx";
 import Hints from "../Hints/index.tsx";
@@ -112,22 +111,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
         console.warn('Missing sound for awake action');
         break;
     }
-
-    try {
-      await toast.promise(
-        actionFn(),
-        {
-          loading: `Performing ${actionName}...`,
-          success: `${actionName} completed successfully!`,
-          error: `Failed to perform ${actionName}. Please try again.`,
-        }
-      );
-      setTimeout(() => setIsLoading(false), loadingTime);
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error);
-      toast.error(`An error occurred while performing ${actionName}`);
-    }
+    actionFn();
   };
 
   return (

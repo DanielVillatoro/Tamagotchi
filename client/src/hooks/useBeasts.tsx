@@ -5,7 +5,7 @@ import { addAddressPadding } from "starknet";
 import { Models, Schema } from "../dojo/bindings.ts";
 import { useAccount } from "@starknet-react/core";
 import useModel from "../dojo/useModel.tsx";
-import { useDojoStore } from "../main";
+import { useDojoStore } from "../main.tsx";
 
 export const useBeast = (sdk: SDK<Schema>) => {
   const { account } = useAccount();
@@ -90,7 +90,6 @@ export const useBeast = (sdk: SDK<Schema>) => {
               return;
             }
             if (resp.data) {
-              console.log("resp.data:", resp.data);
               const beastsData = resp.data.map((entity) => entity.models.babybeasts.Beast);
               setBeasts(beastsData);
               state.setEntities(resp.data);

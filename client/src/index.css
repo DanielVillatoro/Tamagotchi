@@ -134,17 +134,7 @@ p, span {
   height: 300px;
   border: 2px solid #e4a101;
   object-fit: cover;
-  border-radius: 10px;
-}
-
-.cover .connect-btn {
-  width: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60px;
-  font-size: 20px;
+  border-radius: 25px;
 }
 
 .footer img {
@@ -156,6 +146,7 @@ p, span {
   font-size: 12px;
   color: #ECECDA;
   font-weight: bold;
+  text-align: center;
 }
 
 .title {
@@ -172,31 +163,49 @@ p, span {
   color: #ECECDA;
 }
 
+.cover .connect-btn{
+  height: 60px;
+  text-align: center;
+  background-color: #370001;
+  border: 2px solid #e4a101;
+  border-radius: 10px;
+  color: #ECECDA;
+  width: 100%;
+  font-size: 18px;
+  font-family: 'Kallisto';
+}
+
 .connect-btn,
 .connect-btn:active,
 .connect-btn:visited,
 .connect-btn:focus {
+  border: 0;
   font-family: 'Kallisto';
-  padding: 5px 10px;
-  color: var(--white);
+  font-size: 12px;
+  background-color: rgba(55, 0, 1, 0.5);
+  color: #ECECDA;
+  border-radius: 10px;
+  text-align: center;
   transition: all 0.25s;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-center;
-  font-size: 20px;
-  border: 2px solid #e4a101;
-  background-color: #370001;
-  color: #ECECDA;
-  transition: all 0.5s;
-  border-radius: 10px;
+  padding: 15px 10px;
+  margin: 0 auto auto;
+  font-weight: bold;
 }
 
 .connect-btn:hover {
-  background-color: #e4a101;
+  background-color: #610103;
 }
 
 .connect-btn img {
   width: 30px;
   margin-left: 10px;
+}
+
+#_rht_toaster div div {
+  background-color: rgba(55, 0, 1, 0.5) !important;
+  color: #ECECDA;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  border-radius: 5px;
 }

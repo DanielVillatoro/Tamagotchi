@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { SDK } from "@dojoengine/sdk";
 import { Beast, Schema } from "../../dojo/bindings.ts";
 import { useBeast } from '../../hooks/useBeasts.tsx';
+import ControllerConnectButton from '../CartridgeController/ControllerConnectButton.tsx';
 import initials from "../../data/initials.tsx";
 import './main.css';
 
@@ -70,10 +71,13 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
 
   return (
     <div className="bag">
-      <p className={'title'}>
-        Collect them all!
-        <span className='d-block'>There are many species</span>
-      </p>
+      <div className='d-flex'>
+        <p className={'title'}>
+          Collect them all!
+          <span className='d-block'>There are many species</span>
+        </p>
+        <ControllerConnectButton />
+      </div>
       <div className="carousel">
         <div
           className="slides"
