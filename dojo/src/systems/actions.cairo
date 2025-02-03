@@ -1,5 +1,3 @@
-use babybeasts::models::beast::Beast;
-
 #[starknet::interface]
 trait IActions<T> {
     fn spawn(ref self: T, specie: u32);
@@ -14,13 +12,28 @@ trait IActions<T> {
 
 #[dojo::contract]
 pub mod actions {
-    use super::{IActions};
+    // Starknet imports
     use starknet::{ContractAddress, get_caller_address};
+    
+    // Local imports
+    use super::{IActions};
     use babybeasts::models::beast::{Beast};
-    use babybeasts::models::beast_id::{BeastId};
 
+    // Dojo Imports
     use dojo::model::{ModelStorage, ModelValueStorage};
     use dojo::event::EventStorage;
+
+
+    // Storage
+    #[storage]
+    struct Storage {
+        beast_counter: u32
+    }
+
+    // Constructor
+    fn dojo_init( ref self: ContractState) {
+        self.beast_counter.write(1);
+    }
 
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
@@ -48,16 +61,9 @@ pub mod actions {
                 experience: 0,
                 next_level_experience: 60,
             };
-
-            let mut id: BeastId = world.read_model(1);
-            if id.id == 1 {
-                id.beast_id = id.beast_id + 1;
-                world.write_model(@id);
-                initial_stats.beast_id = id.beast_id;
-            } else {
-                create_initial_id(ref self);
-                initial_stats.beast_id = 1;
-            }
+            let current_beast_id = self.beast_counter.read();
+            initial_stats.beast_id = current_beast_id;
+            self.beast_counter.write(current_beast_id+1);
             world.write_model(@initial_stats);
         }
 
@@ -231,13 +237,5 @@ pub mod actions {
                 world.write_model(@beast);
             }
         }
-    }
-    fn create_initial_id(ref self: ContractState) {
-        let mut world = self.world(@"babybeasts");
-        let initial_id = BeastId {
-            id: 1,
-            beast_id: 1,
-        };
-        world.write_model(@initial_id);
     }
 }

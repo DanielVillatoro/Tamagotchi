@@ -13,5 +13,4 @@ mod tests {
 
 mod models {
     mod beast;
-    mod beast_id;
 }
