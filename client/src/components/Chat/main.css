@@ -127,7 +127,7 @@
   align-items: center;
   gap: 4px;
   height: 24px;
-  padding: 12px;
+  padding: 20px 15px;
   background: rgba(55, 0, 1, 0.7);
   border-radius: 12px;
   margin: 10px 0;
@@ -136,7 +136,7 @@
 .thinking-dots span {
   width: 6px;
   height: 6px;
-  background: #e4a101;
+  background: #D1093D;
   border-radius: 50%;
   animation: thinking 1.4s infinite;
   opacity: 0.3;
