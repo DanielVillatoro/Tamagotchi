@@ -10,7 +10,6 @@ trait IActions<T> {
     fn clean(ref self: T);
     fn revive(ref self: T);
     fn tap(ref self: T, specie: u32);
-    
 }
 
 #[dojo::contract]
