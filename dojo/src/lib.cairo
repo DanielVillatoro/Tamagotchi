@@ -17,4 +17,5 @@ mod models {
     mod beast;
     mod beast_stats;
     mod beast_status;
+    mod player;
 }
