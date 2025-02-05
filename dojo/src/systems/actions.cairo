@@ -92,21 +92,21 @@ pub mod actions {
             };
             world.write_model(@apples);
 
-            let cookies = Food {
+            let bananas = Food {
                 player: caller,
-                id: FoodType::Cookie.into(),
-                name: FoodType::Cookie.into(),
+                id: FoodType::Banana.into(),
+                name: FoodType::Banana.into(),
                 amount: constants::MAX_FOOD_AMOUNT
             };
-            world.write_model(@cookies);
+            world.write_model(@bananas);
 
-            let fishes = Food {
+            let cherries = Food {
                 player: caller,
-                id: FoodType::Fish.into(),
-                name: FoodType::Fish.into(),
+                id: FoodType::Cherry.into(),
+                name: FoodType::Cherry.into(),
                 amount: constants::MAX_FOOD_AMOUNT
             };
-            world.write_model(@fishes);
+            world.write_model(@cherries);
         }
 
         fn spawn(ref self: ContractState, specie: u32) {

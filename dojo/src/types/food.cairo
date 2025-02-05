@@ -1,8 +1,8 @@
 #[derive(Copy, Drop, Serde)]
 enum FoodType {
     Apple,
-    Cookie,
-    Fish,
+    Banana,
+    Cherry,
 }
 
 impl IntoFoodTypeFelt252 of core::Into<FoodType, felt252> {
@@ -10,8 +10,8 @@ impl IntoFoodTypeFelt252 of core::Into<FoodType, felt252> {
     fn into(self: FoodType) -> felt252 {
         match self {
             FoodType::Apple => 'Apple',
-            FoodType::Cookie => 'Cookie',
-            FoodType::Fish => 'Fish',
+            FoodType::Banana => 'Banana',
+            FoodType::Cherry => 'Cherry',
         }
     }
 }
@@ -21,8 +21,8 @@ impl IntoFoodTypeU8 of core::Into<FoodType, u8> {
     fn into(self: FoodType) -> u8 {
         match self {
             FoodType::Apple => 0,
-            FoodType::Cookie => 1,
-            FoodType::Fish => 2,
+            FoodType::Banana => 1,
+            FoodType::Cherry => 2,
         }
     }
 }
