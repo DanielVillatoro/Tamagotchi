@@ -40,8 +40,6 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
   const [playPlay] = useSound(playSound, { volume: 0.7, preload: true });
   const [playRevive] = useSound(reviveSound, { volume: 0.7, preload: true });
 
-  const [isModalOpen, setModalOpen] = useState(false);
-
   const {
     setup: { client },
   } = useDojo();
