@@ -4,16 +4,16 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './main.css';
 
-import Apple from '../../../assets/img/food/apple.jpeg';
-import Meat from '../../../assets/img/food/cookie.jpg';
-import Fish from '../../../assets/img/food/fish.jpg';
+import Apple from '../../../assets/img/food/fruit_apple.png';
+import Banana from '../../../assets/img/food/fruit_banana.png';
+import Cherry from '../../../assets/img/food/fruit_cherry.png';
 
 import initials from '../../../data/initials.tsx';
 
 const initialFoodItems = [
   { name: 'Apple', img: Apple, count: 5 },
-  { name: 'Coockie', img: Meat, count: 3 },
-  { name: 'Fish', img: Fish, count: 2 },
+  { name: 'Banana', img: Banana, count: 3 },
+  { name: 'Cherry', img: Cherry, count: 2 },
 ];
 
 const Food = ({ handleAction, beast, account, client, showAnimation }: { 
@@ -65,7 +65,7 @@ const Food = ({ handleAction, beast, account, client, showAnimation }: {
                 <span className="food-name">{name}</span>
                 <span className="food-value">Remaining: {count}</span>
                 <button 
-                  className="feed-button" 
+                  className="button" 
                   onClick={() => feedTamagotchi(name)}
                   disabled={count === 0} //Disable button if there is no food left
                 >

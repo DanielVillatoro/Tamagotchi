@@ -13,7 +13,6 @@ import dead from '../../assets/img/dead.gif';
 import Stats from "./Stats/index.tsx";
 import Actions from "./Actions/index.tsx";
 import Status from "./Status/index.tsx";
-import Talk from "./Talk/index.tsx";
 import Food from "./Food/index.tsx";
 import Whispers from "./Whispers/index.tsx";
 import useSound from 'use-sound';
@@ -129,7 +128,10 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
               <div className="scenario flex justify-center items-column">
                 <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
               </div>
-              <Whispers beast={beast}  />
+              <Whispers 
+                beast={beast}
+                expanded={currentView === 'chat'}
+              />
               {
                 currentView === 'stats' ? 
                   <Stats 
@@ -145,7 +147,10 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                     client={client}
                     setCurrentView={setCurrentView}
                   />
-                : 
+                :
+                currentView === 'chat' ? 
+                  <></>
+                :
                 currentView === 'food' ? 
                   <Food 
                     handleAction={handleAction}
@@ -158,17 +163,11 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
               }
               <div className="beast-interaction">
                 <img src={monster} onClick={() => ( setCurrentView(currentView !== 'actions' ? 'actions' : 'stats') )} />
-                <img src={message} onClick={() => setModalOpen(true)} />
+                <img src={message} onClick={() => setCurrentView('chat')} />
               </div>
             </div>
           </Card>
         }</>
-        <Talk 
-          isOpen={isModalOpen}
-          onClose={() => setModalOpen(false)}
-          pic={currentImage}
-          name={initials[beast?.specie - 1]?.name}
-        />
       </div>
     </>
   );
