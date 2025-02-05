@@ -11,7 +11,6 @@ interface ApiError {
 
 const Whispers = ({ beast }: { beast: Beast }) => {
   const [whispers, setWhispers] = useState<Message[]>([]);
-  const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
 
@@ -45,12 +44,10 @@ const Whispers = ({ beast }: { beast: Beast }) => {
             focusing on your most urgent need: ${criticalStat.stat} (${criticalStat.value}/100);`
   };
 
-  const createWhisper = async () => {
+  const createWhisper = async (prompt:any) => {
     if (isLoading) return;
     setError(null);
     setIsLoading(true);
-    const newWhisper = { user: "Pou", text: prompt };
-    setWhispers([...whispers, newWhisper]);
 
     try {
       const response = await axios.post(import.meta.env.VITE_ELIZA_URL || "", {
@@ -80,12 +77,11 @@ const Whispers = ({ beast }: { beast: Beast }) => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    // const interval = setInterval(() => {
       const prompt = generatePrompt(beast);
-      setPrompt(prompt);
-      createWhisper();
-    }, 5000);
-    return () => clearInterval(interval);
+      createWhisper(prompt);
+    // }, 20000);
+    // return () => clearInterval(interval);
   }, []);
 
   return (
