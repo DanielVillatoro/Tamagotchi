@@ -77,11 +77,8 @@ const Whispers = ({ beast }: { beast: Beast }) => {
   };
 
   useEffect(() => {
-    // const interval = setInterval(() => {
       const prompt = generatePrompt(beast);
       createWhisper(prompt);
-    // }, 20000);
-    // return () => clearInterval(interval);
   }, []);
 
   return (

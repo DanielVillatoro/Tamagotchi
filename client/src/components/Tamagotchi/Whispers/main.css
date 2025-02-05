@@ -12,3 +12,9 @@
   color: #ECECDA;
   font-size: 14px;
 }
+
+.whispers .message p {
+  font-size: 14px;
+  font-weight: bold;
+  background: unset;
+}
