@@ -9,6 +9,7 @@ trait IActions<T> {
     fn play(ref self: T);
     fn clean(ref self: T);
     fn revive(ref self: T);
+    fn tap(ref self: T, specie: u32);
 }
 
 #[dojo::contract]
@@ -34,12 +35,14 @@ pub mod actions {
     // Storage
     #[storage]
     struct Storage {
-        beast_counter: u32
+        beast_counter: u32,
+        tap_counter: u32
     }
 
     // Constructor
     fn dojo_init( ref self: ContractState) {
         self.beast_counter.write(1);
+        self.tap_counter.write(0);
     }
 
     // Implementation of the interface methods
@@ -252,6 +255,16 @@ pub mod actions {
 
                 world.write_model(@beast);
             }
+        }
+
+        fn tap(ref self: ContractState, specie: u32) {
+            let current_tap_counter = self.tap_counter.read();
+
+            if current_tap_counter == constants::MAX_TAP_COUNTER {
+                self.spawn(specie);
+            }
+
+            self.tap_counter.write(current_tap_counter+1);
         }
     }
 }
