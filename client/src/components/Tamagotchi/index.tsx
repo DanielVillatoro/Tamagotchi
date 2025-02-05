@@ -14,6 +14,7 @@ import Stats from "./Stats/index.tsx";
 import Actions from "./Actions/index.tsx";
 import Status from "./Status/index.tsx";
 import Talk from "./Talk/index.tsx";
+import Food from "./Food/index.tsx";
 import Whispers from "./Whispers/index.tsx";
 import useSound from 'use-sound';
 import feedSound from '../../assets/sounds/bbeating.mp3';
@@ -142,8 +143,18 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
                     beast={beast}
                     account={account}
                     client={client}
+                    setCurrentView={setCurrentView}
                   />
-                : <></>
+                : 
+                currentView === 'food' ? 
+                  <Food 
+                    handleAction={handleAction}
+                    beast={beast}
+                    account={account}
+                    client={client}
+                    showAnimation={showAnimation}
+                  />
+                :<></>
               }
               <div className="beast-interaction">
                 <img src={monster} onClick={() => ( setCurrentView(currentView !== 'actions' ? 'actions' : 'stats') )} />
