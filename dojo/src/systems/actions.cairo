@@ -1,6 +1,10 @@
 // Interface definition
 #[starknet::interface]
 trait IActions<T> {
+    // Player methods
+    fn spawn_player(ref self: T);
+    fn set_current_beast(ref self: T, beast_id: u32);
+    // Beast Methods
     fn spawn(ref self: T, specie: u32);
     fn decrease_stats(ref self: T);
     fn feed(ref self: T);
@@ -9,6 +13,7 @@ trait IActions<T> {
     fn play(ref self: T);
     fn clean(ref self: T);
     fn revive(ref self: T);
+    // Other methods
     fn tap(ref self: T, specie: u32);
 }
 
@@ -22,8 +27,10 @@ pub mod actions {
     
     // Model imports
     use babybeasts::models::beast::{Beast};
-    use babybeasts::models::beast::{BeastStats};
-    use babybeasts::models::beast::{BeastStatus};
+    use babybeasts::models::beast_stats::{BeastStats};
+    use babybeasts::models::beast_status::{BeastStatus};
+    use babybeasts::models::player::{Player};
+    
 
     // Constants import
     use babybeasts::constants;
@@ -48,6 +55,29 @@ pub mod actions {
     // Implementation of the interface methods
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
+        fn spawn_player(ref self: ContractState) {
+            let mut world = self.world(@"babybeasts");
+            let caller = get_caller_address();
+
+            let new_player = Player {
+                address: caller, 
+                remaining_food: constants::MAX_FOOD_AMOUNT,
+                current_beast_id: 0
+            };
+
+            world.write_model(@new_player);
+        }
+
+        fn set_current_beast(ref self: ContractState, beast_id: u32) {
+            let mut world = self.world(@"babybeasts");
+            let player_address = get_caller_address();
+
+            let mut player: Player = world.read_model(player_address);
+            player.current_beast_id = beast_id;
+
+            world.write_model(@player);
+        }
+
         fn spawn(ref self: ContractState, specie: u32) {
             let mut world = self.world(@"babybeasts");
             let player = get_caller_address();
@@ -88,8 +118,12 @@ pub mod actions {
 
         fn decrease_stats(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let player = get_caller_address();
-            let mut beast: Beast = world.read_model(player);
+
+            let player_address = get_caller_address();
+            let player: Player = world.read_model(player_address);
+            let current_beast_id = player.current_beast_id;
+
+            let mut beast: Beast = world.read_model((player_address, current_beast_id));
 
             if beast.status.is_alive == true {
                 if beast.status.happiness == 0 || beast.status.hygiene == 0 {
@@ -126,8 +160,12 @@ pub mod actions {
 
         fn feed(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let player = get_caller_address();
-            let mut beast: Beast = world.read_model(player);
+
+            let player_address = get_caller_address();
+            let player: Player = world.read_model(player_address);
+            let current_beast_id = player.current_beast_id;
+
+            let mut beast: Beast = world.read_model((player_address, current_beast_id));
 
             if beast.status.is_alive == true {
                 beast.status.hunger = beast.status.hunger + 30;
@@ -144,8 +182,12 @@ pub mod actions {
 
         fn sleep(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let player = get_caller_address();
-            let mut beast: Beast = world.read_model(player);
+
+            let player_address = get_caller_address();
+            let player: Player = world.read_model(player_address);
+            let current_beast_id = player.current_beast_id;
+
+            let mut beast: Beast = world.read_model((player_address, current_beast_id));
 
             if beast.status.is_alive == true {
                 beast.status.energy = beast.status.energy + 40;
@@ -163,8 +205,12 @@ pub mod actions {
 
         fn awake(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let player = get_caller_address();
-            let mut beast: Beast = world.read_model(player);
+
+            let player_address = get_caller_address();
+            let player: Player = world.read_model(player_address);
+            let current_beast_id = player.current_beast_id;
+
+            let mut beast: Beast = world.read_model((player_address, current_beast_id));
 
             if beast.status.is_alive == true {
                 beast.status.is_awake = true;
@@ -174,8 +220,12 @@ pub mod actions {
 
         fn play(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let player = get_caller_address();
-            let mut beast: Beast = world.read_model(player);
+            
+            let player_address = get_caller_address();
+            let player: Player = world.read_model(player_address);
+            let current_beast_id = player.current_beast_id;
+
+            let mut beast: Beast = world.read_model((player_address, current_beast_id));
 
             if beast.status.is_alive == true {
                 beast.status.happiness = beast.status.happiness + 30;
@@ -197,8 +247,12 @@ pub mod actions {
 
         fn clean(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let player = get_caller_address();
-            let mut beast: Beast = world.read_model(player);
+            
+            let player_address = get_caller_address();
+            let player: Player = world.read_model(player_address);
+            let current_beast_id = player.current_beast_id;
+
+            let mut beast: Beast = world.read_model((player_address, current_beast_id));
 
             if beast.status.is_alive == true {
                 beast.status.hygiene = beast.status.hygiene + 40;
@@ -224,8 +278,12 @@ pub mod actions {
 
         fn revive(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let player = get_caller_address();
-            let mut beast: Beast = world.read_model(player);
+            
+            let player_address = get_caller_address();
+            let player: Player = world.read_model(player_address);
+            let current_beast_id = player.current_beast_id;
+
+            let mut beast: Beast = world.read_model((player_address, current_beast_id));
 
             if beast.status.is_alive == false {
                 beast.status.is_alive = true;

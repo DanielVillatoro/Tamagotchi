@@ -9,8 +9,9 @@ use babybeasts::models::beast_status::{BeastStatus};
 #[dojo::model]
 pub struct Beast {
     #[key]
+    pub player: ContractAddress, 
+    #[key]
     pub beast_id: u32,
-    pub player: ContractAddress, //TODO: Remove this, a player will have the ID to the beasts they hold
     pub specie: u32,
     pub status: BeastStatus,
     pub stats: BeastStats
