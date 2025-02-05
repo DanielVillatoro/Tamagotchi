@@ -9,12 +9,12 @@ import { useBeast } from "../../hooks/useBeasts.tsx";
 import { useParams } from "react-router-dom";
 import initials from "../../data/initials.tsx";
 import message from '../../assets/img/message.svg';
-import Hints from "../Hints/index.tsx";
 import dead from '../../assets/img/dead.gif';
 import Stats from "./Stats/index.tsx";
 import Actions from "./Actions/index.tsx";
 import Status from "./Status/index.tsx";
 import Talk from "./Talk/index.tsx";
+// import Whispers from "./Whispers/index.tsx";
 import useSound from 'use-sound';
 import feedSound from '../../assets/sounds/bbeating.mp3';
 import cleanSound from '../../assets/sounds/bbshower.mp3';
@@ -31,7 +31,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
-  const [showStats, setShowStats] = useState(false);
+  const [currentView, setCurrentView] = useState('actions');
 
   // Add sound hooks
   const [playFeed] = useSound(feedSound, { volume: 0.7, preload: true });
@@ -128,15 +128,27 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
               <div className="scenario flex justify-center items-column">
                 <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
               </div>
+              {/* <Whispers beast={beast} /> */}
+              {
+                currentView === 'stats' ? 
+                  <Stats 
+                    beast={beast} 
+                  /> 
+                : 
+                currentView === 'actions' ? 
+                  <Actions 
+                    handleAction={handleAction}
+                    isLoading={isLoading}
+                    beast={beast}
+                    account={account}
+                    client={client}
+                  />
+                : <></>
+              }
               <div className="beast-interaction">
-                <img src={monster} onClick={() => setShowStats(prev => !prev)} />
+                <img src={monster} onClick={() => ( setCurrentView(currentView !== 'actions' ? 'actions' : 'stats') )} />
                 <img src={message} onClick={() => setModalOpen(true)} />
               </div>
-              {showStats
-                ? <Stats beast={beast} />
-                : <Actions handleAction={handleAction} isLoading={isLoading} beast={beast} account={account} client={client} />
-              }
-              <Hints />
             </div>
           </Card>
         }</>
