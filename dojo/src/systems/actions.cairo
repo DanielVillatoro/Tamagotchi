@@ -141,7 +141,8 @@ pub mod actions {
                 specie: specie,
                 status: initial_beast_status,
                 stats: initial_beast_stats,
-                evolved: false
+                evolved: false,
+                vaulted: false
             };
 
             self.beast_counter.write(current_beast_id+1);
@@ -279,6 +280,7 @@ pub mod actions {
                     // Evolution level reached
                     if beast.stats.level >= constants::MAX_BABY_LEVEL {
                         beast.evolved = true;
+                        beast.vaulted = true;
                     }
                     beast.stats.experience = 0;
                     beast.stats.next_level_experience = beast.stats.next_level_experience + 20;
@@ -311,6 +313,7 @@ pub mod actions {
                     // Evolution level reached
                     if beast.stats.level >= constants::MAX_BABY_LEVEL {
                         beast.evolved = true;
+                        beast.vaulted = true;
                     }
                     beast.stats.experience = 0;
                     beast.stats.next_level_experience = beast.stats.next_level_experience + 20;

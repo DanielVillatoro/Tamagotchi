@@ -15,5 +15,6 @@ pub struct Beast {
     pub specie: u32,
     pub status: BeastStatus,
     pub stats: BeastStats,
-    pub evolved: bool
+    pub evolved: bool,
+    pub vaulted: bool
 }
