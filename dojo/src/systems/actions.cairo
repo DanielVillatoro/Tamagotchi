@@ -140,7 +140,8 @@ pub mod actions {
                 beast_id: current_beast_id,
                 specie: specie,
                 status: initial_beast_status,
-                stats: initial_beast_stats
+                stats: initial_beast_stats,
+                evolved: false
             };
 
             self.beast_counter.write(current_beast_id+1);
@@ -275,6 +276,10 @@ pub mod actions {
                 beast.stats.experience = beast.stats.experience + 10;
                 if beast.stats.experience >= beast.stats.next_level_experience {
                     beast.stats.level = beast.stats.level + 1;
+                    // Evolution level reached
+                    if beast.stats.level >= constants::MAX_BABY_LEVEL {
+                        beast.evolved = true;
+                    }
                     beast.stats.experience = 0;
                     beast.stats.next_level_experience = beast.stats.next_level_experience + 20;
                 }
@@ -303,6 +308,10 @@ pub mod actions {
                 beast.stats.experience = beast.stats.experience + 10;
                 if beast.stats.experience >= beast.stats.next_level_experience {
                     beast.stats.level = beast.stats.level + 1;
+                    // Evolution level reached
+                    if beast.stats.level >= constants::MAX_BABY_LEVEL {
+                        beast.evolved = true;
+                    }
                     beast.stats.experience = 0;
                     beast.stats.next_level_experience = beast.stats.next_level_experience + 20;
                     beast.stats.attack = beast.stats.attack + 1;
