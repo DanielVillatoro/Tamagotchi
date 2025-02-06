@@ -6,10 +6,10 @@ import Hunger from '../../../assets/img/Hunger.png';
 import './main.css';
 
 const statusItems = [
-  { label: "Energy", value: (beast: Beast) => Math.round(beast.energy), pic: Energy },
-  { label: "Hunger", value: (beast: Beast) => Math.round(beast.hunger), pic: Hunger },
-  { label: "Happiness", value: (beast: Beast) => Math.round(beast.happiness), pic: Happyness },
-  { label: "Hygiene", value: (beast: Beast) => Math.round(beast.hygiene), pic: Hygienne }
+  { label: "Energy", value: (beast: Beast) => Math.round(beast.status.energy), pic: Energy },
+  { label: "Hunger", value: (beast: Beast) => Math.round(beast.status.hunger), pic: Hunger },
+  { label: "Happiness", value: (beast: Beast) => Math.round(beast.status.happiness), pic: Happyness },
+  { label: "Hygiene", value: (beast: Beast) => Math.round(beast.status.hygiene), pic: Hygienne }
 ];
 
 const Status = ({ beast }: { beast: Beast }) => {

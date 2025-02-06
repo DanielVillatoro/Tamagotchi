@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { useAccount } from "@starknet-react/core";
 import SpawnBeast from "../SpawnBeast/index.tsx";
 import { DeveloperCode } from "../DeveloperCode/index.tsx";
+import { SchemaType } from '../../dojo/bindings.ts';
+import { SDK } from '@dojoengine/sdk';
 import './styles.css';
 
-const VennDiagram = () => {
+function VennDiagram({ sdk }: { sdk: SDK<SchemaType> }) {
   const { account } = useAccount();
   const [currentCircle, setCurrentCircle] = useState('play');
   const [showDeveloperCode, setShowDeveloperCode] = useState(false);
@@ -27,7 +29,7 @@ const VennDiagram = () => {
   }, []);
 
   if (account) {
-    return <SpawnBeast />;
+    return <SpawnBeast sdk={sdk} />;
   }
 
   return (

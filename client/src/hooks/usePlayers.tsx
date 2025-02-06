@@ -7,7 +7,7 @@ import { useAccount } from "@starknet-react/core";
 import useModel from "../dojo/useModel.tsx";
 import { useDojoStore } from "../main.tsx";
 
-export const useBeast = (sdk: SDK<SchemaType>) => {
+export const usePlayer = (sdk: SDK<SchemaType>) => {
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
 
@@ -16,14 +16,14 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
     [account?.address]
   );
 
-  const beastData = useModel(entityId ?? "", Models.Beast);
-  const [beast, setBeast] = useState(beastData);
+  const playerData = useModel(entityId ?? "", Models.Player);
+  const [player, setPlayer] = useState(playerData);
 
-  const [beasts, setBeasts] = useState<any>([]);
+  const [players, setPlayers] = useState<any>([]);
 
   useEffect(() => {
-    setBeast(beastData);
-  }, [beastData]);
+    setPlayer(playerData);
+  }, [playerData]);
 
   useEffect(() => {
     if (!account) return;
@@ -33,10 +33,10 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
       const subscription = await sdk.subscribeEntityQuery(
         {
           babybeasts: {
-            Beast: {
+            Player: {
               $: {
                 where: {
-                  player: {
+                  address: {
                     $is: addAddressPadding(account.address),
                   },
                 },
@@ -73,12 +73,12 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
         await sdk.getEntities(
           {
             babybeasts: {
-              Beast: {
+              Player: {
                 $: {
                   where: {
-                    player: {
-                      $eq: addAddressPadding(account.address),
-                    },
+                    // player: {
+                    //   $eq: addAddressPadding(account.address),
+                    // },
                   },
                 },
               },
@@ -90,8 +90,8 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
               return;
             }
             if (resp.data) {
-              const beastsData = resp.data.map((entity) => entity.models.babybeasts.Beast);
-              setBeasts(beastsData);
+              const playersData = resp.data.map((entity) => entity.models.babybeasts.Player);
+              setPlayers(playersData);
               state.setEntities(resp.data);
             }
           }
@@ -105,7 +105,7 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
   }, [sdk, account]);
 
   return {
-    beast,
-    beasts,
+    player,
+    players,
   };
 };

@@ -136,10 +136,10 @@ const Whispers = ({ beast, expanded }: { beast: Beast, expanded: boolean }) => {
   const generatePrompt = (beast: Beast) => {
     const criticalStat = analyzeStats(beast);
     return `You are Pou, a virtual BabyBeast with the following statistics:
-            Hunger: ${beast.hunger}/100
-            Energy: ${beast.energy}/100
-            Happiness: ${beast.happiness}/100
-            Hygiene: ${beast.hygiene}/100
+            Hunger: ${beast.status.hunger}/100
+            Energy: ${beast.status.energy}/100
+            Happiness: ${beast.status.happiness}/100
+            Hygiene: ${beast.status.hygiene}/100
             
             Responds as a friendly and playful virtual pet, in 2 lines max.,
             focusing on your most urgent need: ${criticalStat.stat} (${criticalStat.value}/100);`

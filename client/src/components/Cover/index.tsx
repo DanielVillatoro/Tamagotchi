@@ -1,13 +1,13 @@
 
 import { useEffect } from "react";
-import { useAccount } from "@starknet-react/core";
-import fight from '../../assets/img/banner.jpeg';
-import Footer from "../Footer/index.tsx";
-import SpawnBeast from "../SpawnBeast/index.tsx";
-import { DeveloperCode } from "../DeveloperCode/index.tsx";
+// import { useAccount } from "@starknet-react/core";
+// import fight from '../../assets/img/banner.jpeg';
+// import Footer from "../Footer/index.tsx";
+// import SpawnBeast from "../SpawnBeast/index.tsx";
+// import { DeveloperCode } from "../DeveloperCode/index.tsx";
 
 function Cover() {
-  const { account } = useAccount();
+  // const { account } = useAccount();
 
   useEffect(() => {
     const bodyElement = document.querySelector('.body') as HTMLElement;
@@ -21,7 +21,7 @@ function Cover() {
 
   return (
     <>
-      {
+      {/* {
         account ? <SpawnBeast /> :
           <>
             <div className='cover'>
@@ -32,7 +32,7 @@ function Cover() {
               <Footer />
             </div>
           </>
-      }
+      } */}
     </>
   )
 }

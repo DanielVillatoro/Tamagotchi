@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Account } from "starknet";
+import { usePlayer } from "../../hooks/usePlayers.tsx";
 import { useAccount } from "@starknet-react/core";
 import { SDK } from "@dojoengine/sdk";
-import { Beast, Schema } from "../../dojo/bindings";
+import { Beast, SchemaType } from "../../dojo/bindings";
 import { Card } from '../../components/ui/card';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
-import { useParams } from "react-router-dom";
 import initials from "../../data/initials.tsx";
 import message from '../../assets/img/message.svg';
 import dead from '../../assets/img/dead.gif';
@@ -24,10 +24,11 @@ import reviveSound from '../../assets/sounds/bbrevive.mp3';
 import monster from '../../assets/img/logo.svg';
 import './main.css';
 
-function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
+function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const { beasts } = useBeast(sdk);
-  const { beastId } = useParams();
-  const beast = beasts.find((beast: Beast) => String(beast.beast_id) === beastId);
+  const { player } = usePlayer(sdk);
+  console.log(player);
+  const beast = beasts.find((beast: Beast) => beast.beast_id === player?.current_beast_id);
 
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
@@ -83,19 +84,19 @@ function Tamagotchi({ sdk }: { sdk: SDK<Schema> }) {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      if (beast?.is_alive && account) {
+      if (beast?.status.is_alive && account) {
         await client.actions.decreaseStats(account as Account);
       }
-    }, 10000000);
+    }, 1000000);
 
     return () => clearInterval(interval);
-  }, [beast?.is_alive]);
+  }, [beast?.status.is_alive]);
 
   useEffect(() => {
-    if (beast?.is_alive == false) {
+    if (beast?.status.is_alive == false) {
       showDeathAnimation();
     }
-  }, [beast?.is_alive]);
+  }, [beast?.status.is_alive]);
 
   // Helper to wrap Dojo actions with toast
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {

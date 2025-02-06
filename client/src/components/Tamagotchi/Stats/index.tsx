@@ -6,10 +6,10 @@ import Experience  from '../../../assets/img/Experience.svg';
 import './main.css';
 
 const statsItems = [
-  { label: "Attack", value: (beast: Beast) => Math.round(beast.attack), pic: Attack },
-  { label: "Defense", value: (beast: Beast) => Math.round(beast.defense), pic: Defense },
-  { label: "Speed", value: (beast: Beast) => Math.round(beast.speed), pic: Speed },
-  { label: "Experience", value: (beast: Beast) => beast.experience, pic: Experience }
+  { label: "Attack", value: (beast: Beast) => Math.round(beast.stats.attack), pic: Attack },
+  { label: "Defense", value: (beast: Beast) => Math.round(beast.stats.defense), pic: Defense },
+  { label: "Speed", value: (beast: Beast) => Math.round(beast.stats.speed), pic: Speed },
+  { label: "Experience", value: (beast: Beast) => beast.stats.experience, pic: Experience }
 ];
 
 const Stats = ({ beast }: { beast: Beast }) => {

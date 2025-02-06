@@ -15,7 +15,7 @@ const actionButtons: { label: string, img: string | null, action: string, pictur
   { label: "Sleep", img: Sleep, action: "sleep", pictureKey: "sleepPicture" },
   { label: "Clean", img: Clean, action: "clean", pictureKey: "cleanPicture" },
   { label: "Play", img: Play, action: "play", pictureKey: "playPicture" },
-  { label: "Wake up", img: WakeUp, action: "revive", pictureKey: "idlePicture" },
+  { label: "Wake up", img: WakeUp, action: "wa", pictureKey: "idlePicture" },
   { label: "Revive", img: null, action: "revive", pictureKey: "idlePicture", isRevive: true }
 ];
 
@@ -33,13 +33,11 @@ const Actions = ({ handleAction, isLoading, beast, account, client, setCurrentVi
         <Button
           key={label}
           onClick={() => {
-            if (action === 'feed') {
-              setCurrentView('food'); // Change view to food
-            } else {
-              handleAction(label, () => client.actions[action](account as Account), initials[beast.specie - 1][pictureKey]);
-            }
+            if (action === 'feed') setCurrentView('food');
+            if (action === 'feed') return;
+            handleAction(label, () => client.actions[action](account as Account), initials[beast.specie - 1][pictureKey]);
           }}
-          disabled={isLoading || (isRevive ? beast.is_alive : !beast.is_alive)}
+          disabled={true || isLoading || (isRevive ? beast.status.is_alive : !beast.status.is_alive)}
         >
           {img && <img src={img} />} {label}
         </Button>

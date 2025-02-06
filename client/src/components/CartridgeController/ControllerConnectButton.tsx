@@ -25,8 +25,8 @@ const ControllerConnectButton = () => {
         ) : (
           <button
             key={connector.id}
-            onClick={() => {
-              connect({ connector })
+            onClick={async() => {
+              connect({ connector });
             }}
             className="button"
           >

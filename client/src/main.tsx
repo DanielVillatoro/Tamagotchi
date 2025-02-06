@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { init, createDojoStore } from "@dojoengine/sdk";
-import { Schema, schema } from "./dojo/bindings.ts";
+import { SchemaType, schema } from "./dojo/bindings.ts";
 import { dojoConfig } from "./dojo/dojoConfig.ts";
 import { DojoContextProvider } from "./dojo/DojoContext.tsx";
 import { sepolia } from "@starknet-react/chains";
@@ -27,10 +27,10 @@ function provider() {
   });
 }
 
-export const useDojoStore = createDojoStore<Schema>();
+export const useDojoStore = createDojoStore<SchemaType>();
 
 async function main() {
-  const sdk = await init<Schema>(
+  const sdk = await init<SchemaType>(
     {
       client: {
         rpcUrl: dojoConfig.rpcUrl,
@@ -63,7 +63,7 @@ async function main() {
             <Router>
               <Routes>
                 {/* Cover route without header*/}
-                <Route path="/" element={<NewCover />} />
+                <Route path="/" element={<NewCover sdk={sdk} />} />
                 
                 {/* Internal routes using layout for header */}
                 <Route element={<AppLayout />}>

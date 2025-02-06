@@ -7,7 +7,7 @@ import { useAccount } from "@starknet-react/core";
 import useModel from "../dojo/useModel.tsx";
 import { useDojoStore } from "../main.tsx";
 
-export const useBeast = (sdk: SDK<SchemaType>) => {
+export const useFood = (sdk: SDK<SchemaType>) => {
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
 
@@ -16,14 +16,14 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
     [account?.address]
   );
 
-  const beastData = useModel(entityId ?? "", Models.Beast);
-  const [beast, setBeast] = useState(beastData);
+  const foodData = useModel(entityId ?? "", Models.Food);
+  const [food, setFood] = useState(foodData);
 
-  const [beasts, setBeasts] = useState<any>([]);
+  const [foods, setFoods] = useState<any>([]);
 
   useEffect(() => {
-    setBeast(beastData);
-  }, [beastData]);
+    setFood(foodData);
+  }, [foodData]);
 
   useEffect(() => {
     if (!account) return;
@@ -33,7 +33,7 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
       const subscription = await sdk.subscribeEntityQuery(
         {
           babybeasts: {
-            Beast: {
+            Food: {
               $: {
                 where: {
                   player: {
@@ -73,12 +73,12 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
         await sdk.getEntities(
           {
             babybeasts: {
-              Beast: {
+              Food: {
                 $: {
                   where: {
-                    player: {
-                      $eq: addAddressPadding(account.address),
-                    },
+                    // food: {
+                    //   $eq: addAddressPadding(account.address),
+                    // },
                   },
                 },
               },
@@ -90,8 +90,8 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
               return;
             }
             if (resp.data) {
-              const beastsData = resp.data.map((entity) => entity.models.babybeasts.Beast);
-              setBeasts(beastsData);
+              const foodsData = resp.data.map((entity) => entity.models.babybeasts.Food);
+              setFoods(foodsData);
               state.setEntities(resp.data);
             }
           }
@@ -105,7 +105,7 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
   }, [sdk, account]);
 
   return {
-    beast,
-    beasts,
+    food,
+    foods,
   };
 };

@@ -6,11 +6,15 @@ import toast, { Toaster } from 'react-hot-toast';
 import ControllerConnectButton from "../CartridgeController/ControllerConnectButton.tsx";
 import Egg from "../../assets/img/egg.gif";
 import Hints from "../Hints/index.tsx";
-import './main.css';
 import Header from "../Header/index.tsx";
+import { useDojo } from "../../dojo/useDojo.tsx";
+import { SchemaType } from "../../dojo/bindings.ts";
+import { SDK } from "@dojoengine/sdk";
+import { Account } from "starknet";
+import { usePlayer } from "../../hooks/usePlayers.tsx";
+import './main.css';
 
-
-function SpawnBeast() {
+function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
   const { spawn } = useSystemCalls();
   const { account } = useAccount();
 
@@ -35,6 +39,18 @@ function SpawnBeast() {
     toast("Your egg is hatching!", { duration: 5000 });
   }
 
+  const {
+    setup: { client }
+  } = useDojo();
+
+  const { player } = usePlayer(sdk);
+
+  const spawnPlayer = async () => {
+    if (!account) return
+    await client.actions.spawnPlayer(account as Account);
+    await client.actions.addInitialFood(account as Account);
+  };
+
   return (
     <>
       <Header />
@@ -56,16 +72,23 @@ function SpawnBeast() {
               Hatch your own Babybeasts and take care of it! Collect them all!
             </p>
           </div>
-          <button
-            disabled={account ? false : true}
-            className="button"
-            onClick={async () => {
-              notify();
-              await spawn(randomNumber);
-              await new Promise(resolve => setTimeout(resolve, 5500));
-              navigate("/bag");
-            }}>Hatch your egg
-          </button>
+          { account && !player && 
+            <button
+              className="button"
+              onClick={async () => {
+                await spawnPlayer();
+              }}>Create player
+            </button>}
+          { account && player && 
+            <button
+              className="button"
+              onClick={async () => {
+                notify();
+                await spawn(randomNumber);
+                await new Promise(resolve => setTimeout(resolve, 5500));
+                navigate("/bag");
+              }}>Hatch your egg
+            </button>}
           <Hints />
           <Toaster position="bottom-center" />
         </div>

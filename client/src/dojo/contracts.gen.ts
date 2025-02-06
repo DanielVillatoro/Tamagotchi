@@ -5,6 +5,54 @@ export type IClient = Awaited<ReturnType<typeof client>>;
 
 export function client(provider: DojoProvider) {
 
+	const actions_spawnPlayer = async (snAccount: Account | AccountInterface) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				{
+					contractName: "actions",
+					entrypoint: "spawn_player",
+					calldata: [],
+				},
+				"babybeasts",
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const actions_setCurrentBeast = async (snAccount: Account | AccountInterface, beastId: number) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				{
+					contractName: "actions",
+					entrypoint: "set_current_beast",
+					calldata: [beastId],
+				},
+				"babybeasts",
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const actions_addInitialFood = async (snAccount: Account | AccountInterface) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				{
+					contractName: "actions",
+					entrypoint: "add_initial_food",
+					calldata: [],
+				},
+				"babybeasts",
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const actions_spawn = async (snAccount: Account | AccountInterface, specie: number) => {
 		try {
 			return await provider.execute(
@@ -37,14 +85,14 @@ export function client(provider: DojoProvider) {
 		}
 	};
 
-	const actions_feed = async (snAccount: Account | AccountInterface) => {
+	const actions_feed = async (snAccount: Account | AccountInterface, foodId: number) => {
 		try {
 			return await provider.execute(
 				snAccount,
 				{
 					contractName: "actions",
 					entrypoint: "feed",
-					calldata: [],
+					calldata: [foodId],
 				},
 				"babybeasts",
 			);
@@ -133,8 +181,27 @@ export function client(provider: DojoProvider) {
 		}
 	};
 
+	const actions_tap = async (snAccount: Account | AccountInterface, specie: number) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				{
+					contractName: "actions",
+					entrypoint: "tap",
+					calldata: [specie],
+				},
+				"babybeasts",
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return {
 		actions: {
+			spawnPlayer: actions_spawnPlayer,
+			setCurrentBeast: actions_setCurrentBeast,
+			addInitialFood: actions_addInitialFood,
 			spawn: actions_spawn,
 			decreaseStats: actions_decreaseStats,
 			feed: actions_feed,
@@ -143,6 +210,7 @@ export function client(provider: DojoProvider) {
 			play: actions_play,
 			clean: actions_clean,
 			revive: actions_revive,
+			tap: actions_tap,
 		},
 	};
 }

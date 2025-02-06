@@ -8,46 +8,55 @@ type RemoveFieldOrder<T> = T extends object
 		'fieldOrder'
 	>
 	: T;
-// Type definition for `babybeasts::models::Beast` struct
-export interface Beast {
+// Type definition for `babybeasts::models::beast_stats::BeastStats` struct
+export interface BeastStats {
 	fieldOrder: string[];
 	beast_id: number;
-	player: string;
-	specie: number;
-	is_alive: boolean;
-	is_awake: boolean;
-	hunger: number;
-	max_hunger: number;
-	energy: number;
-	max_energy: number;
-	happiness: number;
-	max_happiness: number;
-	hygiene: number;
-	max_hygiene: number;
 	attack: number;
 	defense: number;
 	speed: number;
 	level: number;
 	experience: number;
 	next_level_experience: number;
+}
+export type InputBeastStats = RemoveFieldOrder<BeastStats>;
+
+// Type definition for `babybeasts::models::beast::Beast` struct
+export interface Beast {
+	fieldOrder: string[];
+	player: string;
+	beast_id: number;
+	specie: number;
+	status: BeastStatus;
+	stats: BeastStats;
 }
 export type InputBeast = RemoveFieldOrder<Beast>;
 
-// Type definition for `babybeasts::models::BeastValue` struct
+// Type definition for `babybeasts::models::beast::BeastValue` struct
 export interface BeastValue {
 	fieldOrder: string[];
-	player: string;
 	specie: number;
+	status: BeastStatus;
+	stats: BeastStats;
+}
+export type InputBeastValue = RemoveFieldOrder<BeastValue>;
+
+// Type definition for `babybeasts::models::beast_status::BeastStatus` struct
+export interface BeastStatus {
+	fieldOrder: string[];
+	beast_id: number;
 	is_alive: boolean;
 	is_awake: boolean;
 	hunger: number;
-	max_hunger: number;
 	energy: number;
-	max_energy: number;
 	happiness: number;
-	max_happiness: number;
 	hygiene: number;
-	max_hygiene: number;
+}
+export type InputBeastStatus = RemoveFieldOrder<BeastStatus>;
+
+// Type definition for `babybeasts::models::beast_stats::BeastStatsValue` struct
+export interface BeastStatsValue {
+	fieldOrder: string[];
 	attack: number;
 	defense: number;
 	speed: number;
@@ -55,71 +64,106 @@ export interface BeastValue {
 	experience: number;
 	next_level_experience: number;
 }
-export type InputBeastValue = RemoveFieldOrder<BeastValue>;
+export type InputBeastStatsValue = RemoveFieldOrder<BeastStatsValue>;
 
-// Type definition for `babybeasts::models::BeastIdValue` struct
-export interface BeastIdValue {
+// Type definition for `babybeasts::models::beast_status::BeastStatusValue` struct
+export interface BeastStatusValue {
 	fieldOrder: string[];
-	beast_id: number;
+	is_alive: boolean;
+	is_awake: boolean;
+	hunger: number;
+	energy: number;
+	happiness: number;
+	hygiene: number;
 }
-export type InputBeastIdValue = RemoveFieldOrder<BeastIdValue>;
+export type InputBeastStatusValue = RemoveFieldOrder<BeastStatusValue>;
 
-// Type definition for `babybeasts::models::BeastId` struct
-export interface BeastId {
+// Type definition for `babybeasts::models::food::Food` struct
+export interface Food {
 	fieldOrder: string[];
+	player: string;
 	id: number;
-	beast_id: number;
+	name: number;
+	amount: number;
 }
-export type InputBeastId = RemoveFieldOrder<BeastId>;
+export type InputFood = RemoveFieldOrder<Food>;
 
+// Type definition for `babybeasts::models::food::FoodValue` struct
+export interface FoodValue {
+	fieldOrder: string[];
+	name: number;
+	amount: number;
+}
+export type InputFoodValue = RemoveFieldOrder<FoodValue>;
 
-export interface Schema extends ISchemaType {
+// Type definition for `babybeasts::models::player::Player` struct
+export interface Player {
+	fieldOrder: string[];
+	address: string;
+	current_beast_id: number;
+}
+export type InputPlayer = RemoveFieldOrder<Player>;
+
+// Type definition for `babybeasts::models::player::PlayerValue` struct
+export interface PlayerValue {
+	fieldOrder: string[];
+	current_beast_id: number;
+}
+export type InputPlayerValue = RemoveFieldOrder<PlayerValue>;
+
+export interface SchemaType extends ISchemaType {
 	babybeasts: {
+		BeastStats: BeastStats,
 		Beast: Beast,
 		BeastValue: BeastValue,
-		BeastIdValue: BeastIdValue,
-		BeastId: BeastId,
+		BeastStatus: BeastStatus,
+		BeastStatsValue: BeastStatsValue,
+		BeastStatusValue: BeastStatusValue,
+		Food: Food,
+		FoodValue: FoodValue,
+		Player: Player,
+		PlayerValue: PlayerValue,
 	},
 }
 
-export const schema: Schema = {
+export const schema: SchemaType = {
 	babybeasts: {
-		Beast: {
-			fieldOrder: ['beast_id', 'player', 'specie', 'is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
+		BeastStats: {
+			fieldOrder: ['beast_id', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
 			beast_id: 0,
-			player: "",
-			specie: 0,
-			is_alive: false,
-			is_awake: false,
-			hunger: 0,
-			max_hunger: 0,
-			energy: 0,
-			max_energy: 0,
-			happiness: 0,
-			max_happiness: 0,
-			hygiene: 0,
-			max_hygiene: 0,
 			attack: 0,
 			defense: 0,
 			speed: 0,
 			level: 0,
 			experience: 0,
 			next_level_experience: 0,
+		},
+		Beast: {
+			fieldOrder: ['player', 'beast_id', 'specie', 'status', 'stats'],
+			player: "",
+			beast_id: 0,
+			specie: 0,
+			status: { fieldOrder: ['beast_id', 'is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene'], beast_id: 0, is_alive: false, is_awake: false, hunger: 0, energy: 0, happiness: 0, hygiene: 0, },
+			stats: { fieldOrder: ['beast_id', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'], beast_id: 0, attack: 0, defense: 0, speed: 0, level: 0, experience: 0, next_level_experience: 0, },
 		},
 		BeastValue: {
-			fieldOrder: ['player', 'specie', 'is_alive', 'is_awake', 'hunger', 'max_hunger', 'energy', 'max_energy', 'happiness', 'max_happiness', 'hygiene', 'max_hygiene', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
-			player: "",
+			fieldOrder: ['specie', 'status', 'stats'],
 			specie: 0,
+			status: { fieldOrder: ['beast_id', 'is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene'], beast_id: 0, is_alive: false, is_awake: false, hunger: 0, energy: 0, happiness: 0, hygiene: 0, },
+			stats: { fieldOrder: ['beast_id', 'attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'], beast_id: 0, attack: 0, defense: 0, speed: 0, level: 0, experience: 0, next_level_experience: 0, },
+		},
+		BeastStatus: {
+			fieldOrder: ['beast_id', 'is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene'],
+			beast_id: 0,
 			is_alive: false,
 			is_awake: false,
 			hunger: 0,
-			max_hunger: 0,
 			energy: 0,
-			max_energy: 0,
 			happiness: 0,
-			max_happiness: 0,
 			hygiene: 0,
-			max_hygiene: 0,
+		},
+		BeastStatsValue: {
+			fieldOrder: ['attack', 'defense', 'speed', 'level', 'experience', 'next_level_experience'],
 			attack: 0,
 			defense: 0,
 			speed: 0,
@@ -127,17 +171,39 @@ export const schema: Schema = {
 			experience: 0,
 			next_level_experience: 0,
 		},
-		BeastIdValue: {
-			fieldOrder: ['beast_id'],
-			beast_id: 0,
+		BeastStatusValue: {
+			fieldOrder: ['is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene'],
+			is_alive: false,
+			is_awake: false,
+			hunger: 0,
+			energy: 0,
+			happiness: 0,
+			hygiene: 0,
 		},
-		BeastId: {
-			fieldOrder: ['id', 'beast_id'],
+		Food: {
+			fieldOrder: ['player', 'id', 'name', 'amount'],
+			player: "",
 			id: 0,
-			beast_id: 0,
+			name: 0,
+			amount: 0,
+		},
+		FoodValue: {
+			fieldOrder: ['name', 'amount'],
+			name: 0,
+			amount: 0,
+		},
+		Player: {
+			fieldOrder: ['address', 'current_beast_id'],
+			address: "",
+			current_beast_id: 0,
+		},
+		PlayerValue: {
+			fieldOrder: ['current_beast_id'],
+			current_beast_id: 0,
 		},
 	},
 };
+
 // Type definition for ERC__Balance struct
 export type ERC__Type = 'ERC20' | 'ERC721';
 export interface ERC__Balance {
@@ -167,4 +233,6 @@ export interface ERC__Transfer {
 
 export enum Models {
 	Beast = "babybeasts-Beast",
+	Player = "babybeasts-Player",
+	Food = "babybeasts-Food",
 }

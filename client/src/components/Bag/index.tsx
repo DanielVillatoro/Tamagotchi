@@ -1,14 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { SDK } from "@dojoengine/sdk";
-import { Beast, Schema } from "../../dojo/bindings.ts";
+import { Beast, SchemaType } from "../../dojo/bindings.ts";
 import { useBeast } from '../../hooks/useBeasts.tsx';
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton.tsx';
 import initials from "../../data/initials.tsx";
+import { useAccount } from '@starknet-react/core';
+import { Account } from 'starknet';
+import { useDojo } from '../../dojo/useDojo.tsx';
 import './main.css';
 
-function Bag({ sdk }: { sdk: SDK<Schema> }) {
+function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
   const { beasts } = useBeast(sdk);
+  const { account } = useAccount();
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = beasts.length;
   const touchStartX = useRef<number | null>(null);
@@ -37,6 +41,10 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
     touchEndX.current = null;
   };
 
+  const {
+      setup: { client },
+    } = useDojo();
+
   const getSlideContent = (beast: typeof beasts[0]) => (
     <>
       <div className="beast-slide">
@@ -55,7 +63,7 @@ function Bag({ sdk }: { sdk: SDK<Schema> }) {
               Your are close to evolve {initials[beast.specie - 1].name}, keep playing to reach the next level
             </p>
           </div>
-          <Link to={`/play/${beast.beast_id}`} className="button">
+          <Link to={`/play/${beast.beast_id}`} className="button" onClick={async() => {  await client.actions.setCurrentBeast(account as Account, beast.beast_id) }}>
             PLAY
           </Link>
         </div>
