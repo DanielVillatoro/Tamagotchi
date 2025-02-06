@@ -15,6 +15,7 @@ trait IActions<T> {
     fn clean(ref self: T);
     fn revive(ref self: T);
     // Other methods
+    fn init_tap_counter(ref self: T);
     fn tap(ref self: T, specie: u32);
 }
 
@@ -22,6 +23,7 @@ trait IActions<T> {
 pub mod actions {
     // Starknet imports
     use starknet::{ContractAddress, get_caller_address};
+    use starknet::storage::{Map, StorageMapReadAccess, StorageMapWriteAccess};
     
     // Local import
     use super::{IActions};
@@ -47,13 +49,12 @@ pub mod actions {
     #[storage]
     struct Storage {
         beast_counter: u32,
-        tap_counter: u32
+        tap_counter: Map<ContractAddress, u32>
     }
 
     // Constructor
     fn dojo_init( ref self: ContractState) {
         self.beast_counter.write(1);
-        self.tap_counter.write(0);
     }
 
     // Implementation of the interface methods
@@ -67,6 +68,8 @@ pub mod actions {
                 address: caller, 
                 current_beast_id: 0
             };
+
+            self.init_tap_counter();
             world.write_model(@new_player);
         }
 
@@ -140,7 +143,9 @@ pub mod actions {
                 beast_id: current_beast_id,
                 specie: specie,
                 status: initial_beast_status,
-                stats: initial_beast_stats
+                stats: initial_beast_stats,
+                evolved: false,
+                vaulted: false
             };
 
             self.beast_counter.write(current_beast_id+1);
@@ -275,6 +280,11 @@ pub mod actions {
                 beast.stats.experience = beast.stats.experience + 10;
                 if beast.stats.experience >= beast.stats.next_level_experience {
                     beast.stats.level = beast.stats.level + 1;
+                    // Evolution level reached
+                    if beast.stats.level >= constants::MAX_BABY_LEVEL {
+                        beast.evolved = true;
+                        beast.vaulted = true;
+                    }
                     beast.stats.experience = 0;
                     beast.stats.next_level_experience = beast.stats.next_level_experience + 20;
                 }
@@ -303,6 +313,11 @@ pub mod actions {
                 beast.stats.experience = beast.stats.experience + 10;
                 if beast.stats.experience >= beast.stats.next_level_experience {
                     beast.stats.level = beast.stats.level + 1;
+                    // Evolution level reached
+                    if beast.stats.level >= constants::MAX_BABY_LEVEL {
+                        beast.evolved = true;
+                        beast.vaulted = true;
+                    }
                     beast.stats.experience = 0;
                     beast.stats.next_level_experience = beast.stats.next_level_experience + 20;
                     beast.stats.attack = beast.stats.attack + 1;
@@ -352,14 +367,23 @@ pub mod actions {
             }
         }
 
+        fn init_tap_counter(ref self: ContractState) {
+            let player_address = get_caller_address();
+
+            self.tap_counter.write(player_address, 0);
+        }
+
+
         fn tap(ref self: ContractState, specie: u32) {
-            let current_tap_counter = self.tap_counter.read();
+            let player_address = get_caller_address();
+            let current_tap_counter = self.tap_counter.read(player_address);
 
             if current_tap_counter == constants::MAX_TAP_COUNTER {
                 self.spawn(specie);
+                self.init_tap_counter();
             }
 
-            self.tap_counter.write(current_tap_counter+1);
+            self.tap_counter.write(player_address, current_tap_counter+1);
         }
     }
 }

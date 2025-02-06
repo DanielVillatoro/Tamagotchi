@@ -9,3 +9,6 @@ const MAX_TAP_COUNTER: u32 = 10;
 
 // Max food amount per player
 const MAX_FOOD_AMOUNT: u32 = 10;
+
+// Max level as babybeast
+const MAX_BABY_LEVEL: u32 = 15;
