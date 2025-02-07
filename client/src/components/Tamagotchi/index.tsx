@@ -97,7 +97,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
       if (status?.is_alive && account) {
         await client.actions.decreaseStatus(account as Account);
       }
-    }, 10000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [status?.is_alive]);
