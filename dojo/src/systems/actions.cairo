@@ -7,7 +7,7 @@ trait IActions<T> {
     fn add_initial_food(ref self: T);
     // Beast Methods
     fn spawn(ref self: T, specie: u32);
-    fn decrease_stats(ref self: T);
+    fn decrease_status(ref self: T);
     fn feed(ref self: T, food_id: u8);
     fn sleep(ref self: T);
     fn awake(ref self: T);
@@ -41,6 +41,9 @@ pub mod actions {
     // Constants import
     use babybeasts::constants;
 
+    // Store import
+    use babybeasts::store::{Store, StoreTrait};
+
     // Dojo Imports
     use dojo::model::{ModelStorage, ModelValueStorage};
     use dojo::event::EventStorage;
@@ -62,305 +65,271 @@ pub mod actions {
     impl ActionsImpl of IActions<ContractState> {
         fn spawn_player(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let caller = get_caller_address();
+            let store = StoreTrait::new(world);
 
-            let new_player = Player {
-                address: caller, 
-                current_beast_id: 0
-            };
+            store.new_player();
 
             self.init_tap_counter();
-            world.write_model(@new_player);
         }
 
         fn set_current_beast(ref self: ContractState, beast_id: u32) {
             let mut world = self.world(@"babybeasts");
-            let player_address = get_caller_address();
+            let store = StoreTrait::new(world);
 
-            let mut player: Player = world.read_model(player_address);
+            let mut player: Player = store.read_player();
             player.current_beast_id = beast_id;
 
-            world.write_model(@player);
+            store.write_player(@player);
         }
 
         fn add_initial_food(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
-            let caller = get_caller_address();
+            let store = StoreTrait::new(world);
 
-            let apples = Food {
-                player: caller,
-                id: FoodType::Apple.into(),
-                name: FoodType::Apple.into(),
-                amount: constants::MAX_FOOD_AMOUNT
-            };
-            world.write_model(@apples);
-
-            let bananas = Food {
-                player: caller,
-                id: FoodType::Banana.into(),
-                name: FoodType::Banana.into(),
-                amount: constants::MAX_FOOD_AMOUNT
-            };
-            world.write_model(@bananas);
-
-            let cherries = Food {
-                player: caller,
-                id: FoodType::Cherry.into(),
-                name: FoodType::Cherry.into(),
-                amount: constants::MAX_FOOD_AMOUNT
-            };
-            world.write_model(@cherries);
+            store.new_apples();
+            store.new_bananas();
+            store.new_cherries();
         }
 
         fn spawn(ref self: ContractState, specie: u32) {
             let mut world = self.world(@"babybeasts");
-            let player = get_caller_address();
-
+            let store = StoreTrait::new(world);
+            
             let current_beast_id = self.beast_counter.read();
 
-            let mut initial_beast_stats = BeastStats {
-                beast_id: current_beast_id,
-                attack: 5,
-                defense: 5,
-                speed: 5,
-                level: 1,
-                experience: 0,
-                next_level_experience: 60,
-            };
-
-            let mut initial_beast_status = BeastStatus {
-                beast_id: current_beast_id,
-                is_alive: true,
-                is_awake: true,
-                hunger: 100,
-                energy: 100,
-                happiness: 100,
-                hygiene: 100,
-            };
-
-            let mut new_beast = Beast {
-                player: player,
-                beast_id: current_beast_id,
-                specie: specie,
-                status: initial_beast_status,
-                stats: initial_beast_stats,
-                evolved: false,
-                vaulted: false
-            };
+            store.new_beast(current_beast_id, specie);
 
             self.beast_counter.write(current_beast_id+1);
-            world.write_model(@new_beast);
         }
 
-        fn decrease_stats(ref self: ContractState) {
+        fn decrease_status(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
+            
+            let player: Player = store.read_player();
+            let beast_id = player.current_beast_id;
 
-            let player_address = get_caller_address();
-            let player: Player = world.read_model(player_address);
-            let current_beast_id = player.current_beast_id;
+            let mut beast: Beast = store.read_beast(beast_id);
 
-            let mut beast: Beast = world.read_model((player_address, current_beast_id));
+            let mut beast_status = store.read_beast_status(beast_id);
 
-            if beast.status.is_alive == true {
-                if beast.status.happiness == 0 || beast.status.hygiene == 0 {
-                    beast.status.energy = beast.status.energy - 2;
+            if beast_status.is_alive == true {
+                if beast_status.happiness == 0 || beast_status.hygiene == 0 {
+                    beast_status.energy = beast_status.energy - 2;
                 } else {
-                    beast.status.energy = beast.status.energy - 1;
+                    beast_status.energy = beast_status.energy - 1;
                 }
-                if beast.status.energy < 0 {
-                    beast.status.energy = 0;
-                }
-
-                beast.status.hunger = beast.status.hunger - 2;
-                if beast.status.hunger < 0 {
-                    beast.status.hunger = 0;
+                if beast_status.energy < 0 {
+                    beast_status.energy = 0;
                 }
 
-                beast.status.happiness = beast.status.happiness - 1;
-                if beast.status.happiness < 0 {
-                    beast.status.happiness = 0;
+                beast_status.hunger = beast_status.hunger - 2;
+                if beast_status.hunger < 0 {
+                    beast_status.hunger = 0;
                 }
 
-                beast.status.hygiene = beast.status.hygiene - 1;
-                if beast.status.hygiene < 0 {
-                    beast.status.hygiene = 0;
+                beast_status.happiness = beast_status.happiness - 1;
+                if beast_status.happiness < 0 {
+                    beast_status.happiness = 0;
                 }
 
-                if beast.status.energy == 0 || beast.status.hunger == 0 {
-                    beast.status.is_alive = false;
+                beast_status.hygiene = beast_status.hygiene - 1;
+                if beast_status.hygiene < 0 {
+                    beast_status.hygiene = 0;
                 }
 
-                world.write_model(@beast);
+                if beast_status.energy == 0 || beast_status.hunger == 0 {
+                    beast_status.is_alive = false;
+                }
+                store.write_beast(@beast);
             }
         }
 
         fn feed(ref self: ContractState, food_id: u8) {
             let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
+            
+            let player: Player = store.read_player();
+            let beast_id = player.current_beast_id;
 
-            let player_address = get_caller_address();
-            let player: Player = world.read_model(player_address);
-            let current_beast_id = player.current_beast_id;
+            let mut beast: Beast = store.read_beast(beast_id);
 
-            let mut beast: Beast = world.read_model((player_address, current_beast_id));
+            let mut food: Food = store.read_food(food_id);
 
-            let mut food: Food = world.read_model((player_address,food_id));
+            let mut beast_status = store.read_beast_status(beast_id);
 
-            if beast.status.is_alive == true {
+            if beast_status.is_alive == true {
                 if food.amount > 0 {
                     food.amount - 1;
-                    beast.status.hunger = beast.status.hunger + 30;
-                    if beast.status.hunger > constants::MAX_HUNGER {
-                        beast.status.hunger = constants::MAX_HUNGER;
+                    beast_status.hunger = beast_status.hunger + 30;
+                    if beast_status.hunger > constants::MAX_HUNGER {
+                        beast_status.hunger = constants::MAX_HUNGER;
                     }
-                    beast.status.energy = beast.status.energy + 10;
-                    if beast.status.energy > constants::MAX_ENERGY {
-                        beast.status.energy = constants::MAX_ENERGY;
+                    beast_status.energy = beast_status.energy + 10;
+                    if beast_status.energy > constants::MAX_ENERGY {
+                        beast_status.energy = constants::MAX_ENERGY;
                     }
-                    world.write_model(@food);
-                    world.write_model(@beast);
+                    store.write_food(@food);
+                    store.write_beast(@beast);
                 }
             }
         }
 
         fn sleep(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
+            
+            let player: Player = store.read_player();
+            let beast_id = player.current_beast_id;
 
-            let player_address = get_caller_address();
-            let player: Player = world.read_model(player_address);
-            let current_beast_id = player.current_beast_id;
+            let mut beast: Beast = store.read_beast(beast_id);
 
-            let mut beast: Beast = world.read_model((player_address, current_beast_id));
+            let mut beast_status = store.read_beast_status(beast_id);
 
-            if beast.status.is_alive == true {
-                beast.status.energy = beast.status.energy + 40;
-                if beast.status.energy > constants::MAX_ENERGY {
-                    beast.status.energy = constants::MAX_ENERGY;
+            if beast_status.is_alive == true {
+                beast_status.energy = beast_status.energy + 40;
+                if beast_status.energy > constants::MAX_ENERGY {
+                    beast_status.energy = constants::MAX_ENERGY;
                 }
-                beast.status.happiness = beast.status.happiness + 10;
-                if beast.status.happiness > constants::MAX_HAPPINESS {
-                    beast.status.happiness = constants::MAX_HAPPINESS;
+                beast_status.happiness = beast_status.happiness + 10;
+                if beast_status.happiness > constants::MAX_HAPPINESS {
+                    beast_status.happiness = constants::MAX_HAPPINESS;
                 }
-                beast.status.is_awake = false;
-                world.write_model(@beast);
+                beast_status.is_awake = false;
+                store.write_beast(@beast);
             }
         }
 
         fn awake(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
+            
+            let player: Player = store.read_player();
+            let beast_id = player.current_beast_id;
 
-            let player_address = get_caller_address();
-            let player: Player = world.read_model(player_address);
-            let current_beast_id = player.current_beast_id;
+            let mut beast: Beast = store.read_beast(beast_id);
 
-            let mut beast: Beast = world.read_model((player_address, current_beast_id));
+            let mut beast_status = store.read_beast_status(beast_id);
 
-            if beast.status.is_alive == true {
-                beast.status.is_awake = true;
-                world.write_model(@beast);
+            if beast_status.is_alive == true {
+                beast_status.is_awake = true;
+                store.write_beast(@beast);
             }
         }
 
         fn play(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
             
-            let player_address = get_caller_address();
-            let player: Player = world.read_model(player_address);
-            let current_beast_id = player.current_beast_id;
+            let player: Player = store.read_player();
+            let beast_id = player.current_beast_id;
 
-            let mut beast: Beast = world.read_model((player_address, current_beast_id));
+            let mut beast: Beast = store.read_beast(beast_id);
 
-            if beast.status.is_alive == true {
-                beast.status.happiness = beast.status.happiness + 30;
-                if beast.status.happiness > constants::MAX_HAPPINESS {
-                    beast.status.happiness = constants::MAX_HAPPINESS;
+            let mut beast_status = store.read_beast_status(beast_id);
+
+            let mut beast_stats = store.read_beast_stats(beast_id);
+
+            if beast_status.is_alive == true {
+                beast_status.happiness = beast_status.happiness + 30;
+                if beast_status.happiness > constants::MAX_HAPPINESS {
+                    beast_status.happiness = constants::MAX_HAPPINESS;
                 }
-                beast.status.energy = beast.status.energy - 20;
-                beast.status.hunger = beast.status.hunger - 10;
+                beast_status.energy = beast_status.energy - 20;
+                beast_status.hunger = beast_status.hunger - 10;
 
-                beast.stats.experience = beast.stats.experience + 10;
-                if beast.stats.experience >= beast.stats.next_level_experience {
-                    beast.stats.level = beast.stats.level + 1;
+                beast_stats.experience = beast_stats.experience + 10;
+                if beast_stats.experience >= beast_stats.next_level_experience {
+                    beast_stats.level = beast_stats.level + 1;
                     // Evolution level reached
-                    if beast.stats.level >= constants::MAX_BABY_LEVEL {
+                    if beast_stats.level >= constants::MAX_BABY_LEVEL {
                         beast.evolved = true;
                         beast.vaulted = true;
                     }
-                    beast.stats.experience = 0;
-                    beast.stats.next_level_experience = beast.stats.next_level_experience + 20;
+                    beast_stats.experience = 0;
+                    beast_stats.next_level_experience = beast_stats.next_level_experience + 20;
                 }
-                world.write_model(@beast);
+                store.write_beast(@beast);
             }
         }
 
         fn clean(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
             
-            let player_address = get_caller_address();
-            let player: Player = world.read_model(player_address);
-            let current_beast_id = player.current_beast_id;
+            let player: Player = store.read_player();
+            let beast_id = player.current_beast_id;
 
-            let mut beast: Beast = world.read_model((player_address, current_beast_id));
+            let mut beast: Beast = store.read_beast(beast_id);
 
-            if beast.status.is_alive == true {
-                beast.status.hygiene = beast.status.hygiene + 40;
-                if beast.status.hygiene > constants::MAX_HYGIENE{
-                    beast.status.hygiene = constants::MAX_HYGIENE;
+            let mut beast_status = store.read_beast_status(beast_id);
+
+            let mut beast_stats = store.read_beast_stats(beast_id);
+
+            if beast_status.is_alive == true {
+                beast_status.hygiene = beast_status.hygiene + 40;
+                if beast_status.hygiene > constants::MAX_HYGIENE{
+                    beast_status.hygiene = constants::MAX_HYGIENE;
                 }
-                beast.status.happiness = beast.status.happiness + 10;
-                if beast.status.happiness > constants::MAX_HAPPINESS {
-                    beast.status.happiness = constants::MAX_HAPPINESS;
+                beast_status.happiness = beast_status.happiness + 10;
+                if beast_status.happiness > constants::MAX_HAPPINESS {
+                    beast_status.happiness = constants::MAX_HAPPINESS;
                 }
-                beast.stats.experience = beast.stats.experience + 10;
-                if beast.stats.experience >= beast.stats.next_level_experience {
-                    beast.stats.level = beast.stats.level + 1;
+                beast_stats.experience = beast_stats.experience + 10;
+                if beast_stats.experience >= beast_stats.next_level_experience {
+                    beast_stats.level = beast_stats.level + 1;
                     // Evolution level reached
-                    if beast.stats.level >= constants::MAX_BABY_LEVEL {
+                    if beast_stats.level >= constants::MAX_BABY_LEVEL {
                         beast.evolved = true;
                         beast.vaulted = true;
                     }
-                    beast.stats.experience = 0;
-                    beast.stats.next_level_experience = beast.stats.next_level_experience + 20;
-                    beast.stats.attack = beast.stats.attack + 1;
-                    beast.stats.defense = beast.stats.defense + 1;
-                    beast.stats.speed = beast.stats.speed + 1;
+                    beast_stats.experience = 0;
+                    beast_stats.next_level_experience = beast_stats.next_level_experience + 20;
+                    beast_stats.attack = beast_stats.attack + 1;
+                    beast_stats.defense = beast_stats.defense + 1;
+                    beast_stats.speed = beast_stats.speed + 1;
                 }
-                world.write_model(@beast);
+                store.write_beast(@beast);
             }
         }
 
         fn revive(ref self: ContractState) {
             let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
             
-            let player_address = get_caller_address();
-            let player: Player = world.read_model(player_address);
-            let current_beast_id = player.current_beast_id;
+            let player: Player = store.read_player();
+            let beast_id = player.current_beast_id;
 
-            let mut beast: Beast = world.read_model((player_address, current_beast_id));
+            let mut beast: Beast = store.read_beast(beast_id);
 
-            if beast.status.is_alive == false {
-                beast.status.is_alive = true;
-                beast.status.hunger = 100;
-                beast.status.energy = 100;
-                beast.status.happiness = 100;
-                beast.status.hygiene = 100;
-                beast.stats.experience = 0;
+            let mut beast_status = store.read_beast_status(beast_id);
 
-                if beast.stats.attack < 0 {
-                    beast.stats.attack = 0;
+            let mut beast_stats = store.read_beast_stats(beast_id);
+
+            if beast_status.is_alive == false {
+                beast_status.is_alive = true;
+                beast_status.hunger = 100;
+                beast_status.energy = 100;
+                beast_status.happiness = 100;
+                beast_status.hygiene = 100;
+                beast_stats.experience = 0;
+
+                if beast_stats.attack < 0 {
+                    beast_stats.attack = 0;
                 } else {
-                    beast.stats.attack = beast.stats.attack - 1;
+                    beast_stats.attack = beast_stats.attack - 1;
                 }
 
-                if beast.stats.defense < 0 {
-                    beast.stats.defense = 0;
+                if beast_stats.defense < 0 {
+                    beast_stats.defense = 0;
                 } else {
-                    beast.stats.defense = beast.stats.defense - 1;
+                    beast_stats.defense = beast_stats.defense - 1;
                 }
 
-                if beast.stats.speed < 0 {
-                    beast.stats.speed = 0;
+                if beast_stats.speed < 0 {
+                    beast_stats.speed = 0;
                 } else {
-                    beast.stats.speed = beast.stats.speed - 1;
+                    beast_stats.speed = beast_stats.speed - 1;
                 }
 
                 world.write_model(@beast);

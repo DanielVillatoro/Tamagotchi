@@ -1,4 +1,5 @@
 mod constants;
+mod store;
 
 mod systems {
     mod actions;
@@ -23,4 +24,5 @@ mod utils {
 #[cfg(test)]
 mod tests {
     mod test_random;
+    mod test_actions;
 }
