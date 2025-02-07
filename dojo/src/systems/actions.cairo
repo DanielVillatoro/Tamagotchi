@@ -97,6 +97,8 @@ pub mod actions {
             
             let current_beast_id = self.beast_counter.read();
 
+            store.new_beast_stats(current_beast_id);
+            store.new_beast_status(current_beast_id);
             store.new_beast(current_beast_id, specie);
 
             self.beast_counter.write(current_beast_id+1);
