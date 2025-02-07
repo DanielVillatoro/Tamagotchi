@@ -181,6 +181,23 @@ export function client(provider: DojoProvider) {
 		}
 	};
 
+	const actions_initTapCounter = async (snAccount: Account | AccountInterface) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				{
+					contractName: "actions",
+					entrypoint: "init_tap_counter",
+					calldata: [],
+				},
+				"babybeasts",
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+
 	const actions_tap = async (snAccount: Account | AccountInterface, specie: number) => {
 		try {
 			return await provider.execute(
@@ -210,6 +227,7 @@ export function client(provider: DojoProvider) {
 			play: actions_play,
 			clean: actions_clean,
 			revive: actions_revive,
+			initTapCounter: actions_initTapCounter,
 			tap: actions_tap,
 		},
 	};

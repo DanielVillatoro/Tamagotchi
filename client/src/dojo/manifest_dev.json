@@ -1252,8 +1252,8 @@
   },
   "contracts": [
     {
-      "address": "0x39d050c1a3430ad1a4dc02cb4f43f75866ce9ba6ce18acdceb7299f08625341",
-      "class_hash": "0x364ee3493c250508a6e20283085b40c44e1fa22b376a5e12e9706cd6e5f22a4",
+      "address": "0x67b0f2071e0cd5bdce91fe1ffdfbc3bdec009991bfde040cde9db0778c66ed5",
+      "class_hash": "0x337dbb2cedfc30c46386252d2a2a5112972261bbd6888420a6469bd7a9ba3b1",
       "abi": [
         {
           "type": "impl",
@@ -1361,7 +1361,7 @@
             },
             {
               "type": "function",
-              "name": "decrease_stats",
+              "name": "decrease_status",
               "inputs": [],
               "outputs": [],
               "state_mutability": "external"
@@ -1409,6 +1409,13 @@
             {
               "type": "function",
               "name": "revive",
+              "inputs": [],
+              "outputs": [],
+              "state_mutability": "external"
+            },
+            {
+              "type": "function",
+              "name": "init_tap_counter",
               "inputs": [],
               "outputs": [],
               "state_mutability": "external"
@@ -1544,13 +1551,14 @@
         "set_current_beast",
         "add_initial_food",
         "spawn",
-        "decrease_stats",
+        "decrease_status",
         "feed",
         "sleep",
         "awake",
         "play",
         "clean",
         "revive",
+        "init_tap_counter",
         "tap",
         "upgrade"
       ]
@@ -1559,7 +1567,7 @@
   "models": [
     {
       "members": [],
-      "class_hash": "0x397302704e540a988d26ab31483c0b7a9428817509f05cbf720e69ffe15addc",
+      "class_hash": "0xd0bdcc3b3d9ad1cf3d5d59831b557de531c4647363a69b66429fe54fc1a565",
       "tag": "babybeasts-Beast",
       "selector": "0x732389d6015adc6fe9f89178baa6ca00bedabbf5112ada86e346b35dc00f52d"
     },

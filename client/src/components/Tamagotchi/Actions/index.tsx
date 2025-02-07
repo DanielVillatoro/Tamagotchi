@@ -19,14 +19,16 @@ const actionButtons: { label: string, img: string | null, action: string, pictur
   { label: "Revive", img: null, action: "revive", pictureKey: "idlePicture", isRevive: true }
 ];
 
-const Actions = ({ handleAction, isLoading, beast, account, client, setCurrentView }: { 
+const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client, setCurrentView }: { 
   handleAction: any, 
   isLoading: any, 
-  beast: any, 
+  beast: any,
+  beastStatus: any,
   account: any, 
   client: any,
-  setCurrentView: (view: string) => void 
+  setCurrentView: (view: string) => void,
 }) => {
+
   return (
     <div className="actions mb-0">
       {actionButtons.map(({ label, img, action, pictureKey, isRevive }) => (
@@ -37,7 +39,7 @@ const Actions = ({ handleAction, isLoading, beast, account, client, setCurrentVi
             if (action === 'feed') return;
             handleAction(label, () => client.actions[action](account as Account), initials[beast.specie - 1][pictureKey]);
           }}
-          disabled={true || isLoading || (isRevive ? beast.status.is_alive : !beast.status.is_alive)}
+          disabled={ isLoading || (isRevive ? beastStatus?.is_alive : !beastStatus?.is_alive)}
         >
           {img && <img src={img} />} {label}
         </Button>

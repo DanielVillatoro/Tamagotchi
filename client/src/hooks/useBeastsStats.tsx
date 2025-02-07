@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { SDK } from "@dojoengine/sdk";
 import { getEntityIdFromKeys } from "@dojoengine/utils";
-import { addAddressPadding } from "starknet";
 import { Models, SchemaType } from "../dojo/bindings.ts";
 import { useAccount } from "@starknet-react/core";
 import { useDojoStore } from "../main.tsx";
 import useModel from "../dojo/useModel.tsx";
 
-export const useBeast = (sdk: SDK<SchemaType>) => {
+export const useBeastsStats = (sdk: SDK<SchemaType>, beastId: number) => {
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
 
@@ -16,14 +15,14 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
     [account?.address]
   );
 
-  const beastData = useModel(entityId ?? "", Models.Beast);
-  const [beast, setBeast] = useState(beastData);
+  const beastStatsData = useModel(entityId ?? "", Models.BeastStats);
+  const [beastStats, setBeastStats] = useState(beastStatsData);
 
-  const [beasts, setBeasts] = useState<any>([]);
+  const [beastsStats, setBeastsStats] = useState<any>([]);
 
   useEffect(() => {
-    setBeast(beastData);
-  }, [beastData]);
+    setBeastStats(beastStatsData);
+  }, [beastStatsData]);
 
   useEffect(() => {
     if (!account) return;
@@ -33,11 +32,11 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
       const subscription = await sdk.subscribeEntityQuery(
         {
           babybeasts: {
-            Beast: {
+            BeastStats: {
               $: {
                 where: {
-                  player: {
-                    $is: addAddressPadding(account.address),
+                  beast_id: {
+                    $is: beastId,
                   },
                 },
               },
@@ -73,13 +72,9 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
         await sdk.getEntities(
           {
             babybeasts: {
-              Beast: {
+              BeastStats: {
                 $: {
-                  where: {
-                    player: {
-                      $eq: addAddressPadding(account.address),
-                    },
-                  },
+                  where: {},
                 },
               },
             },
@@ -90,8 +85,8 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
               return;
             }
             if (resp.data) {
-              const beastsData = resp.data.map((entity) => entity.models.babybeasts.Beast);
-              setBeasts(beastsData);
+              const beastsStatsData = resp.data.map((entity) => entity.models.babybeasts.BeastStats);
+              setBeastsStats(beastsStatsData);
               state.setEntities(resp.data);
             }
           }
@@ -105,7 +100,7 @@ export const useBeast = (sdk: SDK<SchemaType>) => {
   }, [sdk, account]);
 
   return {
-    beast,
-    beasts,
+    beastStats,
+    beastsStats,
   };
 };

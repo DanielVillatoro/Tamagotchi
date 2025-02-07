@@ -7,6 +7,8 @@ import { Beast, SchemaType } from "../../dojo/bindings";
 import { Card } from '../../components/ui/card';
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
+import { useBeastStatus } from "../../hooks/useBeastsStatus.tsx";
+import { useBeastsStats } from "../../hooks/useBeastsStats.tsx";
 import initials from "../../data/initials.tsx";
 import message from '../../assets/img/message.svg';
 import dead from '../../assets/img/dead.gif';
@@ -27,8 +29,10 @@ import './main.css';
 function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const { beasts } = useBeast(sdk);
   const { player } = usePlayer(sdk);
-  console.log(player);
+  
   const beast = beasts.find((beast: Beast) => beast.beast_id === player?.current_beast_id);
+  const { beastStatus } = useBeastStatus(sdk, beast?.beast_id);
+  const { beastStats } = useBeastsStats(sdk, beast?.beast_id);
 
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
@@ -84,19 +88,19 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      if (beast?.status.is_alive && account) {
+      if (beastStatus?.is_alive && account) {
         await client.actions.decreaseStats(account as Account);
       }
-    }, 1000000);
+    }, 10000);
 
     return () => clearInterval(interval);
-  }, [beast?.status.is_alive]);
+  }, [beastStatus?.is_alive]);
 
   useEffect(() => {
-    if (beast?.status.is_alive == false) {
+    if (beastStatus?.is_alive == false) {
       showDeathAnimation();
     }
-  }, [beast?.status.is_alive]);
+  }, [beastStatus?.is_alive]);
 
   // Helper to wrap Dojo actions with toast
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
@@ -122,7 +126,9 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
       <div className="tamaguchi">
         <>{beast &&
           <Card style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
-            <Status beast={beast} />
+            <Status 
+              beastStatus={beastStatus}
+            />
             <div>
               <div className="scenario flex justify-center items-column">
                 <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
@@ -130,11 +136,12 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
               <Whispers 
                 beast={beast}
                 expanded={currentView === 'chat'}
+                beastStatus={beastStatus}
               />
               {
                 currentView === 'stats' ? 
                   <Stats 
-                    beast={beast} 
+                    beastStats={beastStats}
                   /> 
                 : 
                 currentView === 'actions' ? 
@@ -142,6 +149,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
                     handleAction={handleAction}
                     isLoading={isLoading}
                     beast={beast}
+                    beastStatus={beastStatus}
                     account={account}
                     client={client}
                     setCurrentView={setCurrentView}

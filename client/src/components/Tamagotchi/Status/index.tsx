@@ -1,4 +1,4 @@
-import { Beast } from "../../../dojo/bindings";
+import { BeastStatus } from "../../../dojo/bindings";
 import Energy from '../../../assets/img/Energy.png';
 import Happyness from '../../../assets/img/Happyness.png';
 import Hygienne from '../../../assets/img/Hygienne.png';
@@ -6,24 +6,27 @@ import Hunger from '../../../assets/img/Hunger.png';
 import './main.css';
 
 const statusItems = [
-  { label: "Energy", value: (beast: Beast) => Math.round(beast.status.energy), pic: Energy },
-  { label: "Hunger", value: (beast: Beast) => Math.round(beast.status.hunger), pic: Hunger },
-  { label: "Happiness", value: (beast: Beast) => Math.round(beast.status.happiness), pic: Happyness },
-  { label: "Hygiene", value: (beast: Beast) => Math.round(beast.status.hygiene), pic: Hygienne }
+  { label: "Energy", value: (beastStatus: BeastStatus) => Math.round(beastStatus.energy), pic: Energy },
+  { label: "Hunger", value: (beastStatus: BeastStatus) => Math.round(beastStatus.hunger), pic: Hunger },
+  { label: "Happiness", value: (beastStatus: BeastStatus) => Math.round(beastStatus.happiness), pic: Happyness },
+  { label: "Hygiene", value: (beastStatus: BeastStatus) => Math.round(beastStatus.hygiene), pic: Hygienne }
 ];
 
-const Status = ({ beast }: { beast: Beast }) => {
-  return (
-    <div className="status">
-      {statusItems.map(({ label, value, pic }) => (
-        <div className="item" key={label}>
-          <p className="mb-1">{label}</p>
-          <div className="pic"><img src={pic} /></div>
-          <p className="value">{value(beast)}%</p>
-        </div>
-      ))}
-    </div>
-  );
+function Status({ beastStatus }: { beastStatus: BeastStatus }) {
+
+  if(beastStatus) {
+    return (
+      <div className="status">
+        {statusItems.map(({ label, value, pic }) => (
+          <div className="item" key={label}>
+            <p className="mb-1">{label}</p>
+            <div className="pic"><img src={pic} /></div>
+            <p className="value">{value(beastStatus)}%</p>
+          </div>
+        ))}
+      </div>
+    );
+  }
 }
 
 export default Status;

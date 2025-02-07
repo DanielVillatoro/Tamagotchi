@@ -1,6 +1,6 @@
+import { Beast, BeastStatus } from "../../../dojo/bindings";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { Beast } from "../../../dojo/bindings";
 import message from '../../../assets/img/message.svg';
 import MessageComponent, { Message } from "../../ui/message";
 import initials from "../../../data/initials";
@@ -11,7 +11,7 @@ interface ApiError {
   status?: number;
 }
 
-const Whispers = ({ beast, expanded }: { beast: Beast, expanded: boolean }) => {
+const Whispers = ({ beast, expanded, beastStatus }: { beast: Beast, beastStatus: BeastStatus, expanded: boolean }) => {
   // Whispers
   const [whispers, setWhispers] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -115,14 +115,14 @@ const Whispers = ({ beast, expanded }: { beast: Beast, expanded: boolean }) => {
     );
   }
 
-  const analyzeStats = (beast: Beast) => {
+  const analyzeStats = (beastStatus: BeastStatus) => {
     const range = {
       LOW: 30,
       MEDIUM: 50,
       HIGH: 80
     };
 
-    return Object.entries(beast)
+    return Object.entries(beastStatus)
       .map(([stat, value]) => ({
         stat,
         value,
@@ -133,13 +133,13 @@ const Whispers = ({ beast, expanded }: { beast: Beast, expanded: boolean }) => {
       .sort((a, b) => b.priority - a.priority)[0];
   };
 
-  const generatePrompt = (beast: Beast) => {
-    const criticalStat = analyzeStats(beast);
+  const generatePrompt = (beastStatus: BeastStatus) => {
+    const criticalStat = analyzeStats(beastStatus);
     return `You are Pou, a virtual BabyBeast with the following statistics:
-            Hunger: ${beast.status.hunger}/100
-            Energy: ${beast.status.energy}/100
-            Happiness: ${beast.status.happiness}/100
-            Hygiene: ${beast.status.hygiene}/100
+            Hunger: ${beastStatus.hunger}/100
+            Energy: ${beastStatus.energy}/100
+            Happiness: ${beastStatus.happiness}/100
+            Hygiene: ${beastStatus.hygiene}/100
             
             Responds as a friendly and playful virtual pet, in 2 lines max.,
             focusing on your most urgent need: ${criticalStat.stat} (${criticalStat.value}/100);`
@@ -179,13 +179,15 @@ const Whispers = ({ beast, expanded }: { beast: Beast, expanded: boolean }) => {
   };
 
   useEffect(() => {
-    const prompt = generatePrompt(beast);
-    createWhisper(prompt);
-    const intervalId = setInterval(() => {
-      const prompt = generatePrompt(beast);
+    let intervalId: string | number | NodeJS.Timeout | undefined;
+    if(beastStatus) {
+      const prompt = generatePrompt(beastStatus);
       createWhisper(prompt);
-    }, 180000);
-
+      intervalId = setInterval(() => {
+        const prompt = generatePrompt(beastStatus);
+        createWhisper(prompt);
+      }, 180000);
+    }
     return () => clearInterval(intervalId);
   }, []);
 
