@@ -4,7 +4,7 @@ import { Connector } from "@starknet-react/core";
 
 const policies: SessionPolicies = {
   contracts: {
-    ['0x67b0f2071e0cd5bdce91fe1ffdfbc3bdec009991bfde040cde9db0778c66ed5']: {
+    ['0x162fc877f7e0e033cdc35610a652cc659e94eb6f5f9662964b24c89c7f49d6e']: {
       methods: [
         {
           name: "spawn_player",
@@ -23,8 +23,8 @@ const policies: SessionPolicies = {
           entrypoint: "spawn"
         },
         {
-          name: "decrease_stats",
-          entrypoint: "decrease_stats"
+          name: "decrease_status",
+          entrypoint: "decrease_status"
         },
         {
           name: "feed",
@@ -62,7 +62,7 @@ const policies: SessionPolicies = {
 // Configuración básica del conector
 const cartridgeConnector = new ControllerConnector({
   policies,
-  rpc: 'https://api.cartridge.gg/x/aasss/katana'
+  rpc: 'https://api.cartridge.gg/x/mahone/katana'
 }) as never as Connector;
 
 export default cartridgeConnector;

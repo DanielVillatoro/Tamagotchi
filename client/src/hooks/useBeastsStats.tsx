@@ -36,7 +36,7 @@ export const useBeastsStats = (sdk: SDK<SchemaType>, beastId?: number) => {
               $: {
                 where: {
                   beast_id: {
-                    $is: beastId,
+                    $is: 1,
                   },
                 },
               },
