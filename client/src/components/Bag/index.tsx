@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect } from 'react';
 import { SDK } from "@dojoengine/sdk";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { Beast, SchemaType } from "../../dojo/bindings.ts";
 import { useBeast } from '../../hooks/useBeasts.tsx';
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton.tsx';
@@ -13,63 +16,53 @@ import './main.css';
 function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
   const { beasts } = useBeast(sdk);
   const { account } = useAccount();
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = beasts.length;
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX.current !== null && touchEndX.current !== null) {
-      const deltaX = touchEndX.current - touchStartX.current;
-
-      if (deltaX > 50) {
-        setCurrentSlide((prev) => Math.max(prev - 1, 0));
-      } else if (deltaX < -50) {
-        setCurrentSlide((prev) => Math.min(prev + 1, totalSlides - 1));
-      }
-    }
-
-    touchStartX.current = null;
-    touchEndX.current = null;
-  };
-
   const {
-      setup: { client },
-    } = useDojo();
+    setup: { client },
+  } = useDojo();
+
+  const settings = {
+    dots: beasts.length > 1,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    swipe: beasts.length > 1,
+    customPaging: function() {
+      return (
+        <div className="indicator"></div>
+      );
+    }
+  };
 
   const getSlideContent = (beast: typeof beasts[0]) => (
-    <>
-      <div className="beast-slide">
-        <div className="beast">
-          <div className="beast-header">
-            <h2>{beast.name}</h2>
-          </div>
-          <div className="beast-pic d-flex align-items-end">
-            <img src={initials[beast.specie - 1].idlePicture} alt="beast" />
-          </div>
-          <div className="initial-info">
-            <h4>
-              {initials[beast.specie - 1].name} Lvl {beast.level}
-            </h4>
-            <p>
-              Your are close to evolve {initials[beast.specie - 1].name}, keep playing to reach the next level
-            </p>
-          </div>
-          <Link to={`/play/${beast.beast_id}`} className="button" onClick={async() => {  await client.actions.setCurrentBeast(account as Account, beast.beast_id) }}>
-            PLAY
-          </Link>
+    <div className="beast-slide">
+      <div className="beast">
+        <div className="beast-header">
+          <h2>{beast.name}</h2>
         </div>
+        <div className="beast-pic d-flex align-items-end">
+          <img src={initials[beast.specie - 1].idlePicture} alt="beast" />
+        </div>
+        <div className="initial-info">
+          <h4>
+            {initials[beast.specie - 1].name} Lvl {beast.level}
+          </h4>
+          <p>
+            Your are close to evolve {initials[beast.specie - 1].name}, keep playing to reach the next level
+          </p>
+        </div>
+        <Link 
+          to={`/play/${beast.beast_id}`} 
+          className="button" 
+          onClick={async() => {
+            await client.actions.setCurrentBeast(account as Account, beast.beast_id)
+          }}
+        >
+          PLAY
+        </Link>
       </div>
-    </>
-
+    </div>
   );
 
   useEffect(() => {
@@ -81,6 +74,24 @@ function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
     }
   }, []);
 
+  // if no beasts are available, show an empty state
+  if (beasts.length === 0) {
+    return (
+      <div className="bag">
+        <div className='d-flex justify-content-between align-items-center'>
+          <p className={'title'}>
+            Collect them all!
+            <span className='d-block'>There are many species</span>
+          </p>
+          <ControllerConnectButton />
+        </div>
+        <div className="empty-state">
+          <p>No beasts available</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bag">
       <div className='d-flex justify-content-between align-items-center'>
@@ -91,30 +102,19 @@ function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
         <ControllerConnectButton />
       </div>
       <div className="carousel">
-        <div
-          className="slides"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {beasts.map((beast: Beast, index: number) => (
-            <div key={index} className="slide">
-              {getSlideContent(beast)}
-            </div>
-          ))}
-        </div>
-        <div className="carousel-controls">
-          <div className="indicators">
-            {beasts.map((_: any, index: number) => (
-              <div
-                key={index}
-                className={`indicator ${currentSlide === index ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(index)}
-              />
+        {beasts.length === 1 ? (
+          // if only one beast, show it directly without the slider
+          getSlideContent(beasts[0])
+        ) : (
+          // if more than one beast, show them in a slider
+          <Slider {...settings}>
+            {beasts.map((beast: Beast, index: number) => (
+              <div key={index}>
+                {getSlideContent(beast)}
+              </div>
             ))}
-          </div>
-        </div>
+          </Slider>
+        )}
       </div>
     </div>
   );
