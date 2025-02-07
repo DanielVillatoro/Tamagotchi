@@ -31,8 +31,14 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const { player } = usePlayer(sdk);
   
   const beast = beasts.find((beast: Beast) => beast.beast_id === player?.current_beast_id);
-  const { beastStatus } = useBeastStatus(sdk, beast?.beast_id);
-  const { beastStats } = useBeastsStats(sdk, beast?.beast_id);
+  const { beastStatus } = useBeastStatus(sdk, 1);
+  const { beastStats } = useBeastsStats(sdk, 1);
+
+  const { beastsStatus } = useBeastStatus(sdk);
+  const { beastsStats } = useBeastsStats(sdk);
+
+  console.log('beastsStatus', beastsStatus);
+  console.log('beastsStats', beastsStats);
 
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);

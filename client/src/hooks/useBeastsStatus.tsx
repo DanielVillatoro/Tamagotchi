@@ -6,7 +6,7 @@ import { useAccount } from "@starknet-react/core";
 import { useDojoStore } from "../main.tsx";
 import useModel from "../dojo/useModel.tsx";
 
-export const useBeastStatus = (sdk: SDK<SchemaType>, beastId: number) => {
+export const useBeastStatus = (sdk: SDK<SchemaType>, beastId?: number) => {
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
 
