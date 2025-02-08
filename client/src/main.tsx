@@ -9,6 +9,7 @@ import { sepolia } from "@starknet-react/chains";
 import { StarknetConfig, starkscan } from "@starknet-react/core";
 import { RpcProvider } from "starknet";
 import cartridgeConnector from "./config/cartridgeConnector.tsx";
+import { GlobalProvider } from "./hooks/appContext.tsx";
 
 // Import components to use in the routes
 import NewCover from "./components/NewCover/index.tsx";
@@ -61,20 +62,21 @@ async function main() {
             explorer={starkscan}
             provider={provider}
           >
-            <Router>
-              <Routes>
-                {/* Cover route without header*/}
-                <Route path="/" element={<NewCover sdk={sdk} />} />
-                
-                {/* Internal routes using layout for header */}
-                <Route element={<AppLayout />}>
-                  <Route path="/bag" element={<Bag sdk={sdk} />} />
-                  <Route path="/dex" element={<Dex />} />
-                  <Route path="/play/:beastId" element={<Tamagotchi sdk={sdk} />} />
-                  <Route path="/chat" element={<Chat />} />
-                </Route>
-              </Routes>
-            </Router>
+            <GlobalProvider>
+              <Router>
+                <Routes>
+                  {/* Cover route without header*/}
+                  <Route path="/" element={<NewCover sdk={sdk} />} />
+                  {/* Internal routes using layout for header */}
+                  <Route element={<AppLayout />}>
+                    <Route path="/bag" element={<Bag sdk={sdk} />} />
+                    <Route path="/dex" element={<Dex />} />
+                    <Route path="/play/:beastId" element={<Tamagotchi sdk={sdk} />} />
+                    <Route path="/chat" element={<Chat />} />
+                  </Route>
+                </Routes>
+              </Router>
+            </GlobalProvider>
           </StarknetConfig>
         </DojoContextProvider>
       </StrictMode>,
