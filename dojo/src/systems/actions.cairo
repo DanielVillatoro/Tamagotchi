@@ -110,39 +110,51 @@ pub mod actions {
             
             let player: Player = store.read_player();
             let beast_id = player.current_beast_id;
-
             let mut beast: Beast = store.read_beast(beast_id);
-
             let mut beast_status = store.read_beast_status(beast_id);
 
             if beast_status.is_alive == true {
+                // Decrease energy based on conditions
                 if beast_status.happiness == 0 || beast_status.hygiene == 0 {
-                    beast_status.energy = beast_status.energy - 2;
+                    beast_status.energy = if beast_status.energy >= 2 {
+                        beast_status.energy - 2
+                    } else {
+                        0
+                    };
                 } else {
-                    beast_status.energy = beast_status.energy - 1;
-                }
-                if beast_status.energy < 0 {
-                    beast_status.energy = 0;
-                }
-
-                beast_status.hunger = beast_status.hunger - 2;
-                if beast_status.hunger < 0 {
-                    beast_status.hunger = 0;
+                    beast_status.energy = if beast_status.energy >= 1 {
+                        beast_status.energy - 1
+                    } else {
+                        0
+                    };
                 }
 
-                beast_status.happiness = beast_status.happiness - 1;
-                if beast_status.happiness < 0 {
-                    beast_status.happiness = 0;
-                }
+                // Decrease hunger safely
+                beast_status.hunger = if beast_status.hunger >= 2 {
+                    beast_status.hunger - 2
+                } else {
+                    0
+                };
 
-                beast_status.hygiene = beast_status.hygiene - 1;
-                if beast_status.hygiene < 0 {
-                    beast_status.hygiene = 0;
-                }
+                // Decrease happiness safely 
+                beast_status.happiness = if beast_status.happiness >= 1 {
+                    beast_status.happiness - 1
+                } else {
+                    0
+                };
 
+                // Decrease hygiene safely
+                beast_status.hygiene = if beast_status.hygiene >= 1 {
+                    beast_status.hygiene - 1
+                } else {
+                    0
+                };
+
+                // Check if beast dies
                 if beast_status.energy == 0 || beast_status.hunger == 0 {
                     beast_status.is_alive = false;
                 }
+
                 store.write_beast(@beast);
                 store.write_beast_status(@beast_status);
             }
@@ -154,14 +166,12 @@ pub mod actions {
             
             let player: Player = store.read_player();
             let beast_id = player.current_beast_id;
-
             let mut beast: Beast = store.read_beast(beast_id);
-
             let mut food: Food = store.read_food(food_id);
-
             let mut beast_status = store.read_beast_status(beast_id);
 
             if beast_status.is_alive == true {
+                // Validate food is not negative
                 if food.amount > 0 {
                     food.amount = food.amount - 1;
                     beast_status.hunger = beast_status.hunger + constants::XL_UPDATE_POINTS;
@@ -185,9 +195,7 @@ pub mod actions {
             
             let player: Player = store.read_player();
             let beast_id = player.current_beast_id;
-
             let mut beast: Beast = store.read_beast(beast_id);
-
             let mut beast_status = store.read_beast_status(beast_id);
 
             if beast_status.is_alive == true {
@@ -211,9 +219,7 @@ pub mod actions {
             
             let player: Player = store.read_player();
             let beast_id = player.current_beast_id;
-
             let mut beast: Beast = store.read_beast(beast_id);
-
             let mut beast_status = store.read_beast_status(beast_id);
 
             if beast_status.is_alive == true {
@@ -229,11 +235,8 @@ pub mod actions {
             
             let player: Player = store.read_player();
             let beast_id = player.current_beast_id;
-
             let mut beast: Beast = store.read_beast(beast_id);
-
             let mut beast_status = store.read_beast_status(beast_id);
-
             let mut beast_stats = store.read_beast_stats(beast_id);
 
             if beast_status.is_alive == true {
@@ -280,11 +283,8 @@ pub mod actions {
             
             let player: Player = store.read_player();
             let beast_id = player.current_beast_id;
-
             let mut beast: Beast = store.read_beast(beast_id);
-
             let mut beast_status = store.read_beast_status(beast_id);
-
             let mut beast_stats = store.read_beast_stats(beast_id);
 
             if beast_status.is_alive == true {
