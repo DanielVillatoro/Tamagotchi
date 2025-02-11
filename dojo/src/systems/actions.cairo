@@ -32,7 +32,7 @@ pub mod actions {
     use babybeasts::models::beast::{Beast};
     use babybeasts::models::beast_stats::{BeastStats};
     use babybeasts::models::beast_status::{BeastStatus};
-    use babybeasts::models::player::{Player};
+    use babybeasts::models::player::{Player, PlayerAssert};
     use babybeasts::models::food::{Food};
     
     // types import
@@ -77,6 +77,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
 
             let mut player: Player = store.read_player();
+            player.assert_exists();
             player.current_beast_id = beast_id;
 
             store.write_player(@player);
@@ -109,6 +110,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
             let mut beast: Beast = store.read_beast(beast_id);
             let mut beast_status = store.read_beast_status(beast_id);
@@ -165,6 +167,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
             let mut beast: Beast = store.read_beast(beast_id);
             let mut food: Food = store.read_food(food_id);
@@ -194,6 +197,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
             let mut beast: Beast = store.read_beast(beast_id);
             let mut beast_status = store.read_beast_status(beast_id);
@@ -218,6 +222,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
             let mut beast: Beast = store.read_beast(beast_id);
             let mut beast_status = store.read_beast_status(beast_id);
@@ -234,6 +239,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
             let mut beast: Beast = store.read_beast(beast_id);
             let mut beast_status = store.read_beast_status(beast_id);
@@ -282,6 +288,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
             let mut beast: Beast = store.read_beast(beast_id);
             let mut beast_status = store.read_beast_status(beast_id);
@@ -321,6 +328,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
             let mut beast: Beast = store.read_beast(beast_id);
             let mut beast_status = store.read_beast_status(beast_id);
@@ -362,22 +370,31 @@ pub mod actions {
         }
 
         fn init_tap_counter(ref self: ContractState) {
-            let player_address = get_caller_address();
+            let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
+            
+            let player: Player = store.read_player();
+            player.assert_exists();
 
-            self.tap_counter.write(player_address, 0);
+            self.tap_counter.write(player.address, 0);
         }
 
 
         fn tap(ref self: ContractState, specie: u32) {
-            let player_address = get_caller_address();
-            let current_tap_counter = self.tap_counter.read(player_address);
+            let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
+            
+            let player: Player = store.read_player();
+            player.assert_exists();
+
+            let current_tap_counter = self.tap_counter.read(player.address);
 
             if current_tap_counter == constants::MAX_TAP_COUNTER {
                 self.spawn(specie);
                 self.init_tap_counter();
             }
 
-            self.tap_counter.write(player_address, current_tap_counter+1);
+            self.tap_counter.write(player.address, current_tap_counter+1);
         }
     }
 }
