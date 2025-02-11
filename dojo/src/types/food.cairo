@@ -3,6 +3,19 @@ enum FoodType {
     Apple,
     Banana,
     Cherry,
+    Burguer,
+    CakeChocolate,
+    CakeStrawberry,
+    Cheese,
+    Chicken,
+    Eggs,
+    Fish,
+    FrenchFries,
+    BlueBerry,
+    Beef,
+    Pizza,
+    Corn,
+    Potato
 }
 
 impl IntoFoodTypeFelt252 of core::Into<FoodType, felt252> {
@@ -12,6 +25,19 @@ impl IntoFoodTypeFelt252 of core::Into<FoodType, felt252> {
             FoodType::Apple => 'Apple',
             FoodType::Banana => 'Banana',
             FoodType::Cherry => 'Cherry',
+            FoodType::Burguer => 'Burguer',
+            FoodType::CakeChocolate => 'Cake Chocolate',
+            FoodType::CakeStrawberry => 'Cake Strawberry',
+            FoodType::Cheese => 'Cheese',
+            FoodType::Chicken => 'Chicken',
+            FoodType::Eggs => 'Eggs',
+            FoodType::Fish => 'Fish',
+            FoodType::FrenchFries => 'French Fries',
+            FoodType::BlueBerry => 'BlueBerry',
+            FoodType::Beef => 'Beef',
+            FoodType::Pizza => 'Pizza',
+            FoodType::Corn => 'Corn',
+            FoodType::Potato => 'Potato',
         }
     }
 }
@@ -23,6 +49,19 @@ impl IntoFoodTypeU8 of core::Into<FoodType, u8> {
             FoodType::Apple => 0,
             FoodType::Banana => 1,
             FoodType::Cherry => 2,
+            FoodType::Burguer => 3,
+            FoodType::CakeChocolate => 4,
+            FoodType::CakeStrawberry => 5,
+            FoodType::Cheese => 6,
+            FoodType::Chicken => 7,
+            FoodType::Eggs => 8,
+            FoodType::Fish => 9,
+            FoodType::FrenchFries => 10,
+            FoodType::BlueBerry => 11,
+            FoodType::Beef => 12,
+            FoodType::Pizza => 13,
+            FoodType::Corn => 14,
+            FoodType::Potato => 15,
         }
     }
 }
