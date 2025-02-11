@@ -164,11 +164,11 @@ pub mod actions {
             if beast_status.is_alive == true {
                 if food.amount > 0 {
                     food.amount = food.amount - 1;
-                    beast_status.hunger = beast_status.hunger + 30;
+                    beast_status.hunger = beast_status.hunger + constants::XL_UPDATE_POINTS;
                     if beast_status.hunger > constants::MAX_HUNGER {
                         beast_status.hunger = constants::MAX_HUNGER;
                     }
-                    beast_status.energy = beast_status.energy + 10;
+                    beast_status.energy = beast_status.energy + constants::M_UPDATE_POINTS;
                     if beast_status.energy > constants::MAX_ENERGY {
                         beast_status.energy = constants::MAX_ENERGY;
                     }
@@ -191,11 +191,11 @@ pub mod actions {
             let mut beast_status = store.read_beast_status(beast_id);
 
             if beast_status.is_alive == true {
-                beast_status.energy = beast_status.energy + 40;
+                beast_status.energy = beast_status.energy + constants::XL_UPDATE_POINTS;
                 if beast_status.energy > constants::MAX_ENERGY {
                     beast_status.energy = constants::MAX_ENERGY;
                 }
-                beast_status.happiness = beast_status.happiness + 10;
+                beast_status.happiness = beast_status.happiness + constants::M_UPDATE_POINTS;
                 if beast_status.happiness > constants::MAX_HAPPINESS {
                     beast_status.happiness = constants::MAX_HAPPINESS;
                 }
@@ -237,14 +237,14 @@ pub mod actions {
             let mut beast_stats = store.read_beast_stats(beast_id);
 
             if beast_status.is_alive == true {
-                beast_status.happiness = beast_status.happiness + 30;
+                beast_status.happiness = beast_status.happiness + constants::XL_UPDATE_POINTS;
                 if beast_status.happiness > constants::MAX_HAPPINESS {
                     beast_status.happiness = constants::MAX_HAPPINESS;
                 }
-                beast_status.energy = beast_status.energy - 20;
-                beast_status.hunger = beast_status.hunger - 10;
+                beast_status.energy = beast_status.energy - constants::L_UPDATE_POINTS;
+                beast_status.hunger = beast_status.hunger - constants::M_UPDATE_POINTS;
 
-                beast_stats.experience = beast_stats.experience + 10;
+                beast_stats.experience = beast_stats.experience + constants::S_UPDATE_POINTS;
                 if beast_stats.experience >= beast_stats.next_level_experience {
                     beast_stats.level = beast_stats.level + 1;
                     // Evolution level reached
@@ -253,7 +253,7 @@ pub mod actions {
                         beast.vaulted = true;
                     }
                     beast_stats.experience = 0;
-                    beast_stats.next_level_experience = beast_stats.next_level_experience + 20;
+                    beast_stats.next_level_experience = beast_stats.next_level_experience + constants::NEXT_LEVEL_EXPERIENCE;
                 }
                 store.write_beast(@beast);
                 store.write_beast_status(@beast_status);
@@ -275,15 +275,15 @@ pub mod actions {
             let mut beast_stats = store.read_beast_stats(beast_id);
 
             if beast_status.is_alive == true {
-                beast_status.hygiene = beast_status.hygiene + 40;
+                beast_status.hygiene = beast_status.hygiene + constants::XL_UPDATE_POINTS;
                 if beast_status.hygiene > constants::MAX_HYGIENE{
                     beast_status.hygiene = constants::MAX_HYGIENE;
                 }
-                beast_status.happiness = beast_status.happiness + 10;
+                beast_status.happiness = beast_status.happiness + constants::L_UPDATE_POINTS;
                 if beast_status.happiness > constants::MAX_HAPPINESS {
                     beast_status.happiness = constants::MAX_HAPPINESS;
                 }
-                beast_stats.experience = beast_stats.experience + 10;
+                beast_stats.experience = beast_stats.experience + constants::L_UPDATE_POINTS;
                 if beast_stats.experience >= beast_stats.next_level_experience {
                     beast_stats.level = beast_stats.level + 1;
                     // Evolution level reached
@@ -292,7 +292,7 @@ pub mod actions {
                         beast.vaulted = true;
                     }
                     beast_stats.experience = 0;
-                    beast_stats.next_level_experience = beast_stats.next_level_experience + 20;
+                    beast_stats.next_level_experience = beast_stats.next_level_experience + constants::NEXT_LEVEL_EXPERIENCE;
                     beast_stats.attack = beast_stats.attack + 1;
                     beast_stats.defense = beast_stats.defense + 1;
                     beast_stats.speed = beast_stats.speed + 1;

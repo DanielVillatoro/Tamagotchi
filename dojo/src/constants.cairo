@@ -12,3 +12,13 @@ const MAX_FOOD_AMOUNT: u32 = 10;
 
 // Max level as babybeast
 const MAX_BABY_LEVEL: u32 = 15;
+
+// Increase or decrease values
+const XS_UPDATE_POINTS: u32 = 2;
+const S_UPDATE_POINTS: u32 = 5;
+const M_UPDATE_POINTS: u32 = 8;
+const L_UPDATE_POINTS: u32 = 12;
+const XL_UPDATE_POINTS: u32 = 15;
+
+// Next level experience
+const NEXT_LEVEL_EXPERIENCE: u32 = 20;
