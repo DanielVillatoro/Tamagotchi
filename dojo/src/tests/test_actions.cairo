@@ -15,7 +15,6 @@ mod tests {
     use babybeasts::models::beast_status::{BeastStatus};
     use babybeasts::models::player::{Player};
     use babybeasts::models::food::{Food};
-    use babybeasts::constants;
     use babybeasts::tests::utils::{utils, utils::{PLAYER, cheat_caller_address, namespace_def, contract_defs}};
 
     // This is a quick test to run the actions
