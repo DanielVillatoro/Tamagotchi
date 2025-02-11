@@ -6,7 +6,7 @@ trait IActions<T> {
     fn set_current_beast(ref self: T, beast_id: u32);
     fn add_initial_food(ref self: T);
     // Beast Methods
-    fn spawn(ref self: T, specie: u32);
+    fn spawn(ref self: T, specie: u32, beast_type: u32);
     fn decrease_status(ref self: T);
     fn feed(ref self: T, food_id: u8);
     fn sleep(ref self: T);
@@ -16,7 +16,7 @@ trait IActions<T> {
     fn revive(ref self: T);
     // Other methods
     fn init_tap_counter(ref self: T);
-    fn tap(ref self: T, specie: u32);
+    fn tap(ref self: T, specie: u32, beast_type: u32);
 }
 
 #[dojo::contract]
@@ -92,7 +92,7 @@ pub mod actions {
             store.new_cherries();
         }
 
-        fn spawn(ref self: ContractState, specie: u32) {
+        fn spawn(ref self: ContractState, specie: u32, beast_type: u32) {
             let mut world = self.world(@"babybeasts");
             let store = StoreTrait::new(world);
             
@@ -100,7 +100,7 @@ pub mod actions {
 
             store.new_beast_stats(current_beast_id);
             store.new_beast_status(current_beast_id);
-            store.new_beast(current_beast_id, specie);
+            store.new_beast(current_beast_id, specie, beast_type);
 
             self.beast_counter.write(current_beast_id+1);
         }
@@ -380,7 +380,7 @@ pub mod actions {
         }
 
 
-        fn tap(ref self: ContractState, specie: u32) {
+        fn tap(ref self: ContractState, specie: u32, beast_type: u32) {
             let mut world = self.world(@"babybeasts");
             let store = StoreTrait::new(world);
             
@@ -390,7 +390,7 @@ pub mod actions {
             let current_tap_counter = self.tap_counter.read(player.address);
 
             if current_tap_counter == constants::MAX_TAP_COUNTER {
-                self.spawn(specie);
+                self.spawn(specie, beast_type);
                 self.init_tap_counter();
             }
 

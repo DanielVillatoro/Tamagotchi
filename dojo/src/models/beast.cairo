@@ -9,9 +9,12 @@ pub struct Beast {
     #[key]
     pub beast_id: u32,
     pub specie: u32,
+    pub beast_type: u32,
     pub evolved: bool,
     pub vaulted: bool
 }
+
+
 
 #[cfg(test)]
 mod tests {

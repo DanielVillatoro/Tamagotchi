@@ -167,13 +167,14 @@ impl StoreImpl of StoreTrait {
     }
 
     #[inline(always)]
-    fn new_beast(mut self: Store, beast_id: u32, specie: u32) {
+    fn new_beast(mut self: Store, beast_id: u32, specie: u32, beast_type: u32) {
         let player = get_caller_address();
 
         let mut new_beast = Beast {
             player: player,
             beast_id: beast_id,
             specie: specie,
+            beast_type: beast_type,
             evolved: false,
             vaulted: false
         };
