@@ -237,12 +237,25 @@ pub mod actions {
             let mut beast_stats = store.read_beast_stats(beast_id);
 
             if beast_status.is_alive == true {
+                // Increase happiness
                 beast_status.happiness = beast_status.happiness + constants::XL_UPDATE_POINTS;
                 if beast_status.happiness > constants::MAX_HAPPINESS {
                     beast_status.happiness = constants::MAX_HAPPINESS;
                 }
-                beast_status.energy = beast_status.energy - constants::L_UPDATE_POINTS;
-                beast_status.hunger = beast_status.hunger - constants::M_UPDATE_POINTS;
+
+                // Decrease energy safety avoiding overflow
+                beast_status.energy = if beast_status.energy >= constants::L_UPDATE_POINTS {
+                    beast_status.energy - constants::L_UPDATE_POINTS
+                } else {
+                    0
+                };
+
+                // Decrease hunger safety avoiding overflow
+                beast_status.hunger = if beast_status.hunger >= constants::M_UPDATE_POINTS {
+                    beast_status.hunger - constants::M_UPDATE_POINTS
+                } else {
+                    0
+                };
 
                 beast_stats.experience = beast_stats.experience + constants::S_UPDATE_POINTS;
                 if beast_stats.experience >= beast_stats.next_level_experience {
