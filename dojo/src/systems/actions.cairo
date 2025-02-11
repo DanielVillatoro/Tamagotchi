@@ -322,11 +322,8 @@ pub mod actions {
             
             let player: Player = store.read_player();
             let beast_id = player.current_beast_id;
-
             let mut beast: Beast = store.read_beast(beast_id);
-
             let mut beast_status = store.read_beast_status(beast_id);
-
             let mut beast_stats = store.read_beast_stats(beast_id);
 
             if beast_status.is_alive == false {
@@ -337,23 +334,26 @@ pub mod actions {
                 beast_status.hygiene = 100;
                 beast_stats.experience = 0;
 
-                if beast_stats.attack < 0 {
-                    beast_stats.attack = 0;
+                // Reduce attack safety avoiding overflow
+                beast_stats.attack = if beast_stats.attack >= 1 {
+                    beast_stats.attack - 1
                 } else {
-                    beast_stats.attack = beast_stats.attack - 1;
-                }
+                    0
+                };
 
-                if beast_stats.defense < 0 {
-                    beast_stats.defense = 0;
+                // Reduce defense safety avoiding overflow
+                beast_stats.defense = if beast_stats.defense >= 1 {
+                    beast_stats.defense - 1
                 } else {
-                    beast_stats.defense = beast_stats.defense - 1;
-                }
+                    0
+                };
 
-                if beast_stats.speed < 0 {
-                    beast_stats.speed = 0;
+                // Reduce speed safety avoiding overflow
+                beast_stats.speed = if beast_stats.speed >= 1 {
+                    beast_stats.speed - 1
                 } else {
-                    beast_stats.speed = beast_stats.speed - 1;
-                }
+                    0
+                };
 
                 store.write_beast(@beast);
                 store.write_beast_status(@beast_status);
