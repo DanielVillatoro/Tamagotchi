@@ -109,7 +109,6 @@ mod tests {
 
 
     #[test]
-    #[should_panic]
     fn test_beast_evolution() {
         // Initialize test environment
         let caller = starknet::contract_address_const::<0x0>();
