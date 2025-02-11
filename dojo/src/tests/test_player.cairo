@@ -17,22 +17,12 @@ mod tests {
     use babybeasts::models::beast_stats::{BeastStats};
     use babybeasts::models::beast_status::{BeastStatus};
     use babybeasts::models::player::{Player};
-    use babybeasts::tests::utils::{utils, utils::{PLAYER, cheat_caller_address, namespace_def, contract_defs}};
+    use babybeasts::tests::utils::{utils, utils::{PLAYER, cheat_caller_address, namespace_def, contract_defs, actions_system_world}};
 
     #[test]
     #[available_gas(30000000)]
     fn test_spawn_player() {
-        // Initialize test environment
-        let ndef = namespace_def();
-
-        // Register the resources.
-        let mut world = spawn_test_world([ndef].span());
-
-        // Ensures permissions and initializations are synced.
-        world.sync_perms_and_inits(contract_defs());
-
-        let (contract_address, _) = world.dns(@"actions").unwrap();
-        let actions_system = IActionsDispatcher { contract_address };
+        let (actions_system, world) = actions_system_world();
 
         cheat_caller_address(PLAYER());
 
@@ -47,17 +37,7 @@ mod tests {
     #[test]
     #[available_gas(30000000)]
     fn test_set_current_beast() {
-        // Initialize test environment
-        let ndef = namespace_def();
-
-        // Register the resources.
-        let mut world = spawn_test_world([ndef].span());
-
-        // Ensures permissions and initializations are synced.
-        world.sync_perms_and_inits(contract_defs());
-
-        let (contract_address, _) = world.dns(@"actions").unwrap();
-        let actions_system = IActionsDispatcher { contract_address };
+        let (actions_system, world) = actions_system_world();
 
         cheat_caller_address(PLAYER());
 
@@ -79,13 +59,7 @@ mod tests {
     #[test]
     #[available_gas(50000000)]
     fn test_multiple_beasts_per_player() {
-        // Initialize test environment
-        let ndef = namespace_def();
-        let mut world = spawn_test_world([ndef].span());
-        world.sync_perms_and_inits(contract_defs());
-
-        let (contract_address, _) = world.dns(@"actions").unwrap();
-        let actions_system = IActionsDispatcher { contract_address };
+        let (actions_system, world) = actions_system_world();
 
         cheat_caller_address(PLAYER());
 
@@ -114,13 +88,7 @@ mod tests {
     // #[should_panic]
     #[available_gas(30000000)]
     fn test_invalid_beast_id() {
-        // Initialize test environment
-        let ndef = namespace_def();
-        let mut world = spawn_test_world([ndef].span());
-        world.sync_perms_and_inits(contract_defs());
-
-        let (contract_address, _) = world.dns(@"actions").unwrap();
-        let actions_system = IActionsDispatcher { contract_address };
+        let (actions_system, _) = actions_system_world();
         
         cheat_caller_address(PLAYER());
 

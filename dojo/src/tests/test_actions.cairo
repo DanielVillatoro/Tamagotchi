@@ -15,22 +15,12 @@ mod tests {
     use babybeasts::models::beast_status::{BeastStatus};
     use babybeasts::models::player::{Player};
     use babybeasts::models::food::{Food};
-    use babybeasts::tests::utils::{utils, utils::{PLAYER, cheat_caller_address, namespace_def, contract_defs}};
+    use babybeasts::tests::utils::{utils, utils::{PLAYER, cheat_caller_address, namespace_def, contract_defs, actions_system_world}};
 
     // This is a quick test to run the actions
     #[test]
     fn test_quick_some_actions() {
-        // Initialize test environment
-        let ndef = namespace_def();
-
-        // Register the resources.
-        let mut world = spawn_test_world([ndef].span());
-
-        // Ensures permissions and initializations are synced.
-        world.sync_perms_and_inits(contract_defs());
-
-        let (contract_address, _) = world.dns(@"actions").unwrap();
-        let actions_system = IActionsDispatcher { contract_address };
+        let (actions_system, _) = actions_system_world();
 
         cheat_caller_address(PLAYER());
         

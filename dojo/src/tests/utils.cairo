@@ -6,7 +6,7 @@ mod utils {
     // Dojo imports
     use dojo_cairo_test::WorldStorageTestTrait;
     use dojo::model::{ModelStorage, ModelStorageTest};
-    use dojo::world::WorldStorageTrait;
+    use dojo::world::{WorldStorageTrait, WorldStorage};
     use dojo_cairo_test::{
         spawn_test_world, NamespaceDef, TestResource, ContractDefTrait, ContractDef,
     };
@@ -47,6 +47,22 @@ mod utils {
                 .with_writer_of([dojo::utils::bytearray_hash(@"babybeasts")].span())
         ]
             .span()
+    }
+
+
+    fn actions_system_world() -> (IActionsDispatcher, WorldStorage){
+         // Initialize test environment
+         let ndef = namespace_def();
+
+         // Register the resources.
+         let mut world = spawn_test_world([ndef].span());
+ 
+         // Ensures permissions and initializations are synced.
+         world.sync_perms_and_inits(contract_defs());
+ 
+         let (contract_address, _) = world.dns(@"actions").unwrap();
+         let actions_system = IActionsDispatcher { contract_address };
+         (actions_system, world)
     }
 
     // set_contract_address: used to define the address of the calling contract,
