@@ -87,9 +87,7 @@ pub mod actions {
             let mut world = self.world(@"babybeasts");
             let store = StoreTrait::new(world);
 
-            store.new_apples();
-            store.new_bananas();
-            store.new_cherries();
+            store.init_player_food();
         }
 
         fn spawn(ref self: ContractState, specie: u32, beast_type: u32) {
