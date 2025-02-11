@@ -29,6 +29,6 @@ mod tests {
     mod test_player;
     mod test_food;
     mod test_status;
-    // mod test_stats;
-    // mod test_beast;
+    mod test_stats;
+    mod test_beast;
 }
