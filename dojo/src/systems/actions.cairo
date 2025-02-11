@@ -32,7 +32,7 @@ pub mod actions {
     use babybeasts::models::beast::{Beast};
     use babybeasts::models::beast_stats::{BeastStats};
     use babybeasts::models::beast_status::{BeastStatus};
-    use babybeasts::models::player::{Player};
+    use babybeasts::models::player::{Player, PlayerAssert};
     use babybeasts::models::food::{Food};
     
     // types import
@@ -77,6 +77,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
 
             let mut player: Player = store.read_player();
+            player.assert_exists();
             player.current_beast_id = beast_id;
 
             store.write_player(@player);
@@ -109,6 +110,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
 
             let mut beast: Beast = store.read_beast(beast_id);
@@ -153,6 +155,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
 
             let mut beast: Beast = store.read_beast(beast_id);
@@ -184,6 +187,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
 
             let mut beast: Beast = store.read_beast(beast_id);
@@ -210,6 +214,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
 
             let mut beast: Beast = store.read_beast(beast_id);
@@ -228,6 +233,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
 
             let mut beast: Beast = store.read_beast(beast_id);
@@ -266,6 +272,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
 
             let mut beast: Beast = store.read_beast(beast_id);
@@ -308,6 +315,7 @@ pub mod actions {
             let store = StoreTrait::new(world);
             
             let player: Player = store.read_player();
+            player.assert_exists();
             let beast_id = player.current_beast_id;
 
             let mut beast: Beast = store.read_beast(beast_id);
