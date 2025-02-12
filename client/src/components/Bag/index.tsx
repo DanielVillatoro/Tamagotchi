@@ -11,6 +11,7 @@ import initials from "../../data/initials.tsx";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import GoBackButton from '../GoBack/GoBackButton.tsx';
 import './main.css';
 
 function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
@@ -116,6 +117,9 @@ function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
             ))}
           </Slider>
         )}
+      </div>
+      <div className="go-back-container">
+        <GoBackButton to={'/'} />
       </div>
     </div>
   );
