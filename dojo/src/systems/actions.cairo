@@ -3,8 +3,8 @@
 trait IActions<T> {
     // Player methods
     fn spawn_player(ref self: T);
-    fn set_current_beast(ref self: T, beast_id: u32);
     fn add_initial_food(ref self: T);
+    fn set_current_beast(ref self: T, beast_id: u32);
     // Beast Methods
     fn spawn(ref self: T, specie: u32, beast_type: u32);
     fn decrease_status(ref self: T);
@@ -29,7 +29,7 @@ pub mod actions {
     use super::{IActions};
     
     // Model imports
-    use babybeasts::models::beast::{Beast};
+    use babybeasts::models::beast::{Beast, BeastTrait};
     use babybeasts::models::beast_stats::{BeastStats};
     use babybeasts::models::beast_status::{BeastStatus};
     use babybeasts::models::player::{Player, PlayerAssert};
@@ -69,9 +69,17 @@ pub mod actions {
 
             store.new_player();
 
+            self.add_initial_food();
             self.init_tap_counter();
         }
 
+        fn add_initial_food(ref self: ContractState) {
+            let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
+
+            store.init_player_food();
+        }
+        
         fn set_current_beast(ref self: ContractState, beast_id: u32) {
             let mut world = self.world(@"babybeasts");
             let store = StoreTrait::new(world);
@@ -81,13 +89,6 @@ pub mod actions {
             player.current_beast_id = beast_id;
 
             store.write_player(@player);
-        }
-
-        fn add_initial_food(ref self: ContractState) {
-            let mut world = self.world(@"babybeasts");
-            let store = StoreTrait::new(world);
-
-            store.init_player_food();
         }
 
         fn spawn(ref self: ContractState, specie: u32, beast_type: u32) {
@@ -175,14 +176,22 @@ pub mod actions {
                 // Validate food is not negative
                 if food.amount > 0 {
                     food.amount = food.amount - 1;
-                    beast_status.hunger = beast_status.hunger + constants::XL_UPDATE_POINTS;
+                    // Get stats accordingly to the beast favorite meals
+                    let (hunger, happiness, energy) = beast.feed(food_id);
+                    beast_status.hunger = hunger;
+                    beast_status.happiness = happiness;
+                    beast_status.energy = energy;
+
                     if beast_status.hunger > constants::MAX_HUNGER {
                         beast_status.hunger = constants::MAX_HUNGER;
                     }
-                    beast_status.energy = beast_status.energy + constants::M_UPDATE_POINTS;
                     if beast_status.energy > constants::MAX_ENERGY {
                         beast_status.energy = constants::MAX_ENERGY;
                     }
+                    if beast_status.happiness > constants::MAX_HAPPINESS {
+                        beast_status.happiness = constants::MAX_HAPPINESS;
+                    }
+
                     store.write_food(@food);
                     store.write_beast(@beast);
                     store.write_beast_status(@beast_status);

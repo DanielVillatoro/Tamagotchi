@@ -30,4 +30,3 @@ const NEXT_LEVEL_EXPERIENCE: u32 = 20;
 fn ZERO_ADDRESS() -> ContractAddress {
     contract_address_const::<0x0>()
 }
-

@@ -15,13 +15,15 @@ enum FoodType {
     Beef,
     Pizza,
     Corn,
-    Potato
+    Potato,
+    None
 }
 
 impl IntoFoodTypeFelt252 of core::Into<FoodType, felt252> {
     #[inline(always)]
     fn into(self: FoodType) -> felt252 {
         match self {
+            FoodType::None => '',
             FoodType::Apple => 'Apple',
             FoodType::Banana => 'Banana',
             FoodType::Cherry => 'Cherry',
@@ -46,26 +48,53 @@ impl IntoFoodTypeU8 of core::Into<FoodType, u8> {
     #[inline(always)]
     fn into(self: FoodType) -> u8 {
         match self {
-            FoodType::Apple => 0,
-            FoodType::Banana => 1,
-            FoodType::Cherry => 2,
-            FoodType::Burguer => 3,
-            FoodType::CakeChocolate => 4,
-            FoodType::CakeStrawberry => 5,
-            FoodType::Cheese => 6,
-            FoodType::Chicken => 7,
-            FoodType::Eggs => 8,
-            FoodType::Fish => 9,
-            FoodType::FrenchFries => 10,
-            FoodType::BlueBerry => 11,
-            FoodType::Beef => 12,
-            FoodType::Pizza => 13,
-            FoodType::Corn => 14,
-            FoodType::Potato => 15,
+            FoodType::None => 0,
+            FoodType::Apple => 1,
+            FoodType::Banana => 2,
+            FoodType::Cherry => 3,
+            FoodType::Burguer => 4,
+            FoodType::CakeChocolate => 5,
+            FoodType::CakeStrawberry => 6,
+            FoodType::Cheese => 7,
+            FoodType::Chicken => 8,
+            FoodType::Eggs => 9,
+            FoodType::Fish => 10,
+            FoodType::FrenchFries => 11,
+            FoodType::BlueBerry => 12,
+            FoodType::Beef => 13,
+            FoodType::Pizza => 14,
+            FoodType::Corn => 15,
+            FoodType::Potato => 16,
         }
     }
 }
 
+impl IntoU8FoodType of core::Into<u8, FoodType> {
+    #[inline(always)]
+    fn into(self: u8) -> FoodType {
+        let food_type: u8 = self.into();
+        match food_type {
+            0  => FoodType::None,
+            1  => FoodType::Apple,
+            2  => FoodType::Banana,
+            3  => FoodType::Cherry,
+            4  => FoodType::Burguer,
+            5  => FoodType::CakeChocolate,
+            6  => FoodType::CakeStrawberry,
+            7  => FoodType::Cheese,
+            8  => FoodType::Chicken,
+            9  => FoodType::Eggs,
+            10 => FoodType::Fish,
+            11 => FoodType::FrenchFries,
+            12 => FoodType::BlueBerry,
+            13 => FoodType::Beef,
+            14 => FoodType::Pizza,
+            15 => FoodType::Corn,
+            16 => FoodType::Potato,
+            _  => FoodType::None,
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {

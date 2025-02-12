@@ -1,6 +1,13 @@
 // Starknet import
 use starknet::ContractAddress;
 
+// Types imports
+use babybeasts::types::beast::{BeastType};
+use babybeasts::types::food::{FoodType};
+
+// Constants import
+use babybeasts::constants;
+
 #[derive(Drop, Serde, Debug)]
 #[dojo::model]
 pub struct Beast {
@@ -14,7 +21,55 @@ pub struct Beast {
     pub vaulted: bool
 }
 
+#[generate_trait]
+impl BeastImpl of BeastTrait {
+    #[inline(always)]
+    fn is_favorite_meal(ref self: Beast, food_id: u8) -> bool {
+        let beast_type: BeastType = self.beast_type.into();
+        match beast_type {
+            BeastType::Light => {
+                let food_id: FoodType = food_id.into();
+                match food_id {
+                    FoodType::Cherry => true,
+                    FoodType::Fish => true,
+                    FoodType::Corn => true,
+                    _ => false,
+                }
+            },
+            BeastType::Magic => {
+                let food_id: FoodType = food_id.into();
+                match food_id {
+                    FoodType::Chicken => true,
+                    FoodType::Apple => true,
+                    FoodType::Cheese => true,
+                    _ => false,
+                }
+            },
+            BeastType::Shadow => {
+                let food_id: FoodType = food_id.into();
+                match food_id {
+                    FoodType::Beef => true,
+                    FoodType::BlueBerry => true,
+                    FoodType::Potato => true,
+                    _ => false,
+                }
+            },
+            _ => false,
+        }
+    }
 
+    #[inline(always)]
+    fn feed(ref self: Beast, food_id: u8) -> (u32, u32, u32) {
+        if self.is_favorite_meal(food_id){
+            // (hunger, happiness, energy)
+            (constants::XL_UPDATE_POINTS, constants::XL_UPDATE_POINTS, constants::XL_UPDATE_POINTS)
+        }
+        else{
+            // (hunger, happiness, energy)
+            (constants::S_UPDATE_POINTS, constants::S_UPDATE_POINTS, constants::S_UPDATE_POINTS)
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
