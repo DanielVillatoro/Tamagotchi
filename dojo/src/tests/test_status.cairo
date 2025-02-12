@@ -127,6 +127,41 @@ mod tests {
     }
 
     #[test]
+    fn test_beast_pet() {
+        // Initialize test environment
+        let (actions_system, world) = actions_system_world();
+
+        cheat_caller_address(PLAYER());
+
+        // Create player and beast
+        actions_system.spawn_player();
+        actions_system.spawn(1, 1);
+        actions_system.set_current_beast(1);
+
+        let mut counter: u32 = 0;
+        while counter < 20 {
+            actions_system.decrease_status();
+            counter = counter + 1;
+        };
+
+        // Get status after decrease
+        let decreased_status: BeastStatus = world.read_model(1);
+        println!("Status After Decrease - Happiness: {}, Energy: {}", 
+            decreased_status.happiness, decreased_status.energy);
+
+        // Pet beast
+        actions_system.pet();
+
+        // Get final status
+        let final_status: BeastStatus = world.read_model(1);
+        println!("Status After Playing - Happiness: {}, Energy: {}", 
+            final_status.happiness, final_status.energy);
+
+        assert(final_status.happiness > decreased_status.happiness, 'happiness not increased');
+        assert(final_status.energy > decreased_status.energy, 'energy not increased');
+    }
+
+    #[test]
     fn test_beast_clean() {
         // Initialize test environment
         let (actions_system, world) = actions_system_world();
