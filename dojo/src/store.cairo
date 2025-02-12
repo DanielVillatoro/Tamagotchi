@@ -308,6 +308,8 @@ impl StoreImpl of StoreTrait {
     #[inline(always)]
     fn init_player_food(mut self: Store) {
         self.new_apples();
+        self.new_bananas();
+        self.new_cherries();
         self.new_burguers();
         self.new_cake_chocolates();
         self.new_cake_strawberries();

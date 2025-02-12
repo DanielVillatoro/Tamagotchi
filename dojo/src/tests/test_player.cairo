@@ -57,7 +57,7 @@ mod tests {
     }
 
     #[test]
-    #[available_gas(50000000)]
+    #[available_gas(60000000)]
     fn test_multiple_beasts_per_player() {
         let (actions_system, world) = actions_system_world();
 

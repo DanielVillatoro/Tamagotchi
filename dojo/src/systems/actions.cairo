@@ -178,9 +178,9 @@ pub mod actions {
                     food.amount = food.amount - 1;
                     // Get stats accordingly to the beast favorite meals
                     let (hunger, happiness, energy) = beast.feed(food_id);
-                    beast_status.hunger = hunger;
-                    beast_status.happiness = happiness;
-                    beast_status.energy = energy;
+                    beast_status.hunger = beast_status.hunger + hunger;
+                    beast_status.happiness = beast_status.happiness + happiness;
+                    beast_status.energy = beast_status.energy + energy;
 
                     if beast_status.hunger > constants::MAX_HUNGER {
                         beast_status.hunger = constants::MAX_HUNGER;

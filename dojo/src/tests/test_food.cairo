@@ -22,7 +22,7 @@ mod tests {
     use babybeasts::tests::utils::{utils, utils::{PLAYER, cheat_caller_address, namespace_def, contract_defs, actions_system_world}};
 
     #[test]
-    #[available_gas(30000000)]
+    #[available_gas(60000000)]
     fn test_add_initial_food() {
         // Initialize test environment
         let (actions_system, world) = actions_system_world();
@@ -33,10 +33,10 @@ mod tests {
         actions_system.spawn_player();
         actions_system.add_initial_food();
 
-        // Read foods after initialization using correct IDs (0, 1, 2)
-        let apple: Food = world.read_model((PLAYER(), 0));
-        let banana: Food = world.read_model((PLAYER(), 1));
-        let cherry: Food = world.read_model((PLAYER(), 2));
+        // Read foods after initialization using correct IDs (1, 2, 3)
+        let apple: Food = world.read_model((PLAYER(), 1));
+        let banana: Food = world.read_model((PLAYER(), 2));
+        let cherry: Food = world.read_model((PLAYER(), 3));
 
         // Debug print
         // debug::print_felt252('Food name in storage:');
@@ -65,7 +65,7 @@ mod tests {
         // Create player, food, and beast
         actions_system.spawn_player();
         actions_system.add_initial_food();
-        actions_system.spawn(1); // Spawn beast with specie 1
+        actions_system.spawn(1, 3); // Spawn beast with specie 1
         actions_system.set_current_beast(1);
 
         // Get initial status
@@ -104,7 +104,7 @@ mod tests {
         // Create player, food, and beast
         actions_system.spawn_player();
         actions_system.add_initial_food();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 2);
         actions_system.set_current_beast(1);
 
         // Kill beast by decreasing stats
@@ -143,7 +143,7 @@ mod tests {
         // Create player, food, and beast
         actions_system.spawn_player();
         actions_system.add_initial_food();
-        actions_system.spawn(1); // Spawn beast with specie 1
+        actions_system.spawn(1 ,1); // Spawn beast with specie 1
         actions_system.set_current_beast(1);
 
         // We decrease the stats to verify that they increase after feeding
@@ -163,7 +163,7 @@ mod tests {
         initial_status.energy, initial_status.hunger);
 
         // Increase stats
-        actions_system.feed(0);
+        actions_system.feed(3);
 
         // Get updated status
         let updated_status: BeastStatus = world.read_model((1));
@@ -175,5 +175,4 @@ mod tests {
         assert(updated_status.hunger > initial_hunger, 'hunger not increased');
         assert(updated_status.energy > initial_energy, 'energy not increased');
     }
-   
 }
