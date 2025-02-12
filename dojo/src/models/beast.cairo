@@ -85,6 +85,7 @@ mod tests {
             player: player_address,
             beast_id: 1_u32,
             specie: 1_u32,
+            beast_type: 1_u32,
             evolved: false,
             vaulted: false,
         };
@@ -105,6 +106,7 @@ mod tests {
             player: player_address,
             beast_id: 1_u32,
             specie: 1_u32,
+            beast_type: 1_u32,
             evolved: false,
             vaulted: false,
         };
@@ -113,6 +115,7 @@ mod tests {
             player: player_address,
             beast_id: 2_u32,
             specie: 2_u32,
+            beast_type: 2_u32,
             evolved: false,
             vaulted: false,
         };
@@ -131,6 +134,7 @@ mod tests {
             player: player_address,
             beast_id: 1_u32,
             specie: 1_u32,
+            beast_type: 1_u32,
             evolved: true,
             vaulted: false,
         };
@@ -147,6 +151,7 @@ mod tests {
             player: player_address,
             beast_id: 1_u32,
             specie: 1_u32,
+            beast_type: 1_u32,
             evolved: false,
             vaulted: true,
         };
@@ -163,6 +168,7 @@ mod tests {
             player: player_address,
             beast_id: 1_u32,
             specie: 1_u32,
+            beast_type: 1_u32,
             evolved: false,
             vaulted: false,
         };

@@ -121,8 +121,8 @@ mod tests {
         let banana = FoodType::Banana;
         let cherry = FoodType::Cherry;
 
-        assert_eq!(apple.into(), 0_u8, "FoodType::Apple should be converted to 0");
-        assert_eq!(banana.into(), 1_u8, "FoodType::Banana should be converted to 1");
-        assert_eq!(cherry.into(), 2_u8, "FoodType::Cherry should be converted to 2");
+        assert_eq!(apple.into(), 1_u8, "FoodType::Apple should be converted to 1");
+        assert_eq!(banana.into(), 2_u8, "FoodType::Banana should be converted to 2");
+        assert_eq!(cherry.into(), 3_u8, "FoodType::Cherry should be converted to 3");
     }
 }
