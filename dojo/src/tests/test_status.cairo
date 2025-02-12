@@ -30,7 +30,7 @@ mod tests {
         // Create player, food, and beast
         actions_system.spawn_player();
         actions_system.add_initial_food();
-        actions_system.spawn(1); // Spawn beast with specie 1
+        actions_system.spawn(1, 1); // Spawn beast with specie 1
         actions_system.set_current_beast(1);
 
         let mut counter: u32 = 0;
@@ -68,7 +68,7 @@ mod tests {
 
         // Create player and beast
         actions_system.spawn_player();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         // Make beast sleep first
@@ -99,7 +99,7 @@ mod tests {
 
         // Create player and beast
         actions_system.spawn_player();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         let mut counter: u32 = 0;
@@ -135,7 +135,7 @@ mod tests {
 
         // Create player and beast
         actions_system.spawn_player();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         let mut counter: u32 = 0;
@@ -171,7 +171,7 @@ mod tests {
 
         // Create player and beast
         actions_system.spawn_player();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         // Decrease stats until death
@@ -207,7 +207,7 @@ mod tests {
 
         // Create player and beast
         actions_system.spawn_player();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         // Kill beast first
