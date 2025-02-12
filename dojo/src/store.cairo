@@ -137,6 +137,196 @@ impl StoreImpl of StoreTrait {
     }
 
     #[inline(always)]
+    fn new_burguers(mut self: Store) {
+        let caller = get_caller_address();
+
+        let burguers = Food {
+            player: caller,
+            id: FoodType::Burguer.into(),
+            name: FoodType::Burguer.into(),
+            amount: constants::MAX_FOOD_AMOUNT
+        };
+        self.world.write_model(@burguers);
+    }
+
+    #[inline(always)]
+    fn new_cake_chocolates(mut self: Store) {
+        let caller = get_caller_address();
+
+        let cake_chocolates = Food {
+            player: caller,
+            id: FoodType::CakeChocolate.into(),
+            name: FoodType::CakeChocolate.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@cake_chocolates);
+    }
+
+    #[inline(always)]
+    fn new_cake_strawberries(mut self: Store) {
+        let caller = get_caller_address();
+
+        let cake_strawberries = Food {
+            player: caller,
+            id: FoodType::CakeStrawberry.into(),
+            name: FoodType::CakeStrawberry.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@cake_strawberries);
+    }
+
+    #[inline(always)]
+    fn new_cheeses(mut self: Store) {
+        let caller = get_caller_address();
+
+        let cheeses = Food {
+            player: caller,
+            id: FoodType::Cheese.into(),
+            name: FoodType::Cheese.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@cheeses);
+    }
+
+    #[inline(always)]
+    fn new_chickens(mut self: Store) {
+        let caller = get_caller_address();
+
+        let chickens = Food {
+            player: caller,
+            id: FoodType::Chicken.into(),
+            name: FoodType::Chicken.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@chickens);
+    }
+
+    #[inline(always)]
+    fn new_eggs(mut self: Store) {
+        let caller = get_caller_address();
+
+        let eggs = Food {
+            player: caller,
+            id: FoodType::Eggs.into(),
+            name: FoodType::Eggs.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@eggs);
+    }
+
+    #[inline(always)]
+    fn new_fish(mut self: Store) {
+        let caller = get_caller_address();
+
+        let fish = Food {
+            player: caller,
+            id: FoodType::Fish.into(),
+            name: FoodType::Fish.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@fish);
+    }
+
+    #[inline(always)]
+    fn new_french_fries(mut self: Store) {
+        let caller = get_caller_address();
+
+        let french_fries = Food {
+            player: caller,
+            id: FoodType::FrenchFries.into(),
+            name: FoodType::FrenchFries.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@french_fries);
+    }
+
+    #[inline(always)]
+    fn new_blue_berries(mut self: Store) {
+        let caller = get_caller_address();
+
+        let blue_berries = Food {
+            player: caller,
+            id: FoodType::BlueBerry.into(),
+            name: FoodType::BlueBerry.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@blue_berries);
+    }
+
+    #[inline(always)]
+    fn new_beefs(mut self: Store) {
+        let caller = get_caller_address();
+
+        let beefs = Food {
+            player: caller,
+            id: FoodType::Beef.into(),
+            name: FoodType::Beef.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@beefs);
+    }
+
+    #[inline(always)]
+    fn new_pizzas(mut self: Store) {
+        let caller = get_caller_address();
+
+        let pizzas = Food {
+            player: caller,
+            id: FoodType::Pizza.into(),
+            name: FoodType::Pizza.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@pizzas);
+    }
+
+    #[inline(always)]
+    fn new_corns(mut self: Store) {
+        let caller = get_caller_address();
+
+        let corns = Food {
+            player: caller,
+            id: FoodType::Corn.into(),
+            name: FoodType::Corn.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@corns);
+    }
+
+    #[inline(always)]
+    fn new_potatoes(mut self: Store) {
+        let caller = get_caller_address();
+
+        let potatoes = Food {
+            player: caller,
+            id: FoodType::Potato.into(),
+            name: FoodType::Potato.into(),
+            amount: constants::MAX_FOOD_AMOUNT,
+        };
+        self.world.write_model(@potatoes);
+    }
+
+    #[inline(always)]
+    fn init_player_food(mut self: Store) {
+        self.new_apples();
+        self.new_bananas();
+        self.new_cherries();
+        self.new_burguers();
+        self.new_cake_chocolates();
+        self.new_cake_strawberries();
+        self.new_cheeses();
+        self.new_chickens();
+        self.new_eggs();
+        self.new_fish();
+        self.new_french_fries();
+        self.new_blue_berries();
+        self.new_beefs();
+        self.new_pizzas();
+        self.new_corns();
+        self.new_potatoes();
+    }
+
+
+    #[inline(always)]
     fn new_beast_stats(mut self: Store, beast_id: u32) {
         let mut beast_stats = BeastStats {
             beast_id: beast_id,
@@ -167,13 +357,14 @@ impl StoreImpl of StoreTrait {
     }
 
     #[inline(always)]
-    fn new_beast(mut self: Store, beast_id: u32, specie: u32) {
+    fn new_beast(mut self: Store, beast_id: u32, specie: u32, beast_type: u32) {
         let player = get_caller_address();
 
         let mut new_beast = Beast {
             player: player,
             beast_id: beast_id,
             specie: specie,
+            beast_type: beast_type,
             evolved: false,
             vaulted: false
         };

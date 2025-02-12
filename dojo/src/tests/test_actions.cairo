@@ -26,7 +26,7 @@ mod tests {
         
         actions_system.spawn_player();
         actions_system.add_initial_food();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         actions_system.decrease_status();

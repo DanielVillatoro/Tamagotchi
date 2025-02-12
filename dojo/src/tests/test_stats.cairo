@@ -30,7 +30,7 @@ mod tests {
 
         // Create player and beast
         actions_system.spawn_player();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         // Get initial stats
@@ -57,7 +57,7 @@ mod tests {
 
         // Create player and beast
         actions_system.spawn_player();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         // Get initial stats
@@ -91,7 +91,7 @@ mod tests {
 
         // Create player and beast
         actions_system.spawn_player();
-        actions_system.spawn(1);
+        actions_system.spawn(1, 1);
         actions_system.set_current_beast(1);
 
         // Get initial stats

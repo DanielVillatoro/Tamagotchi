@@ -15,6 +15,7 @@ mod models {
 
 mod types {
     mod food;
+    mod beast;
 }
 
 mod utils {
