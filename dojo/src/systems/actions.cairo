@@ -12,6 +12,7 @@ trait IActions<T> {
     fn sleep(ref self: T);
     fn awake(ref self: T);
     fn play(ref self: T);
+    fn pet(ref self: T);
     fn clean(ref self: T);
     fn revive(ref self: T);
     // Other methods
@@ -287,6 +288,31 @@ pub mod actions {
                 store.write_beast(@beast);
                 store.write_beast_status(@beast_status);
                 store.write_beast_stats(@beast_stats);
+            }
+        }
+
+        fn pet(ref self: ContractState) {
+            let mut world = self.world(@"babybeasts");
+            let store = StoreTrait::new(world);
+            
+            let player: Player = store.read_player();
+            player.assert_exists();
+            let beast_id = player.current_beast_id;
+            let mut beast: Beast = store.read_beast(beast_id);
+            let mut beast_status = store.read_beast_status(beast_id);
+
+            if beast_status.is_alive == true {
+                beast_status.energy = beast_status.energy + constants::S_UPDATE_POINTS;
+                if beast_status.energy > constants::MAX_ENERGY {
+                    beast_status.energy = constants::MAX_ENERGY;
+                }
+                beast_status.happiness = beast_status.happiness + constants::S_UPDATE_POINTS;
+                if beast_status.happiness > constants::MAX_HAPPINESS {
+                    beast_status.happiness = constants::MAX_HAPPINESS;
+                }
+                beast_status.is_awake = false;
+                store.write_beast(@beast);
+                store.write_beast_status(@beast_status);
             }
         }
 
