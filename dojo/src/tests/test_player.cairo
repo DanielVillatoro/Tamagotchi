@@ -20,7 +20,7 @@ mod tests {
     use babybeasts::tests::utils::{utils, utils::{PLAYER, cheat_caller_address, namespace_def, contract_defs, actions_system_world}};
 
     #[test]
-    #[available_gas(30000000)]
+    #[available_gas(40000000)]
     fn test_spawn_player() {
         let (actions_system, world) = actions_system_world();
 
@@ -35,7 +35,7 @@ mod tests {
     }
 
     #[test]
-    #[available_gas(30000000)]
+    #[available_gas(50000000)]
     fn test_set_current_beast() {
         let (actions_system, world) = actions_system_world();
 
@@ -45,7 +45,7 @@ mod tests {
         actions_system.spawn_player();
         
         // Spawn a beast first
-        actions_system.spawn(1); // Spawn beast with specie 1
+        actions_system.spawn(1, 1); // Spawn beast with specie 1
 
         // Set current beast
         let beast_id: u32 = 1;
@@ -67,8 +67,8 @@ mod tests {
         actions_system.spawn_player();
         
         // Spawn multiple beasts
-        actions_system.spawn(1); // First beast
-        actions_system.spawn(2); // Second beast
+        actions_system.spawn(1 ,2); // First beast
+        actions_system.spawn(2, 3); // Second beast
         
         // Set and verify we can switch between beasts
         actions_system.set_current_beast(1);
@@ -86,7 +86,7 @@ mod tests {
 
     #[test]
     // #[should_panic]
-    #[available_gas(30000000)]
+    #[available_gas(40000000)]
     fn test_invalid_beast_id() {
         let (actions_system, _) = actions_system_world();
         

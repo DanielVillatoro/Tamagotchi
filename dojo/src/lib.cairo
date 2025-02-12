@@ -27,7 +27,7 @@ mod tests {
     mod utils;
     mod test_random;
     mod test_actions;
-    // mod test_player;
+    mod test_player;
     // mod test_food;
     // mod test_status;
     // mod test_stats;
