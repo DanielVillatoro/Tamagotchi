@@ -16,7 +16,7 @@ import Cheese from '../../../assets/img/food/cheese.png';
 import Chiken from '../../../assets/img/food/chicken.png';
 import Eggs from '../../../assets/img/food/eggs_fried.png';
 import Fish from '../../../assets/img/food/fish.png';
-import FrenchFries from '../../../assets/img/food/frenchfries.png';
+import FrenchFries from '../../../assets/img/food/frenchFries.png';
 import Blueberry from '../../../assets/img/food/fruit_blueberry.png';
 import Beef from '../../../assets/img/food/meat.png';
 import Pizza from '../../../assets/img/food/pizza.png';
