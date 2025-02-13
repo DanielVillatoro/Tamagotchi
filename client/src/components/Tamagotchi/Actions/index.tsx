@@ -9,7 +9,7 @@ import initials from '../../../data/initials';
 import './main.css';
 import toast, { Toaster } from 'react-hot-toast';
 
-type PictureKey = 'eatPicture' | 'sleepPicture' | 'cleanPicture' | 'playPicture' | 'idlePicture';
+type PictureKey = 'eatPicture' | 'sleepPicture' | 'cleanPicture' | 'playPicture' | 'idlePicture' | 'cuddlePicture';
 
 const actionButtons: { label: string, img: string | null, action: string, pictureKey: PictureKey, isRevive?: boolean }[] = [
   { label: "Feed", img: Food, action: "feed", pictureKey: "eatPicture" },
