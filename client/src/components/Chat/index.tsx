@@ -8,7 +8,7 @@ import initials from '../../data/initials';
 import './main.css';
 
 interface ChatProps {
-  beast: Beast;  
+  beast?: Beast;  
 }
 
 function Chat({ beast }: ChatProps) {
@@ -17,7 +17,7 @@ function Chat({ beast }: ChatProps) {
     isLoading, 
     error, 
     sendMessage 
-  } = useBeastChat({ beast });
+  } = useBeastChat({ beast: beast ?? null });
 
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ function Chat({ beast }: ChatProps) {
         <input
           ref={inputRef}
           type="text"
-          placeholder={`Talk to ${initials[beast.specie - 1].name}`}
+          placeholder={`Talk to ${initials[beast?.specie ? beast.specie - 1 : 0].name}`}
           value={input}
           disabled={isLoading}
           onChange={(e) => setInput(e.target.value)}

@@ -12,7 +12,7 @@ const Whispers = ({ beast, expanded, beastStatus }: { beast: Beast, beastStatus:
   const [whispers, setWhispers] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const MAX_MESSAGE_LENGTH = 500;
+  const MAX_MESSAGE_LENGTH = 300;
   const messageTimeoutRef = useRef<NodeJS.Timeout>();
 
   const restoreFocus = () => {
