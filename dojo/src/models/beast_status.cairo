@@ -4,6 +4,9 @@ use starknet::ContractAddress;
 // Model imports
 use babybeasts::models::beast_stats::{BeastStats};
 
+// Types imports
+use babybeasts::types::clean_status::{CleanStatus};
+
 #[derive(Drop, Serde, Debug)]
 #[dojo::model]
 pub struct BeastStatus {
@@ -15,6 +18,34 @@ pub struct BeastStatus {
     pub energy: u32,
     pub happiness: u32,
     pub hygiene: u32,
+    pub clean_status: felt252,
+}
+
+#[generate_trait]
+impl BeastStatusImpl of BeastStatusTrait {
+
+    #[inline(always)]
+    fn update_clean_status(ref self: BeastStatus, hygiene: u32){
+            if hygiene>90{
+                self.clean_status = CleanStatus::Clean.into();
+            }
+            if hygiene>70 && hygiene<90 {
+                self.clean_status = CleanStatus::SlightlyDirty.into();
+            }
+            if hygiene>50 && hygiene<70 {
+                self.clean_status = CleanStatus::Dirty.into();
+            }
+            if hygiene>30 && hygiene<50 {
+                self.clean_status = CleanStatus::VeryDirty.into();
+            }
+            if hygiene>10 && hygiene<30 {
+                self.clean_status = CleanStatus::SuperDirty.into();
+            }
+            if hygiene<10 {
+                self.clean_status = CleanStatus::Filthy.into();
+            }
+    }
+
 }
 
 #[cfg(test)]
