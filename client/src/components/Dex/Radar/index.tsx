@@ -10,6 +10,7 @@ import {
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 import './main.css';
+import { iBeastDex } from '../../../data/beastDex';
 
 ChartJS.register(
   RadialLinearScale,
@@ -20,14 +21,8 @@ ChartJS.register(
   Legend
 );
 
-interface BeastDex {
-  Attack: string;
-  Defense: string;
-  Speed: string;
-}
-
 interface RadarStatsProps {
-  beast: BeastDex;
+  beast: iBeastDex;
 }
 
 function RadarStats({ beast }: RadarStatsProps): JSX.Element {

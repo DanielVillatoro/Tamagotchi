@@ -15,20 +15,21 @@
 }
 
 .body {
-  margin: 0;
-  padding: 80px 15px 30px;
+  margin: 0 auto;
+  padding: 0 15px 30px;
   width: 100vw;
   height: 100dvh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s;
   background-color: #000;
   background-image: linear-gradient(rgba(137, 26, 40, 0.5), rgba(137, 26, 40, 0.5)), url('./assets/img/background.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  position: relative;
-  display: flex;
-  align-items: center;
-  transition: all 0.25s;
 }
 
 .body.day {
@@ -228,4 +229,11 @@ p, span {
   border-radius: 3px !important;
   font-weight: bold !important;
   border-radius: 5px;
+}
+
+.go-back-container {
+  position: absolute;
+  bottom: 20px; 
+  left: 20px;   
+  z-index: 1000; 
 }

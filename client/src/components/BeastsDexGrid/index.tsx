@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import beastsData from '../../data/dex/BeastsDex.json';
+import React, { useEffect, useState } from 'react';
 import DexCarousel from '../Dex/DexCarousel/index.tsx';
 import GoBackButton from '../GoBack/GoBackButton.tsx';
-import './main.css';
+import beastsDex, { iBeastDex, } from '../../data/beastDex.tsx';
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton.tsx';
-
-interface Beast {
-  Name: string;
-  BeastsType: string;
-}
+import './main.css';
+import Header from '../Header/index.tsx';
 
 interface BeastWithIndex {
-  beast: Beast;
+  beast: iBeastDex;
   index: number;
 }
 
@@ -22,26 +18,15 @@ const BeastsDexGrid: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    const loadImages = async () => {
-      const loadedImages: Record<string, string> = {};
-      for (const beast of beastsData.BeastsDex) {
-        try {
-          const imagePath = `../../assets/beasts/${beast.Name}-idle.gif`;
-          const imageModule = await import(/* @vite-ignore */ imagePath);
-          loadedImages[beast.Name] = imageModule.default;
-        } catch (error) {
-          console.error(`Error loading image for ${beast.Name}:`, error);
-          loadedImages[beast.Name] = '';
-        }
-      }
-      setBeastImages(loadedImages);
-    };
-
-    loadImages();
-  }, []);
+    const pics = beastsDex.reduce((acc, beast) => {
+      acc[beast.name] = beast.idlePicture;
+      return acc;
+    }, {} as Record<string, string>);
+    setBeastImages(pics);
+  }, [])
 
   // Combine beasts data with their indices
-  const beastsWithIndex: BeastWithIndex[] = beastsData.BeastsDex.map((beast, index) => ({
+  const beastsWithIndex: BeastWithIndex[] = beastsDex.map((beast, index) => ({
     beast,
     index,
   }));
@@ -66,61 +51,65 @@ const BeastsDexGrid: React.FC = () => {
   };
 
   return (
-    <div className="dex-container-syles">
-      {selectedIndex === null ? (
-        <>
-          <div className='d-flex justify-content-between align-items-center mb-4'>
-            <p className={'title'}>
-              Beast DEX
-              <span className='d-block'>Collect them all!</span>
-            </p>
-            <ControllerConnectButton />
-          </div>
-          <div className="scrollable-container">
-            <div className="beast-grid">
-              {rows.map((row, rowIndex) => (
-                <div className="grid-row" key={rowIndex}>
-                  {row.map(({ beast, index }) => (
-                    <div 
-                      className="beast-card-wrapper" 
-                      key={index}
-                      onClick={() => handleCardClick(index)}
-                    >
-                      <div className="beast-card">
-                        {beastImages[beast.Name] ? (
-                          <div className="beast-image-container">
-                            <img
-                              src={beastImages[beast.Name]}
-                              className="beast-image"
-                              alt={beast.Name}
-                            />
+    <>
+      <Header />
+      <div className="dex-container-syles">
+        {selectedIndex === null ? (
+          <>
+            <div className='d-flex justify-content-between align-items-center mb-4'>
+              <p className={'title'}>
+                Beast DEX
+                <span className='d-block'>Collect them all!</span>
+              </p>
+              <ControllerConnectButton />
+            </div>
+            <div className="scrollable-container">
+              <div className="beast-grid">
+                {rows.map((row, rowIndex) => (
+                  <div className="grid-row" key={rowIndex}>
+                    {row.map(({ beast, index }) => (
+                      <div
+                        className="beast-card-wrapper"
+                        key={index}
+                        onClick={() => handleCardClick(index)}
+                      >
+                        <div className="beast-card">
+                          {beastImages[beast.name] ? (
+                            <div className="beast-image-container">
+                              <img
+                                src={beastImages[beast.name]}
+                                className="beast-image"
+                                alt={beast.name}
+                              />
+                            </div>
+                          ) : (
+                            <div className="beast-image-placeholder">No Image</div>
+                          )}
+                          <div className="beast-info">
+                            <h2 className="beast-name" style={{ fontSize: '15px' }}>
+                              {beast.name}
+                            </h2>
+                            <span className="beast-type" style={{ marginBottom: '5px' }}>
+                              {beast.BeastsType}
+                            </span>
                           </div>
-                        ) : (
-                          <div className="beast-image-placeholder">No Image</div>
-                        )}
-                        <div className="beast-info">
-                          <h2 className="beast-name" style={{ fontSize: '15px' }}>
-                            {beast.Name}
-                          </h2>
-                          <span className="beast-type" style={{ marginBottom: '5px' }}>
-                            {beast.BeastsType}
-                          </span>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ))}
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="go-back-container">
-              <GoBackButton/>
+              <GoBackButton />
             </div>
-          </div>
-        </>
-      ) : (
-        <DexCarousel initialSlide={selectedIndex} onClose={handleCloseDetail} />
-      )}
-    </div>
+          </>
+        ) : (
+          <DexCarousel initialSlide={selectedIndex} onClose={handleCloseDetail} />
+        )}
+      </div>
+    </>
+
   );
 };
 

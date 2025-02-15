@@ -2,10 +2,13 @@
 
 .dex-container-syles {
   width: 100%;
+  max-width: 400px;
   height: 100%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
 }
 
 .grid-title {
@@ -119,11 +122,4 @@
   font-family: 'Montserrat', sans-serif;
   display: inline-block;
   white-space: nowrap;
-}
-
-.go-back-container {
-  position: fixed;
-  bottom: 20px; 
-  left: 20px;   
-  z-index: 1000; 
 }

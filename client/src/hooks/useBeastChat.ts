@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 import { Beast } from '../dojo/bindings';
-import initials from '../data/initials';
+import beastsDex from '../data/beastDex';
 
 export interface Message {
   user: string;
@@ -23,7 +23,7 @@ export const useBeastChat = ({
   const [error, setError] = useState<Error | null>(null);
 
   const getBeastEndpoint = useCallback((specie: number) => {
-    const beastData = initials[specie - 1];
+    const beastData = beastsDex[specie - 1];
     if (!beastData) throw new Error(`Invalid beast species: ${specie}`);
     return `${baseUrl}/${beastData.name}/message`;
   }, [baseUrl]);

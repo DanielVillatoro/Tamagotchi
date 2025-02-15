@@ -23,7 +23,7 @@ import Pizza from '../../../assets/img/food/pizza.png';
 import Corn from '../../../assets/img/food/vegetable_corn.png';
 import Potato from '../../../assets/img/food/vegetable_potato.png';
 
-import initials from '../../../data/initials.tsx';
+import beastsDex from '../../../data/beastDex.tsx';
 
 const initialFoodItems = [
   { name: 'Apple', img: Apple, count: 5 },
@@ -67,7 +67,7 @@ const Food = ({ handleAction, beast, account, client, showAnimation }: {
     );
 
     // Get the appropriate eating animation for the beast
-    const eatAnimation = initials[beast.specie - 1].eatPicture;
+    const eatAnimation = beastsDex[beast.specie - 1].eatPicture;
     showAnimation(eatAnimation);
 
     // Execute the feed action wrapped in a toast.promise to show notifications

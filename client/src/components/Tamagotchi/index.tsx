@@ -9,7 +9,7 @@ import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
 import { useBeastStatus } from "../../hooks/useBeastsStatus.tsx";
 import { useBeastsStats } from "../../hooks/useBeastsStats.tsx";
-import initials from "../../data/initials.tsx";
+import beastsDex from "../../data/beastDex.tsx";
 import message from '../../assets/img/message.svg';
 import dead from '../../assets/img/dead.gif';
 import Stats from "./Stats/index.tsx";
@@ -58,25 +58,24 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
       const bodyElement = document.querySelector('.body') as HTMLElement;
       if (bodyElement) {
         bodyElement.classList.add(`${isDayTime ? 'day' : 'night'}`);
-        bodyElement.style.backgroundSize = 'inherit';
-        bodyElement.style.padding = '80px 15px 30px';
+        bodyElement.style.padding = '15px 15px 30px';
       }
     };
     updateBackground();
   }, []);
   // Animations
-  const [currentImage, setCurrentImage] = useState(beast ? initials[beast.specie - 1].idlePicture : '');
+  const [currentImage, setCurrentImage] = useState(beast ? beastsDex[beast.specie - 1].idlePicture : '');
   const [firstTime, isFirstTime] = useState(true);
   useEffect(() => {
     if (firstTime && beast) {
-      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '')
+      setCurrentImage(beast ? beastsDex[beast.specie - 1].idlePicture : '')
       isFirstTime(false);
     }
   }, [beast]);
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
-      setCurrentImage(beast ? initials[beast.specie - 1].idlePicture : '');
+      setCurrentImage(beast ? beastsDex[beast.specie - 1].idlePicture : '');
     }, loadingTime);
   };
   const showDeathAnimation = () => {

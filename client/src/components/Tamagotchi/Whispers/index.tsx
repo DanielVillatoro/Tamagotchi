@@ -2,7 +2,7 @@ import { Beast, BeastStatus } from "../../../dojo/bindings";
 import { useEffect, useState, useRef } from "react";
 import message from '../../../assets/img/message.svg';
 import MessageComponent, { Message } from "../../ui/message";
-import initials from "../../../data/initials";
+import beastsDex from "../../../data/beastDex";
 import { useBeastChat } from "../../../hooks/useBeastChat";
 import './main.css';
 
@@ -50,7 +50,7 @@ const Whispers = ({ beast, expanded, beastStatus }: { beast: Beast, beastStatus:
           <input
             ref={inputRef}
             type="text"
-            placeholder={`Talk to ${initials[beast.specie - 1].name}`}
+            placeholder={`Talk to ${beastsDex[beast.specie - 1].name}`}
             value={input}
             disabled={isLoading}
             onChange={(e) => setInput(e.target.value)}
@@ -109,7 +109,7 @@ const Whispers = ({ beast, expanded, beastStatus }: { beast: Beast, beastStatus:
 
   const generatePrompt = (beastStatus: BeastStatus) => {
     const criticalStat = analyzeStats(beastStatus);
-    return `You are ${initials[beast.specie - 1].name}, with the following statistics:
+    return `You are ${beastsDex[beast.specie - 1].name}, with the following statistics:
             Hunger: ${beastStatus.hunger}/100
             Energy: ${beastStatus.energy}/100
             Happiness: ${beastStatus.happiness}/100

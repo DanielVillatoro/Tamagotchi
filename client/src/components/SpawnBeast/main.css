@@ -1,5 +1,6 @@
 .spawn-beast {
   width: 100%;
+  max-width: 400px;
   height: 100%;
   max-width: 400px;
   margin: auto;

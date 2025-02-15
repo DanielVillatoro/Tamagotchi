@@ -4,7 +4,7 @@ import MessageComponent from "../ui/message";
 import ThinkingDots from '../ui/thinking-dots';
 import message from '../../assets/img/message.svg';
 import { useBeastChat } from '../../hooks/useBeastChat';
-import initials from '../../data/initials';
+import beastsDex from '../../data/beastDex';
 import './main.css';
 
 interface ChatProps {
@@ -58,7 +58,7 @@ function Chat({ beast }: ChatProps) {
         <input
           ref={inputRef}
           type="text"
-          placeholder={`Talk to ${initials[beast?.specie ? beast.specie - 1 : 0].name}`}
+          placeholder={`Talk to ${beastsDex[beast?.specie ? beast.specie - 1 : 0].name}`}
           value={input}
           disabled={isLoading}
           onChange={(e) => setInput(e.target.value)}

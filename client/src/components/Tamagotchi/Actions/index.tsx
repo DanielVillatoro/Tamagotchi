@@ -5,7 +5,7 @@ import Sleep from '../../../assets/img/sleep.png';
 import Clean from '../../../assets/img/clean.png';
 import Play from '../../../assets/img/play.png';
 import WakeUp from '../../../assets/img/wakeup.png';
-import initials from '../../../data/initials';
+import beastsDex from '../../../data/beastDex';
 import './main.css';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -47,7 +47,7 @@ const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client,
                 handleAction(
                   label, 
                   () => client.actions[action](account as Account), 
-                  initials[beast.specie - 1][pictureKey]
+                  beastsDex[beast.specie - 1][pictureKey]
                 ),
                 {
                   loading: `${label} in progress...`,

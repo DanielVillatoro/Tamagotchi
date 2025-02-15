@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
-.venn-container {
+.venn {
   min-height: 100vh;
   width: 100%;
   background-color: #1C1C1C;
@@ -16,6 +16,11 @@
   opacity: 0;
   transform: translateY(50px);
   animation: fade-in-up 1s ease-out forwards;
+}
+
+.venn-container {
+  max-width: 400px;
+  margin: auto;
 }
 
 @keyframes fade-in-up {
@@ -33,6 +38,7 @@
   opacity: 0;
   transform: translateY(50px);
   animation: fade-in-up 1s ease-out forwards;
+  margin: auto;
 }
 
 .venn-title {
