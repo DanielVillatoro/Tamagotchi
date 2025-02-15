@@ -103,11 +103,13 @@ p, span {
 .button:hover {
   background: linear-gradient(to right, #95033A, #E11A4D); 
   transform: translateY(-2px); 
+  color: #ECECDA;
 }
 
 .button:active {
   background: linear-gradient(to right, #B00833, #6E0022); 
   transform: translateY(0);
+  color: #ECECDA;
 }
 
 .button:disabled {

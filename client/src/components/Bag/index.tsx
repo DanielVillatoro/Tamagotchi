@@ -80,21 +80,24 @@ function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
   // if no beasts are available, show an empty state
   if (beasts.length === 0) {
     return (
-      <div className="bag">
-        <div className='d-flex justify-content-between align-items-center'>
-          <p className={'title'}>
-            There are not Beasts
-            <span className='d-block'>Go hatch an egg!</span>
-          </p>
-          <ControllerConnectButton />
+      <>
+        <Header />
+        <div className="bag">
+          <div className='d-flex justify-content-between align-items-center'>
+            <p className={'title'}>
+              There are not Beasts
+              <span className='d-block'>Go hatch an egg!</span>
+            </p>
+            <ControllerConnectButton />
+          </div>
+          <div className="empty-state">
+            <p>No beasts available</p>
+          </div>
+          <div className="go-back-container">
+            <GoBackButton to={'/'} />
+          </div>
         </div>
-        <div className="empty-state">
-          <p>No beasts available</p>
-        </div>
-        <div className="go-back-container">
-          <GoBackButton to={'/'} />
-        </div>
-      </div>
+      </>
     );
   }
 
