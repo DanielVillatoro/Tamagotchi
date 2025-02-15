@@ -68,8 +68,9 @@
   display: flex;
   align-items: center;
   padding: 0 15px;
-  background: linear-gradient(to right, #85002A, #D1093D);
+  border: 2px solid #ededdd;
   border-radius: 30px;
+  background-color: rgba(55, 0, 1, 0.2);
 }
 
 .chat-input input {

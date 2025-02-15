@@ -9,8 +9,7 @@ import './styles.css';
 function VennDiagram({ sdk }: { sdk: SDK<SchemaType> }) {
   const { userAccount } = useGlobalContext();
   const [currentCircle, setCurrentCircle] = useState('play');
-  const [showDeveloperCode, setShowDeveloperCode] = useState(false);
-
+  
   useEffect(() => {
     const sequence = ['play', 'raise', 'evolve'];
     let currentIndex = 0;
@@ -106,8 +105,7 @@ function VennDiagram({ sdk }: { sdk: SDK<SchemaType> }) {
         </svg>
       </div>
       <div className='mt-4 px-3 w-100'>
-        <button className="button mb-4" onClick={() => setShowDeveloperCode(true)}>CONNECT</button>
-        {showDeveloperCode && <DeveloperCode />}
+        <DeveloperCode />
       </div>
     </div>
   );
