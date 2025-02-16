@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import sheep from "../../assets/img/sheep.svg";
 import monster from "../../assets/img/logo.svg";
-import search from "../../assets/img/search.svg";
+import book from "../../assets/img/book.svg";
+import dragon from "../../assets/img/dragon.svg";
 import "./main.css";
 
 function Header() {
@@ -15,10 +15,10 @@ function Header() {
       </Link>
       <div className="side-menu">
         <Link to={'/dex'} className="dex-icon">
-          <img src={search} alt="Search" className="search" />
+          <img src={book} className="Beast Dex" />
         </Link>
         <Link to={'/bag'} className="bag-icon">
-          <img src={sheep} className="sheep" alt="Sheep" />
+          <img src={dragon} alt="Beasts Bag" />
         </Link>
       </div>
     </nav>
