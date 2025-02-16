@@ -37,7 +37,7 @@ export const useSystemCalls = () => {
         try {
             // Execute the spawn action from the client
             if (userAccount) {
-                await client.actions.spawn(userAccount as Account, specie);
+                await client.actions.spawn(userAccount as Account, specie, specie);
             } else {
                 throw new Error("Account is undefined");
             }

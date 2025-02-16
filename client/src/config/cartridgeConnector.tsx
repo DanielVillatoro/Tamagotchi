@@ -4,7 +4,7 @@ import { Connector } from "@starknet-react/core";
 
 const policies: SessionPolicies = {
   contracts: {
-    ['0x7e6b1928b66896b6d2369f544d810ad3a2caad740b4e2bd0071daf4c6e4dab9']: {
+    ['0x76c919037528de22722814b53b5ba81984995da0bbca2c092946bd82ef57b82']: {
       methods: [
         {
           name: "spawn_player",
@@ -43,12 +43,20 @@ const policies: SessionPolicies = {
           entrypoint: "play"
         },
         {
+          name: "pet",
+          entrypoint: "pet"
+        },
+        {
           name: "clean",
           entrypoint: "clean"
         },
         {
           name: "revive",
           entrypoint: "revive"
+        },
+        {
+          name: "init_tap_counter",
+          entrypoint: "init_tap_counter"
         },
         {
           name: "tap",
@@ -62,7 +70,7 @@ const policies: SessionPolicies = {
 // Configuración básica del conector
 const cartridgeConnector = new ControllerConnector({
   policies,
-  rpc: 'https://api.cartridge.gg/x/slotito/katana'
+  rpc: 'https://api.cartridge.gg/x/bbtamagotchi/katana'
 }) as never as Connector;
 
 export default cartridgeConnector;

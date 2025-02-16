@@ -21,22 +21,6 @@ export function client(provider: DojoProvider) {
 		}
 	};
 
-	const actions_setCurrentBeast = async (snAccount: Account | AccountInterface, beastId: number) => {
-		try {
-			return await provider.execute(
-				snAccount,
-				{
-					contractName: "actions",
-					entrypoint: "set_current_beast",
-					calldata: [beastId],
-				},
-				"babybeasts",
-			);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
 	const actions_addInitialFood = async (snAccount: Account | AccountInterface) => {
 		try {
 			return await provider.execute(
@@ -53,14 +37,30 @@ export function client(provider: DojoProvider) {
 		}
 	};
 
-	const actions_spawn = async (snAccount: Account | AccountInterface, specie: number) => {
+	const actions_setCurrentBeast = async (snAccount: Account | AccountInterface, beastId: number) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				{
+					contractName: "actions",
+					entrypoint: "set_current_beast",
+					calldata: [beastId],
+				},
+				"babybeasts",
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const actions_spawn = async (snAccount: Account | AccountInterface, specie: number, beastType: number) => {
 		try {
 			return await provider.execute(
 				snAccount,
 				{
 					contractName: "actions",
 					entrypoint: "spawn",
-					calldata: [specie],
+					calldata: [specie, beastType],
 				},
 				"babybeasts",
 			);
@@ -149,6 +149,22 @@ export function client(provider: DojoProvider) {
 		}
 	};
 
+	const actions_pet = async (snAccount: Account | AccountInterface) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				{
+					contractName: "actions",
+					entrypoint: "pet",
+					calldata: [],
+				},
+				"babybeasts",
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const actions_clean = async (snAccount: Account | AccountInterface) => {
 		try {
 			return await provider.execute(
@@ -197,15 +213,14 @@ export function client(provider: DojoProvider) {
 		}
 	};
 
-
-	const actions_tap = async (snAccount: Account | AccountInterface, specie: number) => {
+	const actions_tap = async (snAccount: Account | AccountInterface, specie: number, beastType: number) => {
 		try {
 			return await provider.execute(
 				snAccount,
 				{
 					contractName: "actions",
 					entrypoint: "tap",
-					calldata: [specie],
+					calldata: [specie, beastType],
 				},
 				"babybeasts",
 			);
@@ -217,14 +232,15 @@ export function client(provider: DojoProvider) {
 	return {
 		actions: {
 			spawnPlayer: actions_spawnPlayer,
-			setCurrentBeast: actions_setCurrentBeast,
 			addInitialFood: actions_addInitialFood,
+			setCurrentBeast: actions_setCurrentBeast,
 			spawn: actions_spawn,
 			decreaseStatus: actions_decreaseStatus,
 			feed: actions_feed,
 			sleep: actions_sleep,
 			awake: actions_awake,
 			play: actions_play,
+			pet: actions_pet,
 			clean: actions_clean,
 			revive: actions_revive,
 			initTapCounter: actions_initTapCounter,

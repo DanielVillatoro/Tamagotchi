@@ -14,6 +14,7 @@ export interface Beast {
 	player: string;
 	beast_id: number;
 	specie: number;
+	beast_type: number;
 	evolved: boolean;
 	vaulted: boolean;
 }
@@ -23,6 +24,7 @@ export type InputBeast = RemoveFieldOrder<Beast>;
 export interface BeastValue {
 	fieldOrder: string[];
 	specie: number;
+	beast_type: number;
 	evolved: boolean;
 	vaulted: boolean;
 }
@@ -63,6 +65,7 @@ export interface BeastStatus {
 	energy: number;
 	happiness: number;
 	hygiene: number;
+	clean_status: number;
 }
 export type InputBeastStatus = RemoveFieldOrder<BeastStatus>;
 
@@ -75,6 +78,7 @@ export interface BeastStatusValue {
 	energy: number;
 	happiness: number;
 	hygiene: number;
+	clean_status: number;
 }
 export type InputBeastStatusValue = RemoveFieldOrder<BeastStatusValue>;
 
@@ -119,8 +123,8 @@ export interface SchemaType extends ISchemaType {
 		BeastStats: BeastStats,
 		BeastStatus: BeastStatus,
 		BeastStatusValue: BeastStatusValue,
-		Food: Food,
 		FoodValue: FoodValue,
+		Food: Food,
 		PlayerValue: PlayerValue,
 		Player: Player,
 	},
@@ -129,16 +133,18 @@ export interface SchemaType extends ISchemaType {
 export const schema: SchemaType = {
 	babybeasts: {
 		Beast: {
-			fieldOrder: ['player', 'beast_id', 'specie', 'evolved', 'vaulted'],
+			fieldOrder: ['player', 'beast_id', 'specie', 'beast_type', 'evolved', 'vaulted'],
 			player: "",
 			beast_id: 0,
 			specie: 0,
+			beast_type: 0,
 			evolved: false,
 			vaulted: false,
 		},
 		BeastValue: {
-			fieldOrder: ['specie', 'evolved', 'vaulted'],
+			fieldOrder: ['specie', 'beast_type', 'evolved', 'vaulted'],
 			specie: 0,
+			beast_type: 0,
 			evolved: false,
 			vaulted: false,
 		},
@@ -162,7 +168,7 @@ export const schema: SchemaType = {
 			next_level_experience: 0,
 		},
 		BeastStatus: {
-			fieldOrder: ['beast_id', 'is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene'],
+			fieldOrder: ['beast_id', 'is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene', 'clean_status'],
 			beast_id: 0,
 			is_alive: false,
 			is_awake: false,
@@ -170,25 +176,27 @@ export const schema: SchemaType = {
 			energy: 0,
 			happiness: 0,
 			hygiene: 0,
+			clean_status: 0,
 		},
 		BeastStatusValue: {
-			fieldOrder: ['is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene'],
+			fieldOrder: ['is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene', 'clean_status'],
 			is_alive: false,
 			is_awake: false,
 			hunger: 0,
 			energy: 0,
 			happiness: 0,
 			hygiene: 0,
+			clean_status: 0,
+		},
+		FoodValue: {
+			fieldOrder: ['name', 'amount'],
+			name: 0,
+			amount: 0,
 		},
 		Food: {
 			fieldOrder: ['player', 'id', 'name', 'amount'],
 			player: "",
 			id: 0,
-			name: 0,
-			amount: 0,
-		},
-		FoodValue: {
-			fieldOrder: ['name', 'amount'],
 			name: 0,
 			amount: 0,
 		},

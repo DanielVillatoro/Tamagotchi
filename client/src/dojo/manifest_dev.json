@@ -1252,8 +1252,8 @@
   },
   "contracts": [
     {
-      "address": "0x7e6b1928b66896b6d2369f544d810ad3a2caad740b4e2bd0071daf4c6e4dab9",
-      "class_hash": "0xaa516b8b2d9a7178be5033373053c982db221b5e8db6753bb8bdd37c5b82a4",
+      "address": "0x76c919037528de22722814b53b5ba81984995da0bbca2c092946bd82ef57b82",
+      "class_hash": "0x3ee6d65dc58393b5ca77599837e8b8f15092c3af661eba356aeb7528c436fc7",
       "abi": [
         {
           "type": "impl",
@@ -1330,6 +1330,13 @@
             },
             {
               "type": "function",
+              "name": "add_initial_food",
+              "inputs": [],
+              "outputs": [],
+              "state_mutability": "external"
+            },
+            {
+              "type": "function",
               "name": "set_current_beast",
               "inputs": [
                 {
@@ -1342,17 +1349,14 @@
             },
             {
               "type": "function",
-              "name": "add_initial_food",
-              "inputs": [],
-              "outputs": [],
-              "state_mutability": "external"
-            },
-            {
-              "type": "function",
               "name": "spawn",
               "inputs": [
                 {
                   "name": "specie",
+                  "type": "core::integer::u32"
+                },
+                {
+                  "name": "beast_type",
                   "type": "core::integer::u32"
                 }
               ],
@@ -1401,6 +1405,13 @@
             },
             {
               "type": "function",
+              "name": "pet",
+              "inputs": [],
+              "outputs": [],
+              "state_mutability": "external"
+            },
+            {
+              "type": "function",
               "name": "clean",
               "inputs": [],
               "outputs": [],
@@ -1426,6 +1437,10 @@
               "inputs": [
                 {
                   "name": "specie",
+                  "type": "core::integer::u32"
+                },
+                {
+                  "name": "beast_type",
                   "type": "core::integer::u32"
                 }
               ],
@@ -1548,14 +1563,15 @@
       "systems": [
         "dojo_init",
         "spawn_player",
-        "set_current_beast",
         "add_initial_food",
+        "set_current_beast",
         "spawn",
         "decrease_status",
         "feed",
         "sleep",
         "awake",
         "play",
+        "pet",
         "clean",
         "revive",
         "init_tap_counter",
@@ -1567,7 +1583,7 @@
   "models": [
     {
       "members": [],
-      "class_hash": "0xd0bdcc3b3d9ad1cf3d5d59831b557de531c4647363a69b66429fe54fc1a565",
+      "class_hash": "0x2d49a63a2ce64dd2c3d701d94a22d58b1b296a280d821401bd350097b1c14c8",
       "tag": "babybeasts-Beast",
       "selector": "0x732389d6015adc6fe9f89178baa6ca00bedabbf5112ada86e346b35dc00f52d"
     },
@@ -1579,7 +1595,7 @@
     },
     {
       "members": [],
-      "class_hash": "0x6aff3a04049981353e766b745153f52201a3351a8f4c8f44aab34e8c29aec35",
+      "class_hash": "0x682549cc5fe9830c5712b09563467f79321f66a2d56f907cfbd1f6efd7d030a",
       "tag": "babybeasts-BeastStatus",
       "selector": "0x486637d8e901f62d33ea32ba9d422da47215bab88fbfc17600f374b67ef5cf7"
     },
