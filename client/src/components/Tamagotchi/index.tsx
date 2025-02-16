@@ -25,8 +25,10 @@ import playSound from '../../assets/sounds/bbjump.mp3';
 import reviveSound from '../../assets/sounds/bbrevive.mp3';
 import monster from '../../assets/img/logo.svg';
 import statsIcon from '../../assets/img/stats.svg';
+import Egg from "../../assets/img/egg.gif";
 import Header from '../../components/Header';
 import './main.css';
+import { Link } from "react-router-dom";
 
 function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const { userAccount } = useGlobalContext();
@@ -113,7 +115,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   };
   return (
     <>
-    <Header backButton={true} />
+    <Header />
       <div className="tamaguchi">
         <>{beast &&
           <Card style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
@@ -160,9 +162,15 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
                 :<></>
               }
               <div className="beast-interaction">
-                <img src={monster} onClick={() => ( setCurrentView('actions'))} />
-                <img src={message} onClick={() => setCurrentView('chat')} />
-                <img src={statsIcon} onClick={() => setCurrentView('stats')} />
+                <div>
+                  <img src={monster} onClick={() => ( setCurrentView('actions'))} />
+                  <img src={message} onClick={() => setCurrentView('chat')} />
+                  <img src={statsIcon} onClick={() => setCurrentView('stats')} />
+                </div>
+                <Link to={'/hatch'} className="hatch">
+                  <span>Hatch Egg</span>
+                  <img src={Egg} onClick={() => ( setCurrentView('actions'))} />
+                </Link>
               </div>
             </div>
           </Card>

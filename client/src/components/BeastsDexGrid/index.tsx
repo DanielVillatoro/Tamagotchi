@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import DexCarousel from '../Dex/DexCarousel/index.tsx';
-import GoBackButton from '../GoBack/GoBackButton.tsx';
 import beastsDex, { iBeastDex, } from '../../data/beastDex.tsx';
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton.tsx';
 import './main.css';
@@ -23,7 +22,16 @@ const BeastsDexGrid: React.FC = () => {
       return acc;
     }, {} as Record<string, string>);
     setBeastImages(pics);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const bodyElement = document.querySelector('.body') as HTMLElement;
+    if (bodyElement) {
+      bodyElement.classList.remove('day', 'night');
+      bodyElement.style.backgroundSize = 'cover';
+      bodyElement.style.padding = '15px 15px 30px';
+    }
+  }, []);
 
   // Combine beasts data with their indices
   const beastsWithIndex: BeastWithIndex[] = beastsDex.map((beast, index) => ({
@@ -99,9 +107,6 @@ const BeastsDexGrid: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="go-back-container">
-              <GoBackButton />
             </div>
           </>
         ) : (

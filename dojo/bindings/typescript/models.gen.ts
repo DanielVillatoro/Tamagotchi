@@ -10,25 +10,27 @@ type RemoveFieldOrder<T> = T extends object
       'fieldOrder'
     >
   : T;
-// Type definition for `babybeasts::models::beast::BeastValue` struct
-export interface BeastValue {
-	fieldOrder: string[];
-	specie: BigNumberish;
-	evolved: boolean;
-	vaulted: boolean;
-}
-export type InputBeastValue = RemoveFieldOrder<BeastValue>;
-
 // Type definition for `babybeasts::models::beast::Beast` struct
 export interface Beast {
 	fieldOrder: string[];
 	player: string;
 	beast_id: BigNumberish;
 	specie: BigNumberish;
+	beast_type: BigNumberish;
 	evolved: boolean;
 	vaulted: boolean;
 }
 export type InputBeast = RemoveFieldOrder<Beast>;
+
+// Type definition for `babybeasts::models::beast::BeastValue` struct
+export interface BeastValue {
+	fieldOrder: string[];
+	specie: BigNumberish;
+	beast_type: BigNumberish;
+	evolved: boolean;
+	vaulted: boolean;
+}
+export type InputBeastValue = RemoveFieldOrder<BeastValue>;
 
 // Type definition for `babybeasts::models::beast_stats::BeastStatsValue` struct
 export interface BeastStatsValue {
@@ -65,6 +67,7 @@ export interface BeastStatus {
 	energy: BigNumberish;
 	happiness: BigNumberish;
 	hygiene: BigNumberish;
+	clean_status: BigNumberish;
 }
 export type InputBeastStatus = RemoveFieldOrder<BeastStatus>;
 
@@ -77,8 +80,17 @@ export interface BeastStatusValue {
 	energy: BigNumberish;
 	happiness: BigNumberish;
 	hygiene: BigNumberish;
+	clean_status: BigNumberish;
 }
 export type InputBeastStatusValue = RemoveFieldOrder<BeastStatusValue>;
+
+// Type definition for `babybeasts::models::food::FoodValue` struct
+export interface FoodValue {
+	fieldOrder: string[];
+	name: BigNumberish;
+	amount: BigNumberish;
+}
+export type InputFoodValue = RemoveFieldOrder<FoodValue>;
 
 // Type definition for `babybeasts::models::food::Food` struct
 export interface Food {
@@ -89,14 +101,6 @@ export interface Food {
 	amount: BigNumberish;
 }
 export type InputFood = RemoveFieldOrder<Food>;
-
-// Type definition for `babybeasts::models::food::FoodValue` struct
-export interface FoodValue {
-	fieldOrder: string[];
-	name: BigNumberish;
-	amount: BigNumberish;
-}
-export type InputFoodValue = RemoveFieldOrder<FoodValue>;
 
 // Type definition for `babybeasts::models::player::PlayerValue` struct
 export interface PlayerValue {
@@ -115,31 +119,33 @@ export type InputPlayer = RemoveFieldOrder<Player>;
 
 export interface SchemaType extends ISchemaType {
 	babybeasts: {
-		BeastValue: BeastValue,
 		Beast: Beast,
+		BeastValue: BeastValue,
 		BeastStatsValue: BeastStatsValue,
 		BeastStats: BeastStats,
 		BeastStatus: BeastStatus,
 		BeastStatusValue: BeastStatusValue,
-		Food: Food,
 		FoodValue: FoodValue,
+		Food: Food,
 		PlayerValue: PlayerValue,
 		Player: Player,
 	},
 }
 export const schema: SchemaType = {
 	babybeasts: {
-		BeastValue: {
-			fieldOrder: ['specie', 'evolved', 'vaulted'],
-			specie: 0,
-			evolved: false,
-			vaulted: false,
-		},
 		Beast: {
-			fieldOrder: ['player', 'beast_id', 'specie', 'evolved', 'vaulted'],
+			fieldOrder: ['player', 'beast_id', 'specie', 'beast_type', 'evolved', 'vaulted'],
 			player: "",
 			beast_id: 0,
 			specie: 0,
+			beast_type: 0,
+			evolved: false,
+			vaulted: false,
+		},
+		BeastValue: {
+			fieldOrder: ['specie', 'beast_type', 'evolved', 'vaulted'],
+			specie: 0,
+			beast_type: 0,
 			evolved: false,
 			vaulted: false,
 		},
@@ -163,7 +169,7 @@ export const schema: SchemaType = {
 			next_level_experience: 0,
 		},
 		BeastStatus: {
-			fieldOrder: ['beast_id', 'is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene'],
+			fieldOrder: ['beast_id', 'is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene', 'clean_status'],
 			beast_id: 0,
 			is_alive: false,
 			is_awake: false,
@@ -171,25 +177,27 @@ export const schema: SchemaType = {
 			energy: 0,
 			happiness: 0,
 			hygiene: 0,
+			clean_status: 0,
 		},
 		BeastStatusValue: {
-			fieldOrder: ['is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene'],
+			fieldOrder: ['is_alive', 'is_awake', 'hunger', 'energy', 'happiness', 'hygiene', 'clean_status'],
 			is_alive: false,
 			is_awake: false,
 			hunger: 0,
 			energy: 0,
 			happiness: 0,
 			hygiene: 0,
+			clean_status: 0,
+		},
+		FoodValue: {
+			fieldOrder: ['name', 'amount'],
+			name: 0,
+			amount: 0,
 		},
 		Food: {
 			fieldOrder: ['player', 'id', 'name', 'amount'],
 			player: "",
 			id: 0,
-			name: 0,
-			amount: 0,
-		},
-		FoodValue: {
-			fieldOrder: ['name', 'amount'],
 			name: 0,
 			amount: 0,
 		},

@@ -3,10 +3,9 @@ import Music from "../Music";
 import sheep from "../../assets/img/sheep.svg";
 import monster from "../../assets/img/logo.svg";
 import search from "../../assets/img/search.svg";
-import GoBackButton from "../GoBack/GoBackButton"; 
 import "./main.css";
 
-function Header({ backButton = false }) {
+function Header() {
   return (
     <nav className="navbar">
       <Link to={'/'} className="logo">
@@ -20,13 +19,9 @@ function Header({ backButton = false }) {
         <Link to={'/dex'}>
           <img src={search} alt="Search" className="search" />
         </Link>
-        { backButton ? (
-          <GoBackButton to={'/bag'} />
-        ) : (
-          <Link to={'/bag'}>
-            <img src={sheep} className="sheep" alt="Sheep" />
-          </Link>
-        )}
+        <Link to={'/bag'}>
+          <img src={sheep} className="sheep" alt="Sheep" />
+        </Link>
       </div>
     </nav>
   );

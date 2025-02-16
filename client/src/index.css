@@ -239,3 +239,23 @@ p, span {
   left: 20px;   
   z-index: 1000; 
 }
+
+.hatch {
+  height: 35px;
+  background-color: #ECECDA;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  margin: auto 0 0 auto;
+}
+
+.hatch span {
+  color: #891a29;
+  font-weight: bold;
+}
+
+.hatch img {
+  margin: 0 !important;
+}

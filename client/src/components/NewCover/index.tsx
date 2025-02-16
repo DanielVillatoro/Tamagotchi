@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useGlobalContext } from '../../hooks/appContext.tsx';
 import { DeveloperCode } from "../DeveloperCode/index.tsx";
-import { SchemaType } from '../../dojo/bindings.ts';
-import { SDK } from '@dojoengine/sdk';
-import SpawnBeast from "../SpawnBeast/index.tsx";
 import './styles.css';
 
-function VennDiagram({ sdk }: { sdk: SDK<SchemaType> }) {
-  const { userAccount } = useGlobalContext();
+function NewCover() {
   const [currentCircle, setCurrentCircle] = useState('play');
   
   useEffect(() => {
@@ -21,10 +16,6 @@ function VennDiagram({ sdk }: { sdk: SDK<SchemaType> }) {
 
     return () => clearInterval(interval);
   }, []);
-
-  if (userAccount) {
-    return <SpawnBeast sdk={sdk} />;
-  }
 
   return (
     <div className="venn">
@@ -113,4 +104,4 @@ function VennDiagram({ sdk }: { sdk: SDK<SchemaType> }) {
   );
 };
 
-export default VennDiagram;
+export default NewCover;

@@ -11,7 +11,6 @@ import beastsDex from "../../data/beastDex.tsx";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import GoBackButton from '../GoBack/GoBackButton.tsx';
 import './main.css';
 import Header from '../Header/index.tsx';
 
@@ -56,7 +55,7 @@ function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
           </p>
         </div>
         <Link
-          to={`/play/${beast.beast_id}`}
+          to={`/`}
           className="button"
           onClick={async () => {
             await client.actions.setCurrentBeast(userAccount as Account, beast.beast_id)
@@ -93,9 +92,6 @@ function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
           <div className="empty-state">
             <p>No beasts available</p>
           </div>
-          <div className="go-back-container">
-            <GoBackButton to={'/'} />
-          </div>
         </div>
       </>
     );
@@ -126,9 +122,6 @@ function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
               ))}
             </Slider>
           )}
-        </div>
-        <div className="go-back-container">
-          <GoBackButton to={'/'} />
         </div>
       </div>
     </>
