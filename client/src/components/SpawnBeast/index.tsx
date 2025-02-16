@@ -7,6 +7,7 @@ import ControllerConnectButton from "../CartridgeController/ControllerConnectBut
 import Egg from "../../assets/img/egg.gif";
 import Hints from "../Hints/index.tsx";
 import Header from "../Header/index.tsx";
+import HatchJR from "../Joyride/HatchJR.tsx";
 import { useDojo } from "../../dojo/useDojo.tsx";
 import { SchemaType } from "../../dojo/bindings.ts";
 import { SDK } from "@dojoengine/sdk";
@@ -93,6 +94,7 @@ function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
           <Toaster position="bottom-center" />
         </div>
       </div>
+      <HatchJR />
     </>
 
   );

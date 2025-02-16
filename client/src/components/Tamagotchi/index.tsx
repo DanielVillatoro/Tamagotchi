@@ -29,6 +29,7 @@ import Egg from "../../assets/img/egg.gif";
 import Header from '../../components/Header';
 import { Link } from "react-router-dom";
 import './main.css';
+import TamagotchiJR from "../Joyride/TamagotchiJR.tsx";
 
 function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const { userAccount } = useGlobalContext();
@@ -171,11 +172,11 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
               }
               <div className="beast-interaction">
                 <div>
-                  <img src={monster} onClick={() => (setCurrentView('actions'))} />
-                  <img src={message} onClick={() => setCurrentView('chat')} />
-                  <img src={statsIcon} onClick={() => setCurrentView('stats')} />
+                  <img className="actions-icon" src={monster} onClick={() => (setCurrentView('actions'))} />
+                  <img className="message-icon" src={message} onClick={() => setCurrentView('chat')} />
+                  <img className="stats-icon" src={statsIcon} onClick={() => setCurrentView('stats')} />
                 </div>
-                <Link to={'/hatch'} className="hatch">
+                <Link to={'/hatch'} className="hatch hatch-icon">
                   <span>Hatch Egg</span>
                   <img src={Egg} onClick={() => (setCurrentView('actions'))} />
                 </Link>
@@ -184,6 +185,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
           </Card>
         }</>
       </div>
+      <TamagotchiJR />
     </>
   );
 }

@@ -16,10 +16,10 @@ function Header() {
       </Link>
       <div className="side-menu">
         <Music />
-        <Link to={'/dex'}>
+        <Link to={'/dex'} className="dex-icon">
           <img src={search} alt="Search" className="search" />
         </Link>
-        <Link to={'/bag'}>
+        <Link to={'/bag'} className="bag-icon">
           <img src={sheep} className="sheep" alt="Sheep" />
         </Link>
       </div>
