@@ -86,10 +86,12 @@ function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
             <button
               className="button"
               onClick={async () => {
-                setLoading(true)
+                setLoading(true);
                 await spawnPlayer();
                 await new Promise(resolve => setTimeout(resolve, 5500));
                 setLoading(false);
+                navigate("/bag");
+                navigate("/hatch");
               }}>
                 {
                   loading ? loadingAnimation() : 'Create player'
