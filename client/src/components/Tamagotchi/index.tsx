@@ -27,8 +27,8 @@ import monster from '../../assets/img/logo.svg';
 import statsIcon from '../../assets/img/stats.svg';
 import Egg from "../../assets/img/egg.gif";
 import Header from '../../components/Header';
-import './main.css';
 import { Link } from "react-router-dom";
+import './main.css';
 
 function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const { userAccount } = useGlobalContext();
@@ -36,7 +36,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const { beastsStatus } = useBeastStatus(sdk);
   const { beastsStats } = useBeastsStats(sdk);
   const { player } = usePlayer(sdk);
-  
+
   const beast = beasts.find((beast: Beast) => beast.beast_id === player?.current_beast_id);
   const status = beastsStatus.find((beastsStatus: BeastStatus) => beastsStatus?.beast_id === player?.current_beast_id);
   const stats = beastsStats.find((beastsStats: BeastStats) => beastsStats?.beast_id === player?.current_beast_id);
@@ -53,6 +53,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const {
     setup: { client },
   } = useDojo();
+
   useEffect(() => {
     const updateBackground = () => {
       const hour = new Date().getHours();
@@ -65,6 +66,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
     };
     updateBackground();
   }, []);
+
   // Animations
   const [currentImage, setCurrentImage] = useState(beast ? beastsDex[beast.specie - 1].idlePicture : '');
   const [firstTime, isFirstTime] = useState(true);
@@ -74,15 +76,18 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
       isFirstTime(false);
     }
   }, [beast]);
+
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
       setCurrentImage(beast ? beastsDex[beast.specie - 1].idlePicture : '');
     }, loadingTime);
   };
+
   const showDeathAnimation = () => {
     setCurrentImage(dead);
   };
+
   useEffect(() => {
     const interval = setInterval(async () => {
       if (status?.is_alive && userAccount) {
@@ -91,11 +96,13 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
     }, 5000);
     return () => clearInterval(interval);
   }, [status?.is_alive]);
+
   useEffect(() => {
     if (status?.is_alive == false) {
       showDeathAnimation();
     }
   }, [status?.is_alive]);
+
   // Helper to wrap Dojo actions with toast
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
     setIsLoading(true);
@@ -113,63 +120,64 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
     }
     actionFn();
   };
+
   return (
     <>
-    <Header />
+      <Header />
       <div className="tamaguchi">
         <>{beast &&
           <Card style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
-            <Status 
+            <Status
               beastStatus={status}
             />
             <div>
               <div className="scenario flex justify-center items-column">
                 <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
               </div>
-              <Whispers 
+              <Whispers
                 beast={beast}
                 expanded={currentView === 'chat'}
                 beastStatus={status}
               />
               {
-                currentView === 'stats' ? 
-                  <Stats 
+                currentView === 'stats' ?
+                  <Stats
                     beastStats={stats}
-                  /> 
-                : 
-                currentView === 'actions' ? 
-                  <Actions 
-                    handleAction={handleAction}
-                    isLoading={isLoading}
-                    beast={beast}
-                    beastStatus={status}
-                    account={userAccount}
-                    client={client}
-                    setCurrentView={setCurrentView}
                   />
-                :
-                currentView === 'chat' ? 
-                  <></>
-                :
-                currentView === 'food' ? 
-                  <Food 
-                    handleAction={handleAction}
-                    beast={beast}
-                    account={userAccount}
-                    client={client}
-                    showAnimation={showAnimation}
-                  />
-                :<></>
+                  :
+                  currentView === 'actions' ?
+                    <Actions
+                      handleAction={handleAction}
+                      isLoading={isLoading}
+                      beast={beast}
+                      beastStatus={status}
+                      account={userAccount}
+                      client={client}
+                      setCurrentView={setCurrentView}
+                    />
+                    :
+                    currentView === 'chat' ?
+                      <></>
+                      :
+                      currentView === 'food' ?
+                        <Food
+                          handleAction={handleAction}
+                          beast={beast}
+                          account={userAccount}
+                          client={client}
+                          showAnimation={showAnimation}
+                        />
+                        : <></>
               }
               <div className="beast-interaction">
                 <div>
-                  <img src={monster} onClick={() => ( setCurrentView('actions'))} />
+                  <img src={monster} onClick={() => (setCurrentView('actions'))} />
                   <img src={message} onClick={() => setCurrentView('chat')} />
                   <img src={statsIcon} onClick={() => setCurrentView('stats')} />
                 </div>
                 <Link to={'/hatch'} className="hatch">
                   <span>Hatch Egg</span>
-                  <img src={Egg} onClick={() => ( setCurrentView('actions'))} />
+                  <img src={Egg} onClick={() => (setCurrentView('actions'))} />
                 </Link>
               </div>
             </div>

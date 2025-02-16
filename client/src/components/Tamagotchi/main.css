@@ -5,6 +5,8 @@
   width: 100%;
   max-width: 400px;
   height: 100%;
+  transform: translateY(50px);
+  animation: fade-in-up 1s ease-out forwards;
 }
 
 .scenario {

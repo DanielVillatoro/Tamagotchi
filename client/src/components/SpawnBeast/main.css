@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transform: translateY(30px);
+  animation: fade-in-up 1s ease-out forwards;
 }
 
 .initial-beast {

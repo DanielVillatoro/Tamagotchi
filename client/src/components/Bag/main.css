@@ -8,6 +8,8 @@
   margin: auto;
   overflow-y: scroll;
   position: relative;
+  transform: translateY(30px);
+  animation: fade-in-up 1s ease-out forwards;
 }
 
 /*Carousel styles */

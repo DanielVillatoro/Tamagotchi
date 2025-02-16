@@ -14,7 +14,7 @@
   left: 0;
   z-index: 1;
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(30px);
   animation: fade-in-up 1s ease-out forwards;
 }
 
@@ -26,7 +26,7 @@
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -36,7 +36,7 @@
 
 .venn-title, .connect-button, .venn-diagram {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(30px);
   animation: fade-in-up 1s ease-out forwards;
   margin: auto;
 }
