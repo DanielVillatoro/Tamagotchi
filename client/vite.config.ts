@@ -38,7 +38,7 @@ export default defineConfig({
           },
         ],
         start_url: "/",
-        id: "BabyBeasts",
+        id: "ByteBeasts Tamagotchi",
       },
       workbox: {
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // Set to 5 MiB
