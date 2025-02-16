@@ -64,10 +64,10 @@ const BeastsDexGrid: React.FC = () => {
       <div className="dex-container-syles">
         {selectedIndex === null ? (
           <>
-            <div className='d-flex justify-content-between align-items-center mb-4'>
+            <div className='d-flex justify-content-between align-items-center'>
               <p className={'title'}>
                 Beast DEX
-                <span className='d-block'>Collect them all!</span>
+                <span className='d-block'>Knowledge source</span>
               </p>
               <ControllerConnectButton />
             </div>
@@ -106,6 +106,14 @@ const BeastsDexGrid: React.FC = () => {
                     ))}
                   </div>
                 ))}
+              </div>
+              <div className="initial-info">
+                <h4>
+                  This to your Beasts Dex
+                </h4>
+                <p className='mb-4'>
+                  Tap the beasts and get more info. More Beasts are coming to the Byte Beasts Universe soon!
+                </p>
               </div>
             </div>
           </>

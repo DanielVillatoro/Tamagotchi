@@ -22,6 +22,7 @@ import AppLayout from "./components/Layouts/AppLayout.tsx";
 
 import "./index.css";
 import SpawnBeast from "./components/SpawnBeast/index.tsx";
+import Music from "./components/Music/index.tsx";
 
 function provider() {
   return new RpcProvider({
@@ -54,6 +55,7 @@ async function main() {
   if (rootElement) {
     ReactDOM.render(
       <StrictMode>
+        <Music />
         <DojoContextProvider>
           <StarknetConfig
             autoConnect
