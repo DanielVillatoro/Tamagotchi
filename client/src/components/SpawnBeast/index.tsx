@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../hooks/appContext.tsx";
 import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ import './main.css';
 function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
   const { userAccount } = useGlobalContext();
   const { spawn } = useSystemCalls();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const bodyElement = document.querySelector('.body') as HTMLElement;
@@ -52,6 +53,14 @@ function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
     await client.actions.addInitialFood(userAccount as Account);
   };
 
+  const loadingAnimation = () => {
+    return (
+      <div className="loading-state">
+        <div className="loading"></div>
+      </div>
+    )
+  }
+
   return (
     <>
       <Header />
@@ -77,18 +86,29 @@ function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
             <button
               className="button"
               onClick={async () => {
+                setLoading(true)
                 await spawnPlayer();
-              }}>Create player
+                await new Promise(resolve => setTimeout(resolve, 5500));
+                setLoading(false);
+              }}>
+                {
+                  loading ? loadingAnimation() : 'Create player'
+                }
             </button>}
           { userAccount && player && 
             <button
               className="button"
               onClick={async () => {
                 notify();
+                setLoading(true);
                 await spawn(randomNumber);
                 await new Promise(resolve => setTimeout(resolve, 5500));
+                setLoading(false);
                 navigate("/bag");
-              }}>Hatch your egg
+              }}>
+                {
+                  loading ? loadingAnimation() : 'Hatch your egg'
+                }
             </button>}
           <Hints />
           <Toaster position="bottom-center" />
