@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useSound from 'use-sound';
 import { Account } from "starknet";
 import { usePlayer } from "../../hooks/usePlayers.tsx";
 import { useGlobalContext } from "../../hooks/appContext.tsx";
@@ -9,6 +10,7 @@ import { useDojo } from "../../dojo/useDojo.tsx";
 import { useBeast } from "../../hooks/useBeasts.tsx";
 import { useBeastStatus } from "../../hooks/useBeastsStatus.tsx";
 import { useBeastsStats } from "../../hooks/useBeastsStats.tsx";
+import toast from 'react-hot-toast';
 import beastsDex from "../../data/beastDex.tsx";
 import message from '../../assets/img/message.svg';
 import dead from '../../assets/img/dead.gif';
@@ -17,7 +19,7 @@ import Actions from "./Actions/index.tsx";
 import Status from "./Status/index.tsx";
 import Food from "./Food/index.tsx";
 import Whispers from "./Whispers/index.tsx";
-import useSound from 'use-sound';
+import TamagotchiJR from "../Joyride/TamagotchiJR.tsx";
 import feedSound from '../../assets/sounds/bbeating.mp3';
 import cleanSound from '../../assets/sounds/bbshower.mp3';
 import sleepSound from '../../assets/sounds/bbsleeps.mp3';
@@ -29,7 +31,6 @@ import Egg from "../../assets/img/egg.gif";
 import Header from '../../components/Header';
 import { Link } from "react-router-dom";
 import './main.css';
-import TamagotchiJR from "../Joyride/TamagotchiJR.tsx";
 
 function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
   const { userAccount } = useGlobalContext();
@@ -122,18 +123,56 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
     actionFn();
   };
 
+  const handleCuddle = async () => {
+    if (!beast || !userAccount) return;
+    if (!status?.is_alive) return;
+    try {
+      await toast.promise(
+      handleAction(
+        "Cuddle",
+        // Call the cuddle action on the client (ensure it's defined in your SDK)
+        () => client.actions.pet(userAccount as Account), //change sleep action to cuddle action
+        // Use the cuddle animation from your initials data
+        beastsDex[beast.specie - 1].cuddlePicture
+      ),
+      {
+        loading: "Cuddling...",
+        success: "Your Baby Beast is enjoying!",
+        error: "Cuddle action failed!",
+      }
+      );
+      // Disable the button for 5 seconds
+      setIsLoading(true);
+      setTimeout(() => {
+      setIsLoading(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Cuddle error:", error);
+    }
+  };
+
   return (
     <>
       <Header />
       <div className="tamaguchi">
         <>{beast &&
-          <Card style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+          <Card style={{ 
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%'
+          }}>
             <Status
               beastStatus={status}
             />
             <div className="game">
               <div className="scenario flex justify-center items-column">
-                <img src={currentImage} alt="Tamagotchi" className="w-40 h-40" />
+                <img 
+                  src={currentImage} 
+                  alt="Tamagotchi"
+                  className="w-40 h-40"
+                  onClick={handleCuddle} style={{ cursor: 'pointer' }}
+                />
               </div>
               <Whispers
                 beast={beast}

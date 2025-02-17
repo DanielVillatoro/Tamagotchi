@@ -1,3 +1,4 @@
+import toast, { Toaster } from 'react-hot-toast';
 import { Account } from '@dojoengine/torii-wasm';
 import { Button } from '../../../components/ui/button';
 import Food from '../../../assets/img/food.png';
@@ -7,7 +8,6 @@ import Play from '../../../assets/img/play.png';
 import WakeUp from '../../../assets/img/wakeup.png';
 import beastsDex from '../../../data/beastDex';
 import './main.css';
-import toast, { Toaster } from 'react-hot-toast';
 
 type PictureKey = 'eatPicture' | 'sleepPicture' | 'cleanPicture' | 'playPicture' | 'idlePicture' | 'cuddlePicture';
 
