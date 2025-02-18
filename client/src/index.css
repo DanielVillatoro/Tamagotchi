@@ -230,7 +230,7 @@ p, span {
 
 .hatch {
   height: 35px;
-  background-color: #ECECDA;
+  background-color: #ECECDA !important;
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -240,7 +240,7 @@ p, span {
 }
 
 .hatch span {
-  color: #891a29;
+  color: #891a29 !important;
   font-weight: bold;
 }
 

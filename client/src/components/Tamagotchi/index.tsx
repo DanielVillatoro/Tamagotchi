@@ -63,7 +63,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
       const bodyElement = document.querySelector('.body') as HTMLElement;
       if (bodyElement) {
         bodyElement.classList.add(`${isDayTime ? 'day' : 'night'}`);
-        bodyElement.style.padding = '15px 15px 30px';
+        bodyElement.style.padding = '15px';
       }
     };
     updateBackground();
@@ -160,7 +160,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            height: '100%'
+            height: '99%'
           }}>
             <Status
               beastStatus={status}
