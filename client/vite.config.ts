@@ -21,7 +21,7 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
-      includeAssets: ["https://baby-beastsv2.vercel.app/assets/logo-DCgLxktZ.svg"],
+      includeAssets: ["/assets/logo-DCgLxktZ.svg"],
       manifest: {
         name: "ByteBeasts Tamagotchi",
         short_name: "ByteBeasts Tamagotchi",
@@ -32,7 +32,7 @@ export default defineConfig({
         orientation: "portrait",
         icons: [
           {
-            src: "https://baby-beastsv2.vercel.app/assets/logo-DCgLxktZ.svg",
+            src: "/assets/logo-DCgLxktZ.svg",
             sizes: "180x180",
             type: "image/svg",
           },
