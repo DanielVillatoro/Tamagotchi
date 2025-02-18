@@ -3,15 +3,15 @@ import { defineConfig } from "vite";
 import topLevelAwait from "vite-plugin-top-level-await";
 import { VitePWA } from "vite-plugin-pwa";
 import wasm from "vite-plugin-wasm";
-import fs from "fs";
+// import fs from "fs";
 
 export default defineConfig({
-   server: {
-    https: {
-    key: fs.readFileSync("mkcert+1-key.pem"), // Path to private key file
-    cert: fs.readFileSync("mkcert+1.pem"),   // Path to certificate file
-    },
-  },
+  //  server: {
+  //   https: {
+  //   key: fs.readFileSync("mkcert+1-key.pem"), // Path to private key file
+  //   cert: fs.readFileSync("mkcert+1.pem"),   // Path to certificate file
+  //   },
+  // },
   plugins: [
     react(),
     wasm(),
@@ -21,10 +21,10 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
-      includeAssets: ["/assets/logo-DCgLxktZ.svg"],
+      includeAssets: ["https://baby-beastsv2.vercel.app/assets/logo-DCgLxktZ.svg"],
       manifest: {
-        name: "BabyBeasts",
-        short_name: "BabyBeasts",
+        name: "ByteBeasts Tamagotchi",
+        short_name: "ByteBeasts Tamagotchi",
         description: "Take care of your baby beasts",
         theme_color: "#000",
         background_color: "#000",
@@ -32,7 +32,7 @@ export default defineConfig({
         orientation: "portrait",
         icons: [
           {
-            src: "/assets/logo-DCgLxktZ.svg",
+            src: "https://baby-beastsv2.vercel.app/assets/logo-DCgLxktZ.svg",
             sizes: "180x180",
             type: "image/svg",
           },
