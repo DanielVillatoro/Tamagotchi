@@ -206,6 +206,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
                           account={userAccount}
                           client={client}
                           showAnimation={showAnimation}
+                          sdk={sdk}
                         />
                         : <></>
               }

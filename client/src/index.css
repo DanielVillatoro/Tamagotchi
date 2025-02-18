@@ -214,7 +214,7 @@ p, span {
 }
 
 #_rht_toaster div div {
-  background-color: rgba(55, 0, 1, 0.5) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
   color: #ECECDA;
   border-radius: 3px !important;
   font-weight: bold !important;
