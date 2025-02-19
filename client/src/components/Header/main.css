@@ -65,7 +65,7 @@
 
 .dex-icon,
 .bag-icon,
-.info-icon {
+.lore-icon {
   background-image: url('../../assets/img/back.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -87,7 +87,7 @@
   object-fit: contain;
 }
 
-.info-icon img {
+.lore-icon img {
   width: 30px;
   height: 30px;
   border-radius: unset;
