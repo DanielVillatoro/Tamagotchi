@@ -18,6 +18,7 @@ import Stats from "./Stats/index.tsx";
 import Actions from "./Actions/index.tsx";
 import Status from "./Status/index.tsx";
 import Food from "./Food/index.tsx";
+import Play from "./Play/index.tsx";
 import Whispers from "./Whispers/index.tsx";
 import TamagotchiJR from "../Joyride/TamagotchiJR.tsx";
 import feedSound from '../../assets/sounds/bbeating.mp3';
@@ -128,23 +129,23 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
     if (!status?.is_alive) return;
     try {
       await toast.promise(
-      handleAction(
-        "Cuddle",
-        // Call the cuddle action on the client (ensure it's defined in your SDK)
-        () => client.actions.pet(userAccount as Account), //change sleep action to cuddle action
-        // Use the cuddle animation from your initials data
-        beastsDex[beast.specie - 1].cuddlePicture
-      ),
-      {
-        loading: "Cuddling...",
-        success: "Your Baby Beast is enjoying!",
-        error: "Cuddle action failed!",
-      }
+        handleAction(
+          "Cuddle",
+          // Call the cuddle action on the client (ensure it's defined in your SDK)
+          () => client.actions.pet(userAccount as Account), //change sleep action to cuddle action
+          // Use the cuddle animation from your initials data
+          beastsDex[beast.specie - 1].cuddlePicture
+        ),
+        {
+          loading: "Cuddling...",
+          success: "Your Baby Beast is enjoying!",
+          error: "Cuddle action failed!",
+        }
       );
       // Disable the button for 5 seconds
       setIsLoading(true);
       setTimeout(() => {
-      setIsLoading(false);
+        setIsLoading(false);
       }, 5000);
     } catch (error) {
       console.error("Cuddle error:", error);
@@ -156,7 +157,7 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
       <Header />
       <div className="tamaguchi">
         <>{beast &&
-          <Card style={{ 
+          <Card style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -167,8 +168,8 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
             />
             <div className="game">
               <div className="scenario flex justify-center items-column">
-                <img 
-                  src={currentImage} 
+                <img
+                  src={currentImage}
                   alt="Tamagotchi"
                   className="w-40 h-40"
                   onClick={handleCuddle} style={{ cursor: 'pointer' }}
@@ -196,19 +197,27 @@ function Tamagotchi({ sdk }: { sdk: SDK<SchemaType> }) {
                       setCurrentView={setCurrentView}
                     />
                     :
-                    currentView === 'chat' ?
+                    currentView === 'chat' ? (
                       <></>
-                      :
-                      currentView === 'food' ?
-                        <Food
-                          handleAction={handleAction}
-                          beast={beast}
-                          account={userAccount}
-                          client={client}
-                          showAnimation={showAnimation}
-                          sdk={sdk}
-                        />
-                        : <></>
+                    ) : currentView === 'food' ? (
+                      <Food
+                        handleAction={handleAction}
+                        beast={beast}
+                        account={userAccount}
+                        client={client}
+                        showAnimation={showAnimation}
+                        sdk={sdk}
+                      />
+                    ) : currentView === 'play' ? (
+                      <Play
+                        handleAction={handleAction}
+                        beast={beast}
+                        account={userAccount}
+                        client={client}
+                      />
+                    ) : (
+                      <></>
+                    )
               }
               <div className="beast-interaction">
                 <div>
