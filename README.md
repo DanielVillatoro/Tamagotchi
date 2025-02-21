@@ -1,5 +1,5 @@
 
-# BabyBeast Tamagotchi Game
+# ByteBeasts Tamagotchi
 ![HORIZONTAL 1](client/src/assets/img/Branding/original-dark.png)
 
 
