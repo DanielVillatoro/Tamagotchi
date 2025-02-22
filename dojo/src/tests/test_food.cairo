@@ -45,9 +45,9 @@ mod tests {
         // debug::print_felt252(cherry.name);
 
         // Verify food types
-        assert(apple.name == 'Apple', 'wrong apple type');
-        assert(banana.name == 'Banana', 'wrong banana type');
-        assert(cherry.name == 'Cherry', 'wrong cherry type');
+        assert(apple.id == 1, 'wrong apple type');
+        assert(banana.id == 2, 'wrong banana type');
+        assert(cherry.id == 3, 'wrong cherry type');
 
         // Verify initial amounts
         assert(apple.amount == constants::MAX_FOOD_AMOUNT, 'wrong apple amount');
@@ -76,7 +76,7 @@ mod tests {
         println!("Initial Status - Energy: {}, Hunger: {}", 
         initial_status.energy, initial_status.hunger);
 
-        let mut counter: u32 = 0;
+        let mut counter: u8 = 0;
         while counter < 10 {
             // Decrease stats
             actions_system.decrease_status();
@@ -108,7 +108,7 @@ mod tests {
         actions_system.set_current_beast(1);
 
         // Kill beast by decreasing stats
-        let mut counter: u32 = 0;
+        let mut counter: u8 = 0;
         loop {
             let status: BeastStatus = world.read_model(1);
             if !status.is_alive {
@@ -147,7 +147,7 @@ mod tests {
         actions_system.set_current_beast(1);
 
         // We decrease the stats to verify that they increase after feeding
-        let mut counter: u32 = 0;
+        let mut counter: u8 = 0;
         while counter < 20 {
             // Decrease stats
             actions_system.decrease_status();
