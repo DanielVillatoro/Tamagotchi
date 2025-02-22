@@ -5,13 +5,20 @@ import { useAccount } from "@starknet-react/core";
 import { useEffect, useMemo } from "react";
 import { AccountInterface, addAddressPadding } from "starknet";
 import { ModelsMapping } from "../dojo/bindings";
+import { usePlayer } from "./usePlayers";
 
 export const useBeasts = () => {
   const { useDojoStore, sdk } = useDojoSDK();
   const { account } = useAccount();
+  const { player } = usePlayer();
   const state = useDojoStore((state) => state);
   const entities = useDojoStore((state) => state.entities);
-  console.log('BROTHER Beasts', entities);
+
+  const beasts = useMemo(() => {
+    return Object.values(entities)
+      .filter(entity => entity.models && entity.models.tamagotchi && entity.models.tamagotchi.Beast)
+      .map(entity => entity.models.tamagotchi.Beast);
+  }, [entities]);
 
   const entityId = useMemo(() => {
     if (account) {
@@ -64,5 +71,6 @@ export const useBeasts = () => {
 
   return {
     beast,
+    beasts
   };
 };

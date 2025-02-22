@@ -10,13 +10,14 @@ import HatchJR from "../Joyride/HatchJR.tsx";
 import { Account } from "starknet";
 import { usePlayer } from "../../hooks/usePlayers.tsx";
 import { useDojoSDK } from "@dojoengine/sdk/react";
+import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import './main.css';
 
 
 function SpawnBeast() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
-  // const { spawn } = useSystemCalls();
+  const { spawn } = useSystemCalls();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -30,11 +31,11 @@ function SpawnBeast() {
 
   const navigate = useNavigate();
 
-  // const getRandomNumber = (min: number, max: number) => {
-  //   return Math.floor(Math.random() * (max - min + 1)) + min;
-  // };
+  const getRandomNumber = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
 
-  // const randomNumber = getRandomNumber(1, 3);
+  const randomNumber = getRandomNumber(1, 3);
 
   const notify = () => {
     toast("Your egg is hatching!", { duration: 5000 });
@@ -98,7 +99,7 @@ function SpawnBeast() {
               onClick={async () => {
                 notify();
                 setLoading(true);
-                // await spawn(randomNumber);
+                await spawn(randomNumber);
                 await new Promise(resolve => setTimeout(resolve, 5500));
                 setLoading(false);
                 navigate("/bag");

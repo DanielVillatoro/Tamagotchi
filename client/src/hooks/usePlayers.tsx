@@ -11,7 +11,6 @@ export const usePlayer = () => {
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
   const entities = useDojoStore((state) => state.entities);
-  console.log('BROTHER Players', entities);
 
   const entityId = useMemo(() => {
     if (account) {
@@ -61,7 +60,7 @@ export const usePlayer = () => {
   }, [sdk, account, state]);
 
   const player = useModel(entityId as string, ModelsMapping.Player);
-
+  
   return {
     player,
   };

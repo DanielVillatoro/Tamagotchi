@@ -39,7 +39,6 @@ function Tamagotchi() {
   // const { beastsStatus } = useBeastStatus(sdk);
   // const { beastsStats } = useBeastsStats(sdk);
   const { player } = usePlayer();
-  console.log(player);
 
   // const beast = beasts.find((beast: Beast) => beast.beast_id === player?.current_beast_id);
   // const status = beastsStatus.find((beastsStatus: BeastStatus) => beastsStatus?.beast_id === player?.current_beast_id);

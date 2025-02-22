@@ -11,7 +11,6 @@ export const useFood = () => {
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
   const entities = useDojoStore((state) => state.entities);
-  console.log('BROTHER Food', entities);
 
   const entityId = useMemo(() => {
     if (account) {

@@ -52,7 +52,6 @@ const Food = ({ handleAction, beast, account, client, showAnimation }: {
   showAnimation: (gifPath: string) => void,
 }) => {
   const { food } = useFood();
-  console.log(food);
 
   const [foodItems, setFoodItems] = useState(initialFoodItems);
 

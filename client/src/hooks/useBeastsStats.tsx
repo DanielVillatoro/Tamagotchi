@@ -11,7 +11,6 @@ export const useBeastsStats = () => {
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
   const entities = useDojoStore((state) => state.entities);
-  console.log('BROTHER BeastStats', entities);
 
   const entityId = useMemo(() => {
     if (account) {
