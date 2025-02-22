@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { SDK } from "@dojoengine/sdk";
-import { Beast, SchemaType } from "../../dojo/bindings.ts";
-import { useBeast } from '../../hooks/useBeasts.tsx';
+import { Beast } from "../../dojo/bindings.ts";
+import { useBeasts } from '../../hooks/useBeasts.tsx';
+import { useDojoSDK } from '@dojoengine/sdk/react';
 import { Account } from 'starknet';
-import { useDojo } from '../../dojo/useDojo.tsx';
 import { useGlobalContext } from '../../hooks/appContext.tsx';
 import ControllerConnectButton from '../CartridgeController/ControllerConnectButton.tsx';
 import beastsDex from "../../data/beastDex.tsx";
@@ -14,13 +13,13 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './main.css';
 
-function Bag({ sdk }: { sdk: SDK<SchemaType> }) {
+function Bag() {
   const { userAccount } = useGlobalContext();
-  const { beasts } = useBeast(sdk);
+  const { beast } = useBeasts();
+  const { client } = useDojoSDK();
+  console.log(beast);
 
-  const {
-    setup: { client },
-  } = useDojo();
+  const beasts: any[] = [];
 
   const settings = {
     dots: beasts.length > 1,

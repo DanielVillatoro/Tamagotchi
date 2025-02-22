@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../../hooks/appContext.tsx";
-import { useSystemCalls } from "../../dojo/useSystemCalls.ts";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import ControllerConnectButton from "../CartridgeController/ControllerConnectButton.tsx";
@@ -8,16 +7,16 @@ import Egg from "../../assets/img/egg.gif";
 import Hints from "../Hints/index.tsx";
 import Header from "../Header/index.tsx";
 import HatchJR from "../Joyride/HatchJR.tsx";
-import { useDojo } from "../../dojo/useDojo.tsx";
-import { SchemaType } from "../../dojo/bindings.ts";
-import { SDK } from "@dojoengine/sdk";
 import { Account } from "starknet";
 import { usePlayer } from "../../hooks/usePlayers.tsx";
+import { useDojoSDK } from "@dojoengine/sdk/react";
 import './main.css';
 
-function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
+
+function SpawnBeast() {
   const { userAccount } = useGlobalContext();
-  const { spawn } = useSystemCalls();
+  const { client } = useDojoSDK();
+  // const { spawn } = useSystemCalls();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -31,21 +30,17 @@ function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
 
   const navigate = useNavigate();
 
-  const getRandomNumber = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
+  // const getRandomNumber = (min: number, max: number) => {
+  //   return Math.floor(Math.random() * (max - min + 1)) + min;
+  // };
 
-  const randomNumber = getRandomNumber(1, 3);
+  // const randomNumber = getRandomNumber(1, 3);
 
   const notify = () => {
     toast("Your egg is hatching!", { duration: 5000 });
   }
 
-  const {
-    setup: { client }
-  } = useDojo();
-
-  const { player } = usePlayer(sdk);
+  const { player } = usePlayer();
 
   const spawnPlayer = async () => {
     if (!userAccount) return
@@ -103,7 +98,7 @@ function SpawnBeast({ sdk }: { sdk: SDK<SchemaType> }) {
               onClick={async () => {
                 notify();
                 setLoading(true);
-                await spawn(randomNumber);
+                // await spawn(randomNumber);
                 await new Promise(resolve => setTimeout(resolve, 5500));
                 setLoading(false);
                 navigate("/bag");
