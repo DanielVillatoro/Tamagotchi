@@ -17,6 +17,7 @@ import './main.css';
 function SpawnBeast() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
+  const { player } = usePlayer();
   const { spawn } = useSystemCalls();
   const [loading, setLoading] = useState(false);
 
@@ -40,8 +41,6 @@ function SpawnBeast() {
   const notify = () => {
     toast("Your egg is hatching!", { duration: 5000 });
   }
-
-  const { player } = usePlayer();
 
   const spawnPlayer = async () => {
     if (!userAccount) return

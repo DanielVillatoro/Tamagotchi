@@ -18,8 +18,6 @@ export const useBeasts = () => {
       .map(entity => entity.models.tamagotchi.Beast);
   }, [entities]);
 
-  // trigger build
-
   const entityId = useMemo(() => {
     if (account) {
       return getEntityIdFromKeys([BigInt(account.address)]);

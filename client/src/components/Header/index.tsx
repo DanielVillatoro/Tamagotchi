@@ -8,6 +8,7 @@ import menuIcon from "../../assets/img/Menu.svg";
 import closeIcon from "../../assets/img/Close.svg";
 import "./main.css";
 import Music from "../Music";
+import ControllerConnectButton from "../CartridgeController/ControllerConnectButton";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,13 +36,25 @@ function Header() {
         </button>
         
         <div className={`side-menu ${isOpen ? 'expanded' : ''}`}>
-          <Music />
-          <Link to={'/lore'} className="lore-icon">
-            <img src={book} alt="Beast Lore" />
-          </Link>
-          <Link to={'/dex'} className="dex-icon">
-            <img src={game} alt="Beast Dex" />
-          </Link>
+          <div className="item">
+            <Link to={'/lore'} className="lore-icon">
+              <img src={book} alt="Beast Lore" />
+            </Link>
+            <span>Lore</span>
+          </div>
+          <div className="item">
+            <Link to={'/dex'} className="dex-icon">
+              <img src={game} alt="Beast Dex" />
+            </Link>
+            <span>Collection</span>
+          </div>
+          <div className="item">
+            <Music />
+            <span>Music</span>
+          </div>
+          <div className="item">
+            <ControllerConnectButton />
+          </div>
         </div>
       </div>
     </nav>

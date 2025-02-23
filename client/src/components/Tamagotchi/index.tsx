@@ -40,6 +40,7 @@ function Tamagotchi() {
     if (player && beasts.length > 0) {
       const foundBeast = beasts[0];
       setBeast(foundBeast);
+      console.log(foundBeast);
     }
   }, [player, beasts]);
 
@@ -47,6 +48,7 @@ function Tamagotchi() {
     if (player && beastsStatus.length > 0) {
       const foundStatus = beastsStatus[0];
       setStatus(foundStatus);
+      console.log(foundStatus);
     }
   }, [player, beastsStatus]);
 
