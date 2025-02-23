@@ -86,7 +86,6 @@ function SpawnBeast() {
                 await spawnPlayer();
                 await new Promise(resolve => setTimeout(resolve, 5500));
                 setLoading(false);
-                navigate("/bag");
                 navigate("/hatch");
               }}>
                 {
@@ -102,7 +101,6 @@ function SpawnBeast() {
                 await spawn(randomNumber);
                 await new Promise(resolve => setTimeout(resolve, 5500));
                 setLoading(false);
-                navigate("/bag");
               }}>
                 {
                   loading ? loadingAnimation() : 'Hatch your egg'

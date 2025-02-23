@@ -42,9 +42,6 @@ function Header() {
           <Link to={'/dex'} className="dex-icon">
             <img src={game} alt="Beast Dex" />
           </Link>
-          <Link to={'/bag'} className="bag-icon">
-            <img src={dragon} alt="Beasts Bag" />
-          </Link>
         </div>
       </div>
     </nav>

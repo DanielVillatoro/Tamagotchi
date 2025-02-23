@@ -15,9 +15,7 @@ import StarknetProvider from "./dojo/starknet-provider.tsx";
 
 // Import components and style
 import Main from "./components/Main/index.tsx";
-import Bag from "./components/Bag/index.tsx";
 import Dex from "./components/BeastsDexGrid/index.tsx";
-import Chat from "./components/Chat/index.tsx";
 
 // Import the layout component
 import AppLayout from "./components/Layouts/AppLayout.tsx";
@@ -57,10 +55,8 @@ async function main() {
                       <Route element={<AppLayout />}>
                         <Route path="/" element={<Main />} />
                         <Route path="/hatch" element={<SpawnBeast />} />
-                        <Route path="/bag" element={<Bag />} />
                         <Route path="/dex" element={<Dex />} />
                         <Route path="/lore" element={<Lore />} />
-                        <Route path="/chat" element={<Chat />} />
                       </Route>
                     </Routes>
                   </Router>
