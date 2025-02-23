@@ -3,6 +3,7 @@ import { StrictMode } from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { GlobalProvider } from "./hooks/appContext.tsx";
+import { MusicProvider } from "./context/contextMusic.tsx";
 
 // Dojo imports
 import { init } from "@dojoengine/sdk";
@@ -21,7 +22,6 @@ import Chat from "./components/Chat/index.tsx";
 // Import the layout component
 import AppLayout from "./components/Layouts/AppLayout.tsx";
 import SpawnBeast from "./components/SpawnBeast/index.tsx";
-import Music from "./components/Music/index.tsx";
 import Lore from "./components/Lore/index.tsx";
 import "./index.css";
 
@@ -44,7 +44,6 @@ async function main() {
   if (rootElement) {
     ReactDOM.render(
       <StrictMode>
-        <Music />
         <DojoSdkProvider
           sdk={sdk}
           dojoConfig={dojoConfig}
@@ -52,18 +51,20 @@ async function main() {
         >
           <StarknetProvider>
             <GlobalProvider>
-              <Router>
-                <Routes>
-                  <Route element={<AppLayout />}>
-                    <Route path="/" element={<Main />} />
-                    <Route path="/hatch" element={<SpawnBeast />} />
-                    <Route path="/bag" element={<Bag />} />
-                    <Route path="/dex" element={<Dex />} />
-                    <Route path="/lore" element={<Lore />} />
-                    <Route path="/chat" element={<Chat />} />
-                  </Route>
-                </Routes>
-              </Router>
+              <MusicProvider> {/* Añadido aquí */}
+                  <Router>
+                    <Routes>
+                      <Route element={<AppLayout />}>
+                        <Route path="/" element={<Main />} />
+                        <Route path="/hatch" element={<SpawnBeast />} />
+                        <Route path="/bag" element={<Bag />} />
+                        <Route path="/dex" element={<Dex />} />
+                        <Route path="/lore" element={<Lore />} />
+                        <Route path="/chat" element={<Chat />} />
+                      </Route>
+                    </Routes>
+                  </Router>
+              </MusicProvider>
             </GlobalProvider>
           </StarknetProvider>
         </DojoSdkProvider>

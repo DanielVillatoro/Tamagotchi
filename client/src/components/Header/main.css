@@ -65,7 +65,8 @@
 
 .dex-icon,
 .bag-icon,
-.lore-icon {
+.lore-icon,
+.music-icon {
   background-image: url('../../assets/img/back.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -80,7 +81,8 @@
 }
 
 .dex-icon img,
-.bag-icon img {
+.bag-icon img,
+.music-icon img {
   width: 25px;
   height: 25px;
   border-radius: unset;
@@ -92,4 +94,72 @@
   height: 30px;
   border-radius: unset;
   object-fit: contain;
+}
+
+
+.music-icon {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.music-icon .muted {
+  filter: brightness(0.5);
+  transition: all 0.25s;
+}
+
+.side-menu-container {
+  position: relative;
+}
+
+.menu-toggle {
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  padding: 0;
+  background-color: #ECECDA;
+}
+
+.toggle-icon {
+  width: 25px;
+  height: 25px;
+  transition: transform 0.3s ease;
+}
+
+.side-menu {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.side-menu.expanded {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .side-menu {
+    background: rgba(0, 0, 0, 0.9);
+  }
 }
