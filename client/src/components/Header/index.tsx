@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import monster from "../../assets/img/logo.jpg";
 import book from "../../assets/img/book.svg";
 import game from "../../assets/img/game.svg";
-import dragon from "../../assets/img/dragon.svg";
 import menuIcon from "../../assets/img/Menu.svg";
 import closeIcon from "../../assets/img/Close.svg";
 import "./main.css";

@@ -11,7 +11,6 @@ import Actions from "./Actions/index.tsx";
 import Status from "./Status/index.tsx";
 import Food from "./Food/index.tsx";
 import Play from "./Play/index.tsx";
-import Whispers from "./Whispers/index.tsx";
 import TamagotchiJR from "../Joyride/TamagotchiJR.tsx";
 import feedSound from '../../assets/sounds/bbeating.mp3';
 import cleanSound from '../../assets/sounds/bbshower.mp3';
