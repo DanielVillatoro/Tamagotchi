@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 import beastsDex from "../../data/beastDex.tsx";
 import message from '../../assets/img/message.svg';
 import dead from '../../assets/img/dead.gif';
-import Stats from "./Stats/index.tsx";
 import Actions from "./Actions/index.tsx";
 import Status from "./Status/index.tsx";
 import Food from "./Food/index.tsx";
@@ -20,15 +19,11 @@ import sleepSound from '../../assets/sounds/bbsleeps.mp3';
 import playSound from '../../assets/sounds/bbjump.mp3';
 import reviveSound from '../../assets/sounds/bbrevive.mp3';
 import monster from '../../assets/img/logo.svg';
-import statsIcon from '../../assets/img/stats.svg';
-import Egg from "../../assets/img/egg.gif";
 import Header from '../../components/Header';
-import { Link } from "react-router-dom";
 import { useDojoSDK } from "@dojoengine/sdk/react";
 import { usePlayer } from "../../hooks/usePlayers.tsx";
 import { useBeasts } from "../../hooks/useBeasts.tsx";
 import { useBeastsStatus } from "../../hooks/useBeastsStatus.tsx";
-import { useBeastsStats } from "../../hooks/useBeastsStats.tsx";
 import './main.css';
 
 function Tamagotchi() {
@@ -36,12 +31,24 @@ function Tamagotchi() {
   const { client } = useDojoSDK();
   const { beasts } = useBeasts();
   const { beastsStatus } = useBeastsStatus();
-  const { beastsStats } = useBeastsStats();
   const { player } = usePlayer();
 
-  const beast = beasts.find((beast) => beast?.beast_id == player?.current_beast_id);
-  const status = beastsStatus.find((beastsStatus) => beastsStatus?.beast_id === player?.current_beast_id);
-  const stats = beastsStats.find((beastsStats) => beastsStats?.beast_id === player?.current_beast_id);
+  const [beast, setBeast] = useState<any>(null);
+  const [status, setStatus] = useState<any>(null);
+
+  useEffect(() => {
+    if (player && beasts.length > 0) {
+      const foundBeast = beasts[0];
+      setBeast(foundBeast);
+    }
+  }, [player, beasts]);
+
+  useEffect(() => {
+    if (player && beastsStatus.length > 0) {
+      const foundStatus = beastsStatus[0];
+      setStatus(foundStatus);
+    }
+  }, [player, beastsStatus]);
 
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
@@ -55,11 +62,9 @@ function Tamagotchi() {
 
   useEffect(() => {
     const updateBackground = () => {
-      const hour = new Date().getHours();
-      const isDayTime = hour > 6 && hour < 18;
       const bodyElement = document.querySelector('.body') as HTMLElement;
       if (bodyElement) {
-        bodyElement.classList.add(`${isDayTime ? 'day' : 'night'}`);
+        bodyElement.classList.add('day');
         bodyElement.style.padding = '22px 15px';
       }
     };
@@ -171,17 +176,12 @@ function Tamagotchi() {
                   onClick={handleCuddle} style={{ cursor: 'pointer' }}
                 />
               </div>
-              <Whispers
+              {/* <Whispers
                 beast={beast}
                 expanded={currentView === 'chat'}
                 beastStatus={status}
-              />
+              /> */}
               {
-                currentView === 'stats' ?
-                  <Stats
-                    beastStats={stats}
-                  />
-                  :
                   currentView === 'actions' ?
                     <Actions
                       handleAction={handleAction}
@@ -218,12 +218,7 @@ function Tamagotchi() {
                 <div>
                   <img className="actions-icon" src={monster} onClick={() => (setCurrentView('actions'))} />
                   <img className="message-icon" src={message} onClick={() => setCurrentView('chat')} />
-                  <img className="stats-icon" src={statsIcon} onClick={() => setCurrentView('stats')} />
                 </div>
-                <Link to={'/hatch'} className="hatch hatch-icon">
-                  <span>Hatch Egg</span>
-                  <img src={Egg} onClick={() => (setCurrentView('actions'))} />
-                </Link>
               </div>
             </div>
           </Card>

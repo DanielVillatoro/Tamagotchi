@@ -33,11 +33,7 @@
 }
 
 .body.day {
-  background-image: url('./assets/img/daybackground.jpg');
-}
-
-.body.night {
-  background-image: url('./assets/img/nightbackground.png');
+  background-image: url('./assets/img/daybackground.png');
 }
 
 h1, h2, h3, h4, h5, h6 {
