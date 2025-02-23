@@ -12,6 +12,12 @@ export const useBeastsStats = () => {
   const state = useDojoStore((state) => state);
   const entities = useDojoStore((state) => state.entities);
 
+  const beastsStats = useMemo(() => {
+    return Object.values(entities)
+      .filter(entity => entity.models && entity.models.tamagotchi && entity.models.tamagotchi.BeastStats)
+      .map(entity => entity.models.tamagotchi.BeastStats);
+  }, [entities]);
+
   const entityId = useMemo(() => {
     if (account) {
       return getEntityIdFromKeys([BigInt(account.address)]);
@@ -63,5 +69,6 @@ export const useBeastsStats = () => {
 
   return {
     beastStats,
+    beastsStats
   };
 };

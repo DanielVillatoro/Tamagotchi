@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import useSound from 'use-sound';
 import { Account } from "starknet";
-import { usePlayer } from "../../hooks/usePlayers.tsx";
 import { useGlobalContext } from "../../hooks/appContext.tsx";
-import { Beast, BeastStats, BeastStatus } from "../../dojo/bindings";
 import { Card } from '../../components/ui/card';
-// import { useBeasts } from "../../hooks/useBeasts.tsx";
-// import { useBeastsStatus } from "../../hooks/useBeastsStatus.tsx";
-// import { useBeastsStats } from "../../hooks/useBeastsStats.tsx";
 import toast from 'react-hot-toast';
 import beastsDex from "../../data/beastDex.tsx";
 import message from '../../assets/img/message.svg';
@@ -30,47 +25,23 @@ import Egg from "../../assets/img/egg.gif";
 import Header from '../../components/Header';
 import { Link } from "react-router-dom";
 import { useDojoSDK } from "@dojoengine/sdk/react";
+import { usePlayer } from "../../hooks/usePlayers.tsx";
+import { useBeasts } from "../../hooks/useBeasts.tsx";
+import { useBeastsStatus } from "../../hooks/useBeastsStatus.tsx";
+import { useBeastsStats } from "../../hooks/useBeastsStats.tsx";
 import './main.css';
 
 function Tamagotchi() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
-  // const { beasts } = useBeast(sdk);
-  // const { beastsStatus } = useBeastStatus(sdk);
-  // const { beastsStats } = useBeastsStats(sdk);
+  const { beasts } = useBeasts();
+  const { beastsStatus } = useBeastsStatus();
+  const { beastsStats } = useBeastsStats();
   const { player } = usePlayer();
 
-  // const beast = beasts.find((beast: Beast) => beast.beast_id === player?.current_beast_id);
-  // const status = beastsStatus.find((beastsStatus: BeastStatus) => beastsStatus?.beast_id === player?.current_beast_id);
-  // const stats = beastsStats.find((beastsStats: BeastStats) => beastsStats?.beast_id === player?.current_beast_id);
-
-  const beast:Beast = {
-    player: "",
-    beast_id: 2,
-    specie: 2,
-    beast_type: 2,
-    evolved: false,
-    vaulted: false
-  };
-  const status:BeastStatus = {
-    beast_id: 2,
-    is_alive: false,
-    is_awake: false,
-    hunger: 10,
-    energy: 10,
-    happiness: 10,
-    hygiene: 10,
-    clean_status: 10
-  };
-  const stats:BeastStats = {
-    beast_id: 2,
-    attack: 10,
-    defense: 10,
-    speed: 10,
-    level: 10,
-    experience: 10,
-    next_level_experience: 10
-  }
+  const beast = beasts.find((beast) => beast?.beast_id == player?.current_beast_id);
+  const status = beastsStatus.find((beastsStatus) => beastsStatus?.beast_id === player?.current_beast_id);
+  const stats = beastsStats.find((beastsStats) => beastsStats?.beast_id === player?.current_beast_id);
 
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
@@ -96,11 +67,11 @@ function Tamagotchi() {
   }, []);
 
   // Animations
-  const [currentImage, setCurrentImage] = useState(beast ? beastsDex[beast.specie - 1].idlePicture : '');
+  const [currentImage, setCurrentImage] = useState(beast ? beastsDex[beast.specie - 1]?.idlePicture : '');
   const [firstTime, isFirstTime] = useState(true);
   useEffect(() => {
     if (firstTime && beast) {
-      setCurrentImage(beast ? beastsDex[beast.specie - 1].idlePicture : '')
+      setCurrentImage(beast ? beastsDex[beast.specie - 1]?.idlePicture : '')
       isFirstTime(false);
     }
   }, [beast]);
@@ -108,7 +79,7 @@ function Tamagotchi() {
   const showAnimation = (gifPath: string) => {
     setCurrentImage(gifPath);
     setTimeout(() => {
-      setCurrentImage(beast ? beastsDex[beast.specie - 1].idlePicture : '');
+      setCurrentImage(beast ? beastsDex[beast.specie - 1]?.idlePicture : '');
     }, loadingTime);
   };
 
@@ -116,14 +87,14 @@ function Tamagotchi() {
     setCurrentImage(dead);
   };
 
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      if (status?.is_alive && userAccount) {
-        await client.actions.decreaseStatus(userAccount as Account);
-      }
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [status?.is_alive]);
+  // useEffect(() => {
+  //   const interval = setInterval(async () => {
+  //     if (status?.is_alive && userAccount) {
+  //       await client.actions.decreaseStatus(userAccount as Account);
+  //     }
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // }, [status?.is_alive]);
 
   useEffect(() => {
     if (status?.is_alive == false) {

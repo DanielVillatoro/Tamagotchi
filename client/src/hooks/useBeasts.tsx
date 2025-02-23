@@ -5,12 +5,10 @@ import { useAccount } from "@starknet-react/core";
 import { useEffect, useMemo } from "react";
 import { AccountInterface, addAddressPadding } from "starknet";
 import { ModelsMapping } from "../dojo/bindings";
-import { usePlayer } from "./usePlayers";
 
 export const useBeasts = () => {
   const { useDojoStore, sdk } = useDojoSDK();
   const { account } = useAccount();
-  const { player } = usePlayer();
   const state = useDojoStore((state) => state);
   const entities = useDojoStore((state) => state.entities);
 
@@ -67,10 +65,10 @@ export const useBeasts = () => {
     };
   }, [sdk, account, state]);
 
-  const beast = useModel(entityId as string, ModelsMapping.Beast);
+  const beastie = useModel(entityId as string, ModelsMapping.Beast);
 
   return {
-    beast,
+    beastie,
     beasts
   };
 };
