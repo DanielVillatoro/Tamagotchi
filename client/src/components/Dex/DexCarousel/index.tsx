@@ -7,6 +7,8 @@ import goBackIcon from '../../../assets/img/GoBack.svg';
 import StatsCarousel from '../BaseStats/baseStats.tsx';
 import RadarStats from '../Radar';
 import './main.css';
+import { TextToSpeech } from '../../TextToSpeech/TextToSpeech.tsx';
+
 
 interface DexCarouselProps {
   initialSlide?: number;
@@ -77,6 +79,10 @@ function DexCarousel({ initialSlide = 0, onClose }: DexCarouselProps): JSX.Eleme
                 <div className="beast-header-carrousel">
                   <h2 className="beast-name-carrousel">{beast.name}</h2>
                   <h3 className="beast-type-badge-carrousel">{beast.BeastsType}</h3>
+                  <TextToSpeech 
+                  beastName={beast.name}
+                  text={beast.Bio ? beast.Bio.join('. ') : beast.description}
+                />
                 </div>
                 {onClose && (
                   <button
