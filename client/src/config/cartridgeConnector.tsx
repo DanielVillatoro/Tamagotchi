@@ -65,6 +65,10 @@ const policies: SessionPolicies = {
         {
           name: "update_beast_status",
           entrypoint: "update_beast_status"
+        },
+        {
+          name: "spawn_player",
+          entrypoint: "spawn_player"
         }
       ],
     },
