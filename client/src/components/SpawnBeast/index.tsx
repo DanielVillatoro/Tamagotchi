@@ -25,10 +25,9 @@ function SpawnBeast() {
   // Make sure the flow goes properly
   useEffect(() => {
     if (!player) return
-    if (!beasts) return
     const currentBeast = beasts.find(beast => beast?.beast_id === player.current_beast_id);
     if (currentBeast) navigate('/play');
-  }, [beasts]);
+  }, [beasts, player]);
   // Make sure the flow goes properly
 
   useEffect(() => {
