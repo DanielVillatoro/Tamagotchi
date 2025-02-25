@@ -29,7 +29,7 @@ const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client,
 
   return (
     <div className="actions mb-0">
-      {actionButtons.map(({ label, img, action, pictureKey, isRevive }) => (
+      {actionButtons.map(({ label, img, action, pictureKey }) => (
         <Button
           key={label}
           onClick={async () => {
