@@ -143,6 +143,9 @@ function Tamagotchi() {
         break;
     }
     actionFn();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 6000);
   };
 
   const handleCuddle = async () => {
