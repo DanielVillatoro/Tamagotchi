@@ -28,11 +28,11 @@ function Tamagotchi() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
   const { beasts } = useBeasts();
-  const { beastsStatus } = useBeastsStatus();
+  const { beastStatus } = useBeastsStatus();
   const { player } = usePlayer();
 
   const [beast, setBeast] = useState<any>(null);
-  const [status, setStatus] = useState<any>(null);
+  const [status, setStatus] = useState<any>([]);
 
   useEffect(() => {
     if (player && beasts.length > 0) {
@@ -42,11 +42,11 @@ function Tamagotchi() {
   }, [player, beasts]);
 
   useEffect(() => {
-    if (player && beastsStatus.length > 0) {
-      const foundStatus = beastsStatus[0];
+    if (player && beastStatus?.length > 0) {
+      const foundStatus = beastStatus;
       setStatus(foundStatus);
     }
-  }, [player, beastsStatus]);
+  }, [player, beastStatus]);
 
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
@@ -91,10 +91,10 @@ function Tamagotchi() {
   };
 
   useEffect(() => {
-    if (status?.is_alive == false) {
+    if (status[1] == 0) {
       showDeathAnimation();
     }
-  }, [status?.is_alive]);
+  }, [status[1]]);
 
   // Helper to wrap Dojo actions with toast
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
@@ -116,7 +116,7 @@ function Tamagotchi() {
 
   const handleCuddle = async () => {
     if (!beast || !userAccount) return;
-    if (!status?.is_alive) return;
+    if (status[1] == 0 ) return;
     try {
       await toast.promise(
         handleAction(

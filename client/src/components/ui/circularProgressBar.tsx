@@ -19,6 +19,8 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (progress / 100) * circumference;
 
+  // console.log('status', progress);
+
   return (
     <div className="flex items-center justify-center circle-container">
       <svg width={size} height={size} className="transform -rotate-90">
