@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import useSound from 'use-sound';
 import { Account } from "starknet";
 import { useGlobalContext } from "../../hooks/appContext.tsx";
 import { Card } from '../../components/ui/card';
+import useSound from 'use-sound';
 import toast from 'react-hot-toast';
 import beastsDex from "../../data/beastDex.tsx";
 import dead from '../../assets/img/dead.gif';
@@ -33,6 +33,8 @@ function Tamagotchi() {
 
   const [beast, setBeast] = useState<any>(null);
   const [status, setStatus] = useState<any>([]);
+
+  console.info('status', status);
 
   useEffect(() => {
     if (player && beasts.length > 0) {
@@ -94,7 +96,7 @@ function Tamagotchi() {
     if (status[1] == 0) {
       showDeathAnimation();
     }
-  }, [status[1]]);
+  }, [status]);
 
   // Helper to wrap Dojo actions with toast
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
