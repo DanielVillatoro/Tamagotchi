@@ -18,8 +18,9 @@ function Header() {
   const { player } = usePlayer();
 
   useEffect(() => {
-    const beast = beasts.find(beast => beast?.player === player?.address);
-    if (beast) setRoute('/play');
+    if(!player) return
+    const foundBeast = beasts.find((beast: any) => beast.player === player.address);
+    if (foundBeast) setRoute('/play');
   }, [beasts]);
 
   return (

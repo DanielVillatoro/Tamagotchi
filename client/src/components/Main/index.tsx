@@ -8,10 +8,10 @@ function Main() {
 
   return (
     <Router>
-      <Routes location={location} key={location.pathname}>
+      <Routes>
           <Route path="/" element={<NewCover />} />
-          <Route path="/play" element={<Tamagotchi />} />
           <Route path="/spawn" element={<SpawnBeast />} />
+          <Route path="/play" element={<Tamagotchi />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </Router>

@@ -34,13 +34,8 @@ function NewCover() {
   const { account } = useAccount();
   const { player } = usePlayer();
   useEffect(() => {
-    if (!account) return
-    if (!account || !player)  navigate('/spawn');
+    if (account || player)  navigate('/spawn');
   }, [account]);
-   // Make sure the flow goes properly
- 
-   useEffect(() => {
-   }, [account, player])
 
   const [currentCircle, setCurrentCircle] = useState('play');
 

@@ -58,6 +58,8 @@ const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client,
                   error: `Failed to ${label.toLowerCase()}.`,
                 }
               );
+
+              await client.actions.update_beast();
             } catch (error) {
               console.error("Action error:", error);
             }

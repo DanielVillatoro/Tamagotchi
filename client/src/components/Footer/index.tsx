@@ -8,7 +8,7 @@ import './main.css';
 function Footer() {
   return (
     <>
-      <div className='footer mt-5 mb-4'>
+      <div className='footer my-4'>
         <a href='https://github.com/RolandoDrRobot' target='_blank'>
           <img src={rolo} className='footer-team' />
         </a>

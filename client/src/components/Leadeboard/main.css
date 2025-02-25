@@ -38,12 +38,10 @@
 .leaderboard .bottom-footer {
   color: #ECECDA;
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: column;
 }
 
-.leaderboard .bottom-footer img {
+.leaderboard .bottom-footer .copy {
   width: 30px;
   margin-left: 4px;
 }

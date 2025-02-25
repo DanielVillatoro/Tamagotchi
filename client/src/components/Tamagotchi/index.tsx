@@ -36,21 +36,28 @@ function Tamagotchi() {
   const [beast, setBeast] = useState<any>(null);
   const [status, setStatus] = useState<any>([]);
 
-  console.info('status', status);
-
   useEffect(() => {
-    if (player && beasts.length > 0) {
-      const foundBeast = beasts[0];
-      setBeast(foundBeast);
+    if(!player) return
+    if(beast) return
+    const foundBeast = beasts.find((beast: any) => beast.player === player.address);
+    console.info('player', player);
+    console.info('foundBeast', foundBeast);
+    if (!foundBeast) return
+    setBeast(foundBeast);
+    async function setBeastId() {
+      await client.actions.setCurrentBeast(userAccount as Account, foundBeast?.beast_id)
     }
+    setBeastId();
   }, [player, beasts]);
 
   useEffect(() => {
-    if (player && beastStatus?.length > 0) {
+    if(!player) return
+    console.log('beastStatus', beastStatus);
+    if (beastStatus?.length > 0) {
       const foundStatus = beastStatus;
       setStatus(foundStatus);
     }
-  }, [player, beastStatus]);
+  }, [player, beast]);
 
   const loadingTime = 6000;
   const [isLoading, setIsLoading] = useState(false);
@@ -64,18 +71,16 @@ function Tamagotchi() {
 
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  const age = 10;
-
   // Extract stats for sharing
   const getShareableStats = () => {
     if (!status) return undefined;
     
     return {
-      age: age || 0,
-      energy: Math.round(status.energy) || 0,
-      hunger: Math.round(status.hunger) || 0,
-      happiness: Math.round(status.happiness) || 0,
-      clean: Math.round(status.hygiene) || 0
+      age: beast?.age || 0,
+      energy: status[4] || 0,
+      hunger: status[3] || 0,
+      happiness: status[5] || 0,
+      clean: status[7] || 0
     };
   };
 
@@ -199,13 +204,12 @@ function Tamagotchi() {
               <div className="beast-interaction">
                 <div className="beast-buttons">
                   <img className="actions-icon" src={monster} onClick={() => (setCurrentView('actions'))} />
-
-                  <img className="actions-icon" src={share} onClick={handleShareClick} />
-
                   <div className="age-icon">
-                    {beast.age}
+                    <img className="x-icon" src={share} onClick={handleShareClick} />
                   </div>
-
+                  <div className="age-icon">
+                    <span>{beast.age}</span>
+                  </div>
                 </div>
               </div>
               {

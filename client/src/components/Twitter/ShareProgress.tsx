@@ -33,7 +33,7 @@ export const ShareProgress: React.FC<ShareModalProps> = ({
     if (type === 'beast' && stats) {
       setTweetMsg(
         `🎮 Playing ByteBeasts Tamagotchi, and here is my Beast's progress:\n\n` +
-        `🕰️ Age: ${stats.age}` + ` days\n` +
+        `🕰️ Age: ${stats.age}` + ` ${stats.age == 1 ? 'day' : 'days' }\n` +
         `⚡ Energy: ${stats.energy} \n` +
         `🍖 Hunger: ${stats.hunger} \n` +
         `😊 Happiness: ${stats.happiness} \n` +

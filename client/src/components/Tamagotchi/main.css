@@ -52,9 +52,20 @@
   border-radius: 50%;
   font-weight: bold;
   font-size: 22px;
+  margin-right: 10px;
 }
 
-.beast-interaction img {
+.age-icon span {
+  color: #85002A;
+}
+
+.x-icon {
+  margin: auto;
+  width: 25px;
+  height: 25px;
+}
+
+.beast-interaction .actions-icon {
   width: 35px;
   cursor: pointer;
   margin-right: 10px;

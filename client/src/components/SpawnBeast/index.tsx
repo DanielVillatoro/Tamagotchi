@@ -12,7 +12,6 @@ import { useBeasts } from "../../hooks/useBeasts.tsx";
 import { useNavigate } from 'react-router-dom';
 import './main.css';
 
-
 function SpawnBeast() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
@@ -22,23 +21,11 @@ function SpawnBeast() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Make sure the flow goes properly
   useEffect(() => {
-    if (!player) return
-    const currentBeast = beasts.find(beast => beast?.beast_id === player.current_beast_id);
-    if (currentBeast) navigate('/play');
-  }, [beasts, player]);
-  // Make sure the flow goes properly
-
-  useEffect(() => {
-    const spawnPlayerAndAddFood = async () => {
-      if (!player) {
-        await client.actions.spawnPlayer(userAccount as Account);
-        await client.actions.addInitialFood(userAccount as Account);
-      }
-    };
-    spawnPlayerAndAddFood();
-  }, [player]);
+    if(!player) return
+    const foundBeast = beasts.find((beast: any) => beast.player === player.address);
+    if (foundBeast) navigate('/play');
+  }, [player, beasts]);
 
   useEffect(() => {
     const bodyElement = document.querySelector('.body') as HTMLElement;
@@ -61,16 +48,20 @@ function SpawnBeast() {
 
   const spawnPlayer = async () => {
     if (!userAccount) return
-    notify();
-    setLoading(true);
-    await spawn(randomNumber);
-    await new Promise(resolve => setTimeout(resolve, 2500));
+
     if (!player) {
+      setLoading(true);
       await client.actions.spawnPlayer(userAccount as Account);
       await client.actions.addInitialFood(userAccount as Account);
       await new Promise(resolve => setTimeout(resolve, 2500));
       setLoading(false);
     }
+
+    notify();
+    setLoading(true);
+    await spawn(randomNumber);
+    await new Promise(resolve => setTimeout(resolve, 2500));
+    
     navigate('/play');
   };
 

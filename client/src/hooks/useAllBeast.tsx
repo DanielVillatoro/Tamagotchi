@@ -3,9 +3,8 @@ import { useDojoSDK } from "@dojoengine/sdk/react";
 import { useAccount } from "@starknet-react/core";
 import { useEffect, useMemo } from "react";
 import { ModelsMapping } from "../dojo/bindings";
-import { AccountInterface, addAddressPadding } from "starknet";
 
-export const useBeasts = () => {
+export const useAllBeasts = () => {
   const { useDojoStore, sdk } = useDojoSDK();
   const { account } = useAccount();
   const state = useDojoStore((state) => state);
@@ -20,14 +19,14 @@ export const useBeasts = () => {
   useEffect(() => {
     let unsubscribe: (() => void) | undefined;
 
-    const subscribe = async (account: AccountInterface) => {
+    const subscribe = async () => {
       const [initialData, subscription] = await sdk.subscribeEntityQuery({
         query: new ToriiQueryBuilder()
           .withClause(
             // Querying Moves and Position models that has at least [account.address] as key
             KeysClause(
               [ModelsMapping.Beast ],
-              [addAddressPadding(account.address)],
+              [],
               "VariableLen"
             ).build()
           )
@@ -47,7 +46,7 @@ export const useBeasts = () => {
     };
 
     if (account) {
-      subscribe(account);
+      subscribe();
     }
 
     return () => {
