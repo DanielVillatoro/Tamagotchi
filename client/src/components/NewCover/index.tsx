@@ -52,7 +52,7 @@ function NewCover() {
   return (
     <div className="venn">
       <div className="venn-container">
-        <h1 className="venn-title">Your Baby Beast Awaits!</h1>
+        <h1 className="venn-title">Beasts Awaits You!</h1>
         <div className="venn-diagram">
           <svg viewBox="0 0 400 400">
             <defs>
