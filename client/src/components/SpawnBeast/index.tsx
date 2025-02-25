@@ -84,7 +84,7 @@ function SpawnBeast() {
           </p>
         </div>
         <div className="initial-beast">
-          <img src={Egg} alt="beast" />
+          <img src={Egg} className="egg" alt="beast" />
           <div className="initial-info">
             <h4>
               This is a random beast

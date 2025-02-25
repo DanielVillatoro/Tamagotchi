@@ -26,7 +26,8 @@
   border-radius: 20px;
 }
 
-.initial-beast .actions-icon {
+.initial-beast .actions-icon,
+.initial-beast .egg {
   width: 45%;
   margin-bottom: 8px;
 }
