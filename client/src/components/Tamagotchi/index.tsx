@@ -25,7 +25,6 @@ import { useBeasts } from "../../hooks/useBeasts.tsx";
 import { ShareProgress } from '../Twitter/ShareProgress.tsx';
 import { fetchStatus } from "../../utils/tamagotchi.tsx";
 import './main.css';
-import Loading from "../Loading/index.tsx";
 
 function Tamagotchi() {
   const { userAccount } = useGlobalContext();

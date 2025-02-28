@@ -5,7 +5,7 @@ import dojo from '../../assets/img/dojo-icon.svg';
 
 const ControllerConnectButton = () => {
   const { connect, connectors } = useConnect();
-  const { address, status } = useAccount();
+  const { status } = useAccount();
   const { disconnect } = useDisconnect();
 
   return (
