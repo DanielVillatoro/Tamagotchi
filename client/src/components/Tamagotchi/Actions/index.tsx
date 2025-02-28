@@ -7,17 +7,18 @@ import Clean from '../../../assets/img/Clean.svg';
 import Play from '../../../assets/img/Play.svg';
 import beastsDex from '../../../data/beastDex';
 import './main.css';
+import { fetchStatus } from '../../../utils/tamagotchi';
 
 type PictureKey = 'eatPicture' | 'sleepPicture' | 'cleanPicture' | 'playPicture' | 'idlePicture' | 'cuddlePicture';
 
 const actionButtons: { label: string, img: string | null, action: string, pictureKey: PictureKey, isRevive?: boolean }[] = [
-  { label: "Feed", img: Food, action: "feed", pictureKey: "eatPicture" },
   { label: "Sleep", img: Sleep, action: "sleep", pictureKey: "sleepPicture" },
   { label: "Clean", img: Clean, action: "clean", pictureKey: "cleanPicture" },
+  { label: "Feed", img: Food, action: "feed", pictureKey: "eatPicture" },
   { label: "Play", img: Play, action: "play", pictureKey: "playPicture" },
 ];
 
-const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client, setCurrentView }: { 
+const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client, setCurrentView, setStatus }: { 
   handleAction: any, 
   isLoading: any, 
   beast: any,
@@ -25,6 +26,7 @@ const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client,
   account: any, 
   client: any,
   setCurrentView: (view: string) => void,
+  setStatus: (view: string) => void,
 }) => {
 
   return (
@@ -60,6 +62,9 @@ const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client,
               );
 
               await client.actions.update_beast();
+
+              let status:any = fetchStatus(account);
+              setStatus(status);
             } catch (error) {
               console.error("Action error:", error);
             }

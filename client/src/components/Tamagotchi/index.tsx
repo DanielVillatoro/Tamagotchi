@@ -22,45 +22,22 @@ import Header from '../../components/Header';
 import { useDojoSDK } from "@dojoengine/sdk/react";
 import { usePlayer } from "../../hooks/usePlayers.tsx";
 import { useBeasts } from "../../hooks/useBeasts.tsx";
-import { useBeastsStatus } from "../../hooks/useBeastsStatus.tsx";
 import { ShareProgress } from '../Twitter/ShareProgress.tsx';
+import { fetchStatus } from "../../utils/tamagotchi.tsx";
 import './main.css';
+import Loading from "../Loading/index.tsx";
 
 function Tamagotchi() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
   const { beasts } = useBeasts();
-  const { beastStatus } = useBeastsStatus();
   const { player } = usePlayer();
 
   const [beast, setBeast] = useState<any>(null);
   const [status, setStatus] = useState<any>([]);
 
-  useEffect(() => {
-    if(!player) return
-    if(beast) return
-    const foundBeast = beasts.find((beast: any) => beast.player === player.address);
-    console.info('player', player);
-    console.info('foundBeast', foundBeast);
-    if (!foundBeast) return
-    setBeast(foundBeast);
-    async function setBeastId() {
-      await client.actions.setCurrentBeast(userAccount as Account, foundBeast?.beast_id)
-    }
-    setBeastId();
-  }, [player, beasts]);
-
-  useEffect(() => {
-    if(!player) return
-    console.log('beastStatus', beastStatus);
-    if (beastStatus?.length > 0) {
-      const foundStatus = beastStatus;
-      setStatus(foundStatus);
-    }
-  }, [player, beast]);
-
   const loadingTime = 6000;
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentView, setCurrentView] = useState('actions');
 
   const [playFeed] = useSound(feedSound, { volume: 0.7, preload: true });
@@ -71,23 +48,32 @@ function Tamagotchi() {
 
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // Extract stats for sharing
-  const getShareableStats = () => {
-    if (!status) return undefined;
-    
-    return {
-      age: beast?.age || 0,
-      energy: status[4] || 0,
-      hunger: status[3] || 0,
-      happiness: status[5] || 0,
-      clean: status[7] || 0
-    };
-  };
+  useEffect(() => {
+    if (!player) return
+    if (beast) return
+    const foundBeast = beasts.find((beast: any) => beast.player === player.address);
+    if (!foundBeast) return
+    setBeast(foundBeast);
+    async function setBeastId() {
+      await client.actions.setCurrentBeast(userAccount as Account, foundBeast?.beast_id)
+    }
+    setBeastId();
+  }, [player, beasts]);
 
-  // Handler for share button
-  const handleShareClick = () => {
-    setIsShareModalOpen(true);
-  };
+
+  useEffect(() => {
+    if (!player) return
+    let status: any = fetchStatus(userAccount);
+    setIsLoading(true);
+
+    const intervalId = setInterval(async () => {
+      status = await fetchStatus(userAccount);
+      setStatus(status);
+      setIsLoading(false);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [beast]);
 
   useEffect(() => {
     const updateBackground = () => {
@@ -127,6 +113,24 @@ function Tamagotchi() {
     }
   }, [status]);
 
+  // Twitter Share
+  const getShareableStats = () => {
+    if (!status) return undefined;
+
+    return {
+      age: beast?.age || 0,
+      energy: status[4] || 0,
+      hunger: status[3] || 0,
+      happiness: status[5] || 0,
+      clean: status[7] || 0
+    };
+  };
+
+  const handleShareClick = () => {
+    setIsShareModalOpen(true);
+  };
+
+
   // Helper to wrap Dojo actions with toast
   const handleAction = async (actionName: string, actionFn: () => Promise<{ transaction_hash: string } | undefined>, animation: string) => {
     setIsLoading(true);
@@ -150,7 +154,7 @@ function Tamagotchi() {
 
   const handleCuddle = async () => {
     if (!beast || !userAccount) return;
-    if (status[1] == 0 ) return;
+    if (status[1] == 0) return;
     try {
       await toast.promise(
         handleAction(
@@ -170,7 +174,7 @@ function Tamagotchi() {
       setIsLoading(true);
       setTimeout(() => {
         setIsLoading(false);
-      }, 5000);
+      }, 6000);
     } catch (error) {
       console.error("Cuddle error:", error);
     }
@@ -191,28 +195,37 @@ function Tamagotchi() {
               beastStatus={status}
             />
             <div className="game">
-              <Whispers
-                beast={beast}
-                expanded={currentView === 'chat'}
-                beastStatus={status}
-              />
+              {
+                beast == null && !status || status.length === 0 ? <></> :
+                  <Whispers
+                    beast={beast}
+                    expanded={currentView === 'chat'}
+                    beastStatus={status}
+                  />
+              }
+
               <div className="scenario flex justify-center items-column">
-                <img
-                  src={currentImage}
-                  alt="Tamagotchi"
-                  className="w-40 h-40"
-                  onClick={handleCuddle} style={{ cursor: 'pointer' }}
-                />
+                {
+                  beast == null && !status || status.length === 0 ? <></> :
+                    <img
+                      src={currentImage}
+                      alt="Tamagotchi"
+                      className="w-40 h-40"
+                      onClick={handleCuddle} style={{ cursor: 'pointer' }}
+                    />
+                }
               </div>
               <div className="beast-interaction">
                 <div className="beast-buttons">
+                  <div className="name-section">
+                    <div className="age-icon">
+                      <img className="x-icon" src={share} onClick={handleShareClick} />
+                    </div>
+                    <div className="age-icon">
+                      <span>Age {beast.age}</span>
+                    </div>
+                  </div>
                   <img className="actions-icon" src={monster} onClick={() => (setCurrentView('actions'))} />
-                  <div className="age-icon">
-                    <img className="x-icon" src={share} onClick={handleShareClick} />
-                  </div>
-                  <div className="age-icon">
-                    <span>{beast.age}</span>
-                  </div>
                 </div>
               </div>
               {
@@ -222,6 +235,7 @@ function Tamagotchi() {
                     isLoading={isLoading}
                     beast={beast}
                     beastStatus={status}
+                    setStatus={setStatus}
                     account={userAccount}
                     client={client}
                     setCurrentView={setCurrentView}
