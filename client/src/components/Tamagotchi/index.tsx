@@ -24,19 +24,22 @@ import { usePlayer } from "../../hooks/usePlayers.tsx";
 import { useBeasts } from "../../hooks/useBeasts.tsx";
 import { ShareProgress } from '../Twitter/ShareProgress.tsx';
 import { fetchStatus } from "../../utils/tamagotchi.tsx";
+import { useLocation } from "react-router-dom";
 import './main.css';
+import { useLocalStorage } from "../../hooks/useLocalStorage.tsx";
 
 function Tamagotchi() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
   const { beasts } = useBeasts();
   const { player } = usePlayer();
+  const location = useLocation();
 
   const [beast, setBeast] = useState<any>(null);
-  const [status, setStatus] = useState<any>([]);
+  const [status, setStatus] = useLocalStorage('status', []);
 
   const loadingTime = 6000;
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentView, setCurrentView] = useState('actions');
 
   const [playFeed] = useSound(feedSound, { volume: 0.7, preload: true });
@@ -59,27 +62,24 @@ function Tamagotchi() {
     setBeastId();
   }, [player, beasts]);
 
-
   useEffect(() => {
     if (!player) return
-    let status: any = fetchStatus(userAccount);
-    setIsLoading(true);
+    let response: any = fetchStatus(userAccount);
+    if (!status || status.length === 0) setIsLoading(true);
 
-    const intervalId = setInterval(async () => {
-      status = await fetchStatus(userAccount);
-      setStatus(status);
+    setInterval(async () => {
+      response = await fetchStatus(userAccount);
+      if(response) setStatus(response);
+      console.info(status);
       setIsLoading(false);
     }, 5000);
-
-    return () => clearInterval(intervalId);
-  }, [beast]);
+  }, [beast, location]);
 
   useEffect(() => {
     const updateBackground = () => {
       const bodyElement = document.querySelector('.body') as HTMLElement;
       if (bodyElement) {
         bodyElement.classList.add('day');
-        bodyElement.style.padding = '22px 15px';
       }
     };
     updateBackground();

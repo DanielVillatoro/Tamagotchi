@@ -20,6 +20,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
   width: 23%;
   height: 90%;
   margin: 0 auto;

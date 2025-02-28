@@ -24,10 +24,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const bodyElement = document.querySelector('.body') as HTMLElement;
     if (bodyElement) {
-      bodyElement.classList.remove('day', 'night');
-      bodyElement.style.backgroundSize = 'cover';
-      bodyElement.style.padding = '22px 15px';
-      bodyElement.style.justifyContent = 'start';
+      bodyElement.classList.remove('day');
     }
   }, []);
 

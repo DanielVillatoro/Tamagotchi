@@ -4,13 +4,13 @@
   margin: auto;
   width: 100%;
   max-width: 400px;
-  height: 87vh;
+  height: 87dvh;
   transform: translateY(50px);
   animation: fade-in-up 1s ease-out forwards;
 }
 
 .scenario {
-  height: 17vh;
+  height: 17dvh;
   background-size: cover;
   position: relative;
   margin: 30px 0;

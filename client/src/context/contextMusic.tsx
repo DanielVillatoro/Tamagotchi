@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import useSound from 'use-sound';
-import backgroundMusic from '../assets/sounds/back-to-the-80s.mp3';
+import backgroundMusic from '../assets/sounds/music.mp3';
 interface MusicContextType {
   isMuted: boolean;
   toggleMute: () => void;
