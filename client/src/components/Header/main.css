@@ -55,7 +55,6 @@
 .leader-icon,
 .bag-icon,
 .lore-icon {
-  background-image: url('../../assets/img/back.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -159,7 +158,6 @@
 }
 
 .share-icon {
-  background-image: url('../../assets/img/back.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
