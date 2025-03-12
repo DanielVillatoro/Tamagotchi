@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocalStorage } from '../../../hooks/useLocalStorage.tsx';
 import { useFood } from '../../../hooks/useFood.tsx';
 import toast, { Toaster } from 'react-hot-toast';
