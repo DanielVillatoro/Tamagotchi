@@ -6,6 +6,8 @@ pub const MAX_HUNGER : u8 = 100;
 pub const MAX_ENERGY: u8 = 100;
 pub const MAX_HAPPINESS: u8 = 100;
 pub const MAX_HYGIENE: u8 = 100;
+pub const MAX_POINTS: u64 = 100;
+
 
 // Tap counter max value
 pub const MAX_TAP_COUNTER: u8 = 10;
@@ -30,3 +32,9 @@ pub const NEXT_LEVEL_EXPERIENCE: u8 = 20;
 pub fn ZERO_ADDRESS() -> ContractAddress {
     contract_address_const::<0x0>()
 }
+
+// Seconds per day
+pub const SECONDS_PER_DAY: u64 = 86400;
+
+// Total seconds in 10 minutes
+pub const SECONDS_IN_10_MINUTES: u64 = 600;

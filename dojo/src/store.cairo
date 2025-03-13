@@ -18,13 +18,16 @@ use tamagotchi::types::clean_status::{CleanStatus};
 // Constants import
 use tamagotchi::constants;
 
-// Store struct.
+// Helpers import
+use tamagotchi::helpers::timestamp::Timestamp;
+
+// Store struct
 #[derive(Copy, Drop)]
 pub struct Store {
     world: WorldStorage,
 }
 
-//Implementation of the `StoreTrait` trait for the `Store` struct.
+//Implementation of the `StoreTrait` trait for the `Store` struct
 #[generate_trait]
 pub impl StoreImpl of StoreTrait {
     fn new(world: WorldStorage) -> Store {
@@ -72,14 +75,17 @@ pub impl StoreImpl of StoreTrait {
         self.world.write_model(food)
     }
 
-    
     // --------- New entities ---------
     fn new_player(mut self: Store) {
         let caller = get_caller_address();
+        let current_timestamp = get_block_timestamp();
 
         let new_player = Player {
             address: caller, 
-            current_beast_id: 0
+            current_beast_id: 0,
+            daily_streak: 0,
+            last_active_day: 0,
+            creation_day: Timestamp::unix_timestamp_to_day(current_timestamp)
         };
 
         self.world.write_model(@new_player)
@@ -282,5 +288,4 @@ pub impl StoreImpl of StoreTrait {
 
         self.world.write_model(@new_beast);
     }
-    // Delete
 }
