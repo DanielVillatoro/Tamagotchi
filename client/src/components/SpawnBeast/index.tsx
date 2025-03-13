@@ -16,7 +16,7 @@ function SpawnBeast() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
   const { player } = usePlayer();
-  const { beasts } = useBeasts();
+  const { beastsData: beasts } = useBeasts();
   const { spawn } = useSystemCalls();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

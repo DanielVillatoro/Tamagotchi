@@ -30,7 +30,7 @@ import './main.css';
 function Tamagotchi() {
   const { userAccount } = useGlobalContext();
   const { client } = useDojoSDK();
-  const { beasts } = useBeasts();
+  const { beastsData: beasts } = useBeasts();
   const { player } = usePlayer();
   const location = useLocation();
 
@@ -50,7 +50,7 @@ function Tamagotchi() {
   useEffect(() => {
     if (!player) return
     if (beast) return
-    const foundBeast = beasts.find((beast: any) => beast.player === player.address);
+    const foundBeast:any = beasts.find((beast: any) => beast.player === player.address);
     if (!foundBeast) return
     setBeast(foundBeast);
     async function setBeastId() {

@@ -25,7 +25,7 @@ interface HeaderProps {
 function Header({ tamagotchiStats }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [route, setRoute] = useState('/');
-  const { beasts } = useBeasts();
+  const { beastsData: beasts } = useBeasts();
   const { player } = usePlayer();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const location = useLocation();
@@ -34,7 +34,7 @@ function Header({ tamagotchiStats }: HeaderProps) {
 
   useEffect(() => {
     if (!player) return;
-    const foundBeast = beasts.find((beast) => beast?.player === player.address);
+    const foundBeast = beasts.find((beast:any) => beast?.player === player.address);
     if (foundBeast) setRoute('/play');
   }, [beasts]);
 
