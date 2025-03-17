@@ -6,7 +6,7 @@ use starknet::ContractAddress;
 
 // Interface definition
 #[starknet::interface]
-pub trait IActions<T> {
+pub trait IGame<T> {
     // ------------------------- Beast methods -------------------------
     fn spawn_beast(ref self: T, specie: u8, beast_type: u8);
     fn update_beast(ref self: T);
@@ -17,16 +17,6 @@ pub trait IActions<T> {
     fn pet(ref self: T);
     fn clean(ref self: T);
     fn revive(ref self: T);
-    
-    // ------------------------- Player methods -------------------------
-    fn spawn_player(ref self: T);
-    fn add_initial_food(ref self: T);
-    fn set_current_beast(ref self: T, beast_id: u16);
-    fn update_player_daily_streak(ref self: T);
-    
-    // ------------------------- Other methods -------------------------
-    fn init_tap_counter(ref self: T);
-    fn tap(ref self: T, specie: u8, beast_type: u8);
 
     // ------------------------- Read Calls -------------------------
     fn get_timestamp_based_status(ref self: T) -> BeastStatus;
@@ -36,25 +26,23 @@ pub trait IActions<T> {
 }
 
 #[dojo::contract]
-pub mod actions {
+pub mod game {
+    // Local import
+    use super::{IGame};
+
     // Starknet imports
     use starknet::{ContractAddress};
     use starknet::get_block_timestamp;
-    use starknet::storage::{
-        Map,   
+    use starknet::storage::{ 
         StoragePointerWriteAccess, 
         StoragePointerReadAccess, 
-        StoragePathEntry
     };
-    
-    // Local import
-    use super::{IActions};
     
     // Model imports
     #[allow(unused_imports)]
     use tamagotchi::models::beast::{Beast, BeastTrait};
     use tamagotchi::models::beast_status::{BeastStatus, BeastStatusTrait};
-    use tamagotchi::models::player::{Player, PlayerAssert, PlayerTrait};
+    use tamagotchi::models::player::{Player, PlayerAssert};
     use tamagotchi::models::food::{Food};
 
     // Constants import
@@ -66,15 +54,12 @@ pub mod actions {
     // Dojo Imports
     #[allow(unused_imports)]
     use dojo::model::{ModelStorage};
-    #[allow(unused_imports)]
-    use dojo::event::EventStorage;
 
-    // Storage
-    #[storage]
-    struct Storage {
-        beast_counter: u16,
-        tap_counter: Map<ContractAddress, u8>,
-    }
+     // Storage
+     #[storage]
+     struct Storage {
+         beast_counter: u16,
+     }
 
     // Constructor
     fn dojo_init( ref self: ContractState) {
@@ -83,7 +68,7 @@ pub mod actions {
 
     // Implementation of the interface methods
     #[abi(embed_v0)]
-    impl ActionsImpl of IActions<ContractState> {
+    impl GameImpl of IGame<ContractState> {
         // ------------------------- Beast methods -------------------------
         fn spawn_beast(ref self: ContractState, specie: u8, beast_type: u8) {
             let mut world = self.world(@"tamagotchi");
@@ -299,77 +284,6 @@ pub mod actions {
 
                 store.write_beast_status(@beast_status);
             }
-        }
-
-        // ------------------------- Player methods -------------------------
-        fn spawn_player(ref self: ContractState) {
-            let mut world = self.world(@"tamagotchi");
-            let store = StoreTrait::new(world);
-
-            store.new_player();
-
-            self.add_initial_food();
-            self.init_tap_counter();
-        }
-
-        fn add_initial_food(ref self: ContractState) {
-            let mut world = self.world(@"tamagotchi");
-            let store = StoreTrait::new(world);
-
-            store.init_player_food();
-        }
-        
-        fn set_current_beast(ref self: ContractState, beast_id: u16) {
-            let mut world = self.world(@"tamagotchi");
-            let store = StoreTrait::new(world);
-
-            let mut player: Player = store.read_player();
-            player.assert_exists();
-            player.current_beast_id = beast_id;
-
-            store.write_player(@player);
-        }
-
-        fn update_player_daily_streak(ref self: ContractState) {
-            let mut world = self.world(@"tamagotchi");
-            let store = StoreTrait::new(world);
-
-            let current_timestamp = get_block_timestamp();
-
-            let mut player: Player = store.read_player();
-            player.assert_exists();
-
-            player.update_daily_streak(current_timestamp);
-
-            store.write_player(@player);
-        }
-
-        // ------------------------- Other methods -------------------------
-        fn init_tap_counter(ref self: ContractState) {
-            let mut world = self.world(@"tamagotchi");
-            let store = StoreTrait::new(world);
-            
-            let player: Player = store.read_player();
-            player.assert_exists();
-
-            self.tap_counter.entry(player.address).write(0);
-        }
-
-        fn tap(ref self: ContractState, specie: u8, beast_type: u8) {
-            let mut world = self.world(@"tamagotchi");
-            let store = StoreTrait::new(world);
-            
-            let player: Player = store.read_player();
-            player.assert_exists();
-
-            let current_tap_counter = self.tap_counter.entry(player.address).read();
-
-            if current_tap_counter == constants::MAX_TAP_COUNTER {
-                self.spawn_beast(specie, beast_type);
-                self.init_tap_counter();
-            }
-
-            self.tap_counter.entry(player.address).write(current_tap_counter+1);
         }
 
         // ------------------------- Read Calls -------------------------
