@@ -127,6 +127,7 @@ pub impl BeastStatusImpl of BeastStatusTrait {
             self.hunger = 0;
             self.is_alive = false;
         }
+        self.last_timestamp = current_timestamp;
     }
 
     fn calculate_timestamp_based_status_asleep(ref self: BeastStatus, current_timestamp: u64){
@@ -176,6 +177,7 @@ pub impl BeastStatusImpl of BeastStatusTrait {
                 self.is_awake = true;
             }
         }
+        self.last_timestamp = current_timestamp;
     }
 }
 
