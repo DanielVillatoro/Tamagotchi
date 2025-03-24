@@ -132,18 +132,26 @@ pub impl BeastStatusImpl of BeastStatusTrait {
 
     fn calculate_timestamp_based_status_asleep(ref self: BeastStatus, current_timestamp: u64){
         let total_seconds: u64 =  current_timestamp - self.last_timestamp; // Total seconds from the last timestamp to the current timestamp
-        let total_energy_points: u64 = total_seconds / constants::POINTS_PER_SECOND.try_into().unwrap();
+        let total_points_to_increase: u64 = total_seconds / constants::POINTS_PER_SECOND.try_into().unwrap();
 
-        if total_energy_points > 0 {
-            if total_energy_points < constants::MAX_POINTS {
-                let points_to_increase: u8 = total_energy_points.try_into().unwrap(); // Total points of energy and happiness to increase
+        if total_points_to_increase != 0 {
+            if total_points_to_increase < constants::MAX_POINTS {
+                let points_to_increase: u8 = total_points_to_increase.try_into().unwrap(); // Total points of energy and happiness to increase
                 let points_to_decrease: u8 = points_to_increase / 2; // Total points to decrease for the other status of the beast
 
                 if self.is_alive {
-                    if (self.energy + points_to_decrease) < constants::MAX_POINTS.try_into().unwrap() {
                         // ----------- Increase energy and happiness ------------
-                        self.energy = self.energy + points_to_increase;
-                        self.happiness = self.happiness + points_to_increase;
+                        self.energy = if (self.energy + points_to_increase) < constants::MAX_POINTS.try_into().unwrap() {
+                            self.energy + points_to_increase
+                        } else {
+                            100
+                        };
+
+                        self.happiness = if (self.happiness + points_to_increase) < constants::MAX_POINTS.try_into().unwrap() {
+                            self.happiness + points_to_increase
+                        } else {
+                            100
+                        };
                         
                         // ----------- Decrease hunger and hygiene ------------
                         self.hunger = if self.hunger >= points_to_decrease {
@@ -163,16 +171,14 @@ pub impl BeastStatusImpl of BeastStatusTrait {
                         if self.hunger == 0 {
                             self.is_alive = false;
                         }
-                    }
-                    else {
-                        self.happiness = 80;
-                        self.energy = 100;
-                        self.is_awake = true;
-                    }
+
+                        // Check if beast is fully recovered to wake up
+                        if self.energy == 100 {
+                            self.is_awake = true;
+                        }
                 }
             }
             else{
-                self.happiness = 80;
                 self.energy = 100;
                 self.is_awake = true;
             }
