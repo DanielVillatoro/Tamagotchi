@@ -172,7 +172,7 @@ const DOMDoodleGame = forwardRef<DOMDoodleGameRefHandle, DOMDoodleGameProps>(({
     foodCollected: number;
   }) => {
     const { score, foodId, foodCollected  } = gameData;
-    
+
     try {
       if (handleAction && client && account) {
         await handleAction(
@@ -188,7 +188,6 @@ const DOMDoodleGame = forwardRef<DOMDoodleGameRefHandle, DOMDoodleGameProps>(({
               foodCollected
             )
         });
-        console.log("Game results saved successfully");
         return true;
       } else {
         console.warn("Cannot save game results - missing required props");
@@ -223,10 +222,7 @@ const DOMDoodleGame = forwardRef<DOMDoodleGameRefHandle, DOMDoodleGameProps>(({
 
     if (collectedFoodRef.current === 0) selectedFood.id = 0;
     
-    //console.log("score: " + score, "foodId: " + selectedFood?.id,"foodCollected: " + collectedFoodRef.current);
-    //console.log(handleAction,account, client,);
-
-    saveGameResultsToDojo({score,foodId: selectedFood?.id || "",foodCollected: collectedFood});
+    saveGameResultsToDojo({score,foodId: selectedFood?.id || "", foodCollected: collectedFoodRef.current});
 
     setCurrentScreen('sharing');
     setIsShareModalOpen(true);
