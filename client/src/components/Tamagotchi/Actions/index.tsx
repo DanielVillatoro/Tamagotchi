@@ -68,7 +68,7 @@ const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client,
                 }
               );
 
-              await client.game.updateBeast();
+              await client.game.updateBeast(account as Account);
 
               let status:any = fetchStatus(account);
               if (status && Object.keys(status).length !== 0) setStatus(status);
