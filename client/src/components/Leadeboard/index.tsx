@@ -66,7 +66,6 @@ const Leaderboard = () => {
         const birthDateB = parseInt(b?.birth_date, 16);
         return birthDateA - birthDateB;
       });
-      console.log(sortedBeasts)
       // Find the current user's position and their beast
       if (userAddress) {
         const userBeastIndex = sortedBeasts.findIndex(
