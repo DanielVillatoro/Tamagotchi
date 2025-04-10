@@ -8,7 +8,6 @@ import useSound from 'use-sound';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './main.css';
-import OnlyLoading from '../../OnlyLoading/index.tsx';
 
 const Food = ({ handleAction, beast, account, client, beastStatus, showAnimation }: {
   handleAction: any,
@@ -21,12 +20,12 @@ const Food = ({ handleAction, beast, account, client, beastStatus, showAnimation
 
   const { foods, loadingFood } = useFood(account);
   const { zfoods, setFoods } = useAppStore();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoadingFood] = useState(true);
   const [buttonSound] = useSound(buttonClick, { volume: 0.7, preload: true });
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
+      setLoadingFood(false);
     }, 1000);
 
     return () => clearTimeout(timer);
@@ -62,33 +61,32 @@ const Food = ({ handleAction, beast, account, client, beastStatus, showAnimation
       console.error("Error feeding beast:", error);
     }
 
-    setLoading(true);
+    setLoadingFood(true);
     setTimeout(() => {
-      setLoading(false);
+      setLoadingFood(false);
     }
     , 1000);
   };
 
   return (
     <>
-      <div className="food-carousel-container">
+      <div className={`food-carousel-container ${loading ? 'loading-aura' : ''}`}>
         <div className='food-carousel'>
           {!beastStatus || beastStatus[1] == 0 ? <></> :
-            loading ? <OnlyLoading /> :
-              zfoods.map(({ name, img, count }: { name: any, img: any, count: any }) => (
-                <button
-                  key={name}
-                  className="button"
-                  onClick={() => feedTamagotchi(name)}
-                  disabled={count === 0}
-                >
-                  <span>
-                    x{count}
-                  </span>
-                  <img alt="option" src={img} />
-                  <p>{name}</p>
-                </button>
-              ))
+            zfoods.map(({ name, img, count }: { name: any, img: any, count: any }) => (
+              <button
+                key={name}
+                className="button"
+                onClick={() => feedTamagotchi(name)}
+                disabled={loading || count === 0}
+              >
+                <span>
+                  x{count}
+                </span>
+                <img alt="option" src={img} />
+                <p>{name}</p>
+              </button>
+            ))
           }
         </div>
       </div>

@@ -2,7 +2,6 @@ import { fetchStatus } from '../../../utils/tamagotchi';
 import { Account } from '@dojoengine/torii-wasm';
 import { Button } from '../../../components/ui/button';
 import useSound from 'use-sound';
-import OnlyLoading from '../../OnlyLoading';
 import buttonClick from '../../../assets/sounds/click.mp3';
 import Food from '../../../assets/img/Feed.svg';
 import Sleep from '../../../assets/img/Sleep.svg';
@@ -35,9 +34,8 @@ const Actions = ({ handleAction, isLoading, beast, beastStatus, account, client,
   const [buttonSound] = useSound(buttonClick, { volume: 0.7, preload: true });
 
   return (
-    <div className="actions mb-0">
+    <div className={`actions mb-0 ${isLoading ? 'loading-aura' : ''}`}>
       {
-        isLoading ? <OnlyLoading /> :
         actionButtons.map(({ label, img, action, pictureKey }) => (
           <Button
             key={label}

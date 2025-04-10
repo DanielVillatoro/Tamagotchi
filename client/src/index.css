@@ -285,3 +285,19 @@ p, span {
     transform: rotate(360deg);
   }
 }
+
+.loading-aura {
+  animation: loading-aura 1.5s ease-in-out infinite;
+}
+
+@keyframes loading-aura {
+  0% {
+    box-shadow: 0 0 10px 2px rgba(133, 0, 40, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(133, 0, 40, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 10px 2px rgba(133, 0, 40, 0.6);
+  }
+}
