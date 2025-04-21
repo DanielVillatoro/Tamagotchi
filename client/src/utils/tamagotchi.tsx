@@ -22,7 +22,7 @@ const getBirthDate = (hexBirthDate:any) => {
 const fetchStatus = async (account:any) => {
     try {
         const response = await account?.callContract({
-          contractAddress: "0xf644f78b8f33d3c329ad505cd80ccbd00e59f5bffca41de9a6a4fe386862a",
+          contractAddress: "0x693e68bfee0f06686656e94ed524a080dec35d211a021e08e8481c14096026e",
           entrypoint: "get_timestamp_based_status_with_address",
           calldata: [String(account?.address)],
         });
