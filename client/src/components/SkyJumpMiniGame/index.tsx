@@ -184,6 +184,11 @@ const DOMDoodleGame = forwardRef<DOMDoodleGameRefHandle, DOMDoodleGameProps>(({
               account as Account,
               score
             )
+            await client.player.updatePlayerMinigameHighestScore(
+              account as Account,
+              score,
+              1
+            )
             await client.player.addOrUpdateFoodAmount(
               account as Account,
               foodId,
