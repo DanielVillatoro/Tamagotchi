@@ -15,32 +15,9 @@ import StarknetProvider from "./dojo/starknet-provider.tsx";
 import { PostHogProvider } from 'posthog-js/react';
 import { posthogInstance } from './utils/posthogConfig';
 
-// import { messaging } from "./utils/firebase.tsx";
-// import { getToken } from "firebase/messaging";
-// import { usePlayer } from "./hooks/usePlayers.tsx";
-
 // Import the layout component
 import Main from "./components/Main/index.tsx";
 import "./index.css";
-
-// async function requestNotificationPermission() {
-//   try {
-//     const { player } = usePlayer();
-//     const permission = await Notification.requestPermission();
-//     if (permission === "granted") {
-//       const token = await getToken(messaging, { vapidKey: "BDxvVGSyhGggzz7fxjb4pTrpBAiK6Aa4pIprLCu14ZvsD-EjexIFABznJpW0lXV5A57OMgqclcn8-SPgeilKS2g" });
-//       console.log("Notification permission granted. FCM Token:", token);
-//       console.log("Player Address:" )
-//       //FIX
-//       // store the token
-//     } else {
-//       console.log("Notification permission denied.");
-//     }
-//   } catch (error) {
-//     console.error("Error requesting notification permission:", error);
-//   }
-// }
-
 
 
 async function main() {
@@ -57,8 +34,6 @@ async function main() {
       revision: "1",
     },
   });
-
-  // await requestNotificationPermission();
 
   const rootElement = document.getElementById("root");
   if (rootElement) {
