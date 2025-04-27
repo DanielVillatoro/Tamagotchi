@@ -3,7 +3,7 @@ import { getMessaging } from "firebase/messaging";
 const FIREBASE_KEY=import.meta.env.FIREBASE_KEY;
 
 const firebaseConfig = {
-    apiKey: FIREBASE_KEY,
+    apiKey: 'AIzaSyC1J5BztS7F0f9JnbLH5cX6e1K1bL2sDZM',
     authDomain: "bytebeasts-test.firebaseapp.com",
     projectId: "bytebeasts-test",
     storageBucket: "bytebeasts-test.firebasestorage.app",
