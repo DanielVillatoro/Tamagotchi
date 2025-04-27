@@ -8,6 +8,7 @@ pub trait IPlayer<T> {
     fn update_player_total_points(ref self: T, points: u32);
     fn update_player_minigame_highest_score(ref self: T, points: u32, minigame_id: u16);
     fn add_or_update_food_amount(ref self: T, food_id: u8, amount: u8);
+    fn emit_player_push_token(ref self: T, token: ByteArray);
 }
 
 #[dojo::contract]
@@ -16,7 +17,7 @@ pub mod player {
     use super::{IPlayer};
     
     // Starknet imports
-    use starknet::get_block_timestamp;
+    use starknet::{get_block_timestamp, ContractAddress};
     
     // Model imports
     #[allow(unused_imports)]
@@ -25,12 +26,17 @@ pub mod player {
     use tamagotchi::models::food::{Food, FoodTrait};
     use tamagotchi::models::highest_score::{HighestScore};
 
+    // Events imports
+    use tamagotchi::events::push::{PushToken};
+
     // Store import
     use tamagotchi::store::{StoreTrait};
 
     // Dojo Imports
     #[allow(unused_imports)]
     use dojo::model::{ModelStorage};
+    #[allow(unused_imports)]
+    use dojo::event::EventStorage;
 
     // Constructor
     fn dojo_init( ref self: ContractState) {
@@ -114,5 +120,16 @@ pub mod player {
             }
         }
 
+        fn emit_player_push_token(ref self: ContractState, token: ByteArray) {
+            let mut world = self.world(@"tamagotchi");
+            let store = StoreTrait::new(world);
+
+            let mut player: Player = store.read_player();
+            player.assert_exists();
+
+            let player_address: ContractAddress = player.address;
+
+            world.emit_event(@PushToken { player_address, token});
+        }
     }
 }

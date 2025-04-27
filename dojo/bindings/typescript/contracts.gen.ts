@@ -67,6 +67,27 @@ export function setupWorld(provider: DojoProvider) {
 		}
 	};
 
+	const build_player_emitPlayerPushToken_calldata = (token: ByteArray): DojoCall => {
+		return {
+			contractName: "player",
+			entrypoint: "emit_player_push_token",
+			calldata: [token],
+		};
+	};
+
+	const player_emitPlayerPushToken = async (snAccount: Account | AccountInterface, token: ByteArray) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				build_player_emitPlayerPushToken_calldata(token),
+				"tamagotchi",
+			);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	};
+
 	const build_game_feed_calldata = (foodId: BigNumberish): DojoCall => {
 		return {
 			contractName: "game",
@@ -382,6 +403,27 @@ export function setupWorld(provider: DojoProvider) {
 		}
 	};
 
+	const build_player_updatePlayerMinigameHighestScore_calldata = (points: BigNumberish, minigameId: BigNumberish): DojoCall => {
+		return {
+			contractName: "player",
+			entrypoint: "update_player_minigame_highest_score",
+			calldata: [points, minigameId],
+		};
+	};
+
+	const player_updatePlayerMinigameHighestScore = async (snAccount: Account | AccountInterface, points: BigNumberish, minigameId: BigNumberish) => {
+		try {
+			return await provider.execute(
+				snAccount,
+				build_player_updatePlayerMinigameHighestScore_calldata(points, minigameId),
+				"tamagotchi",
+			);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	};
+
 	const build_player_updatePlayerTotalPoints_calldata = (points: BigNumberish): DojoCall => {
 		return {
 			contractName: "player",
@@ -409,12 +451,16 @@ export function setupWorld(provider: DojoProvider) {
 		player: {
 			addOrUpdateFoodAmount: player_addOrUpdateFoodAmount,
 			buildAddOrUpdateFoodAmountCalldata: build_player_addOrUpdateFoodAmount_calldata,
+			emitPlayerPushToken: player_emitPlayerPushToken,
+			buildEmitPlayerPushTokenCalldata: build_player_emitPlayerPushToken_calldata,
 			setCurrentBeast: player_setCurrentBeast,
 			buildSetCurrentBeastCalldata: build_player_setCurrentBeast_calldata,
 			spawnPlayer: player_spawnPlayer,
 			buildSpawnPlayerCalldata: build_player_spawnPlayer_calldata,
 			updatePlayerDailyStreak: player_updatePlayerDailyStreak,
 			buildUpdatePlayerDailyStreakCalldata: build_player_updatePlayerDailyStreak_calldata,
+			updatePlayerMinigameHighestScore: player_updatePlayerMinigameHighestScore,
+			buildUpdatePlayerMinigameHighestScoreCalldata: build_player_updatePlayerMinigameHighestScore_calldata,
 			updatePlayerTotalPoints: player_updatePlayerTotalPoints,
 			buildUpdatePlayerTotalPointsCalldata: build_player_updatePlayerTotalPoints_calldata,
 		},
