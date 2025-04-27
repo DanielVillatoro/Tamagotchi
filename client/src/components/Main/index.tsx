@@ -5,8 +5,27 @@ import NewCover from "../NewCover";
 import Tamagotchi from "../Tamagotchi";
 import SpawnBeast from "../SpawnBeast";
 import About from "../About";
+import { useEffect } from "react";
+import { usePlayer } from "../../hooks/usePlayers.tsx";
+import { requestNotificationPermission } from "../../utils/notification.tsx";
+
+import { useDojoSDK } from "@dojoengine/sdk/react";
+import { useAccount } from "@starknet-react/core";
 
 function Main() {
+
+  const { client } = useDojoSDK();
+  const { account } = useAccount();
+
+  const { player } = usePlayer();
+
+  useEffect(() => {
+    if (player?.address) {
+      requestNotificationPermission(account,client,player.address);
+    } else {
+      console.log("Player address not available yet.");
+    }
+  }, [player]);
 
   return (
     <Router>
