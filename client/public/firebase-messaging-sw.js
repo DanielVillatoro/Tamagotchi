@@ -1,9 +1,11 @@
 importScripts("https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js");
 
+const FIREBASE_KEY=import.meta.env.FIREBASE_KEY;
+
 // Initialize Firebase
 firebase.initializeApp({
-    apiKey: "AIzaSyC1J5BztS7F0f9JnbLH5cX6e1K1bL2sDZM",
+    apiKey: FIREBASE_KEY,
     authDomain: "bytebeasts-test.firebaseapp.com",
     projectId: "bytebeasts-test",
     storageBucket: "bytebeasts-test.firebasestorage.app",

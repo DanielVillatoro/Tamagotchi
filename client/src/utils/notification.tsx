@@ -1,6 +1,7 @@
 import { messaging } from "./firebase.tsx";
 import { getToken } from "firebase/messaging";
 import { Account } from "starknet";
+const FIREBASE_VAPID_KEY=import.meta.env.FIREBASE_VAPID_KEY;
 
 
 
@@ -10,7 +11,7 @@ export async function requestNotificationPermission(account: any,client:any,play
     if (permission === "granted") {
 
       const token = await getToken(messaging, {
-        vapidKey: "BDxvVGSyhGggzz7fxjb4pTrpBAiK6Aa4pIprLCu14ZvsD-EjexIFABznJpW0lXV5A57OMgqclcn8-SPgeilKS2g",
+        vapidKey: FIREBASE_VAPID_KEY,
       });
       console.log("Notification permission granted. FCM Token:", token);
       console.log("Player Address:", playerAddress);
