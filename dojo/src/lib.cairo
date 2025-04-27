@@ -19,6 +19,10 @@ pub mod models {
     pub mod food;
 }
 
+pub mod events {
+    pub mod push;
+}
+
 pub mod types {
     pub mod food;
     pub mod beast;

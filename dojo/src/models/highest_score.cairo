@@ -3,7 +3,7 @@ use starknet::{ContractAddress};
 
 //Model
 #[derive(Drop, Serde, Copy, IntrospectPacked, Debug)]
-#[dojo::model]
+#[dojo::model] //TODO: check the historical true of Dojo Events, this can improve gas comsuption.
 pub struct HighestScore {
     #[key]
     pub minigame_id: u16,
