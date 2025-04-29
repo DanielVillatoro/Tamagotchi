@@ -1,6 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { ShareProgress } from '../Twitter/ShareProgress';
-import { saveHighScore } from '../../data/gamesMiniGamesRegistry'
 import initialFoodItems from '../../data/food';
 import Restart from '../../assets/img/restart.svg';
 import Lock from '../../assets/img/lock.svg';
@@ -42,8 +41,6 @@ interface DOMDoodleGameProps {
   beastImageLeft?: string;
   onExitGame?: () => void;
   highScore: number;
-  gameId: string;
-  beastId: number;
   gameName: string;
   handleAction: (actionName: string, actionFn: () => Promise<any>) => Promise<any>;
   client: any;
@@ -57,8 +54,6 @@ const DOMDoodleGame = forwardRef<DOMDoodleGameRefHandle, DOMDoodleGameProps>(({
   beastImageLeft,
   onExitGame,
   highScore,
-  gameId,
-  beastId,
   gameName,
   handleAction, 
   client,
@@ -209,7 +204,6 @@ const DOMDoodleGame = forwardRef<DOMDoodleGameRefHandle, DOMDoodleGameProps>(({
   
     // Check if it's a new high score
     if (score > currentHighScore) {
-      saveHighScore(gameId, beastId, score);
       setCurrentHighScore(score);
     }
   
