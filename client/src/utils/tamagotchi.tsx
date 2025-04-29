@@ -45,4 +45,9 @@ const fetchAge = async (account:any) => {
     }
 };
 
-export { fetchStatus, fetchAge, getBirthDate };
+const isDaytime = () => {
+  const currentHours = new Date().getHours();
+  return currentHours >= 6 && currentHours < 17;
+};
+
+export { fetchStatus, fetchAge, getBirthDate, isDaytime };
