@@ -25,7 +25,7 @@ import Spinner from "../ui/spinner.tsx";
 import { useDojoSDK } from "@dojoengine/sdk/react";
 import { usePlayer } from "../../hooks/usePlayers.tsx";
 import { useBeasts } from "../../hooks/useBeasts.tsx";
-import { fetchStatus, fetchAge, getBirthDate } from "../../utils/tamagotchi.tsx";
+import { fetchStatus, fetchAge, getBirthDate, getDayPeriod } from "../../utils/tamagotchi.tsx";
 import { useLocalStorage } from "../../hooks/useLocalStorage.tsx";
 import Close from "../../assets/img/CloseWhite.svg";
 import chatIcon from '../../assets/img/chat.svg';
@@ -205,7 +205,11 @@ function Tamagotchi() {
 
   useEffect(() => {
     const bodyElement = document.querySelector('.body') as HTMLElement;
-    if (bodyElement) bodyElement.classList.add('day');
+    const time = getDayPeriod();
+    time == 'day' ? bodyElement.classList.add('day') :
+    time == 'sunrise' ? bodyElement.classList.add('sunrise') :
+    time == 'sunset' ? bodyElement.classList.add('sunset') :
+    bodyElement.classList.add('night');
 
     if (!status) return
     if (bodyElement && status[1] == 0) bodyElement.classList.remove('day');
