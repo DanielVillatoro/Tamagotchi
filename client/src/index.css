@@ -37,11 +37,19 @@
 }
 
 .body.day {
-  background-image: url('./assets/img/daybackground.png');
+  background-image: url('./assets/img/hours/day-min.png');
 }
 
 .body.night {
-  background-image: url('./assets/img/nightBackground-min.png');
+  background-image: url('./assets/img/hours/night-min.png');
+}
+
+.body.sunset {
+  background-image: url('./assets/img/hours/sunset-min.png');
+}
+
+.body.sunrise { 
+  background-image: url('./assets/img/hours/sunrise-min.png');
 }
 
 h1, h2, h3, h4, h5, h6 {
