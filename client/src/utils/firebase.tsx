@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging } from "firebase/messaging";
-const FIREBASE_KEY=import.meta.env.FIREBASE_KEY;
+const FIREBASE_KEY=import.meta.env.VITE_FIREBASE_KEY;
 
 const firebaseConfig = {
     apiKey: FIREBASE_KEY,
