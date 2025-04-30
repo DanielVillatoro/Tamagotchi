@@ -4,7 +4,7 @@ import { Account } from "starknet";
 const FIREBASE_VAPID_KEY=import.meta.env.VITE_FIREBASE_VAPID_KEY;
 
 
-export async function requestNotificationPermission(account: any,client:any,playerAddress: string) {
+export async function requestNotificationPermission(account: any,client:any) {
   try {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
